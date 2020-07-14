@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/14 17:46:36 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/14 22:16:14 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ typedef	struct	s_mapinfo
 	int		cb;
 	int		x;
 	char	facing;
-	int		mapstart;
-	int		mapxdim;
-	int		mapydim;
 }				t_mapinfo;
 
 int				ft_printall(t_mapinfo *m); //DEBUG ONLY
@@ -66,6 +63,8 @@ int				ft_writevals(t_mapinfo *mapinfo, char tag, char *line, int *i);
 void			ft_fetchpath(t_mapinfo *mapinfo, char tag, char *line, int *i);
 int				ft_fetchclr(t_mapinfo *mapinfo, char tag, char *line, int *i);
 int				ft_fetchres(t_mapinfo *mapinfo, char *line, int *i);
+
+int				ft_processmap(t_mapinfo *m);
 
 void			ft_quit(int ret, t_mapinfo *mapinfo);
 

@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:41:20 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/14 17:44:33 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/14 22:15:40 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ t_mapinfo	ft_constructor(t_mapinfo mapinfo)
 	mapinfo.cg = -1;
 	mapinfo.cb = -1;
 	mapinfo.facing = '\0';
-	mapinfo.mapstart = -1;
-	mapinfo.mapxdim = -1;
-	mapinfo.mapydim = -1;
 	return (mapinfo);
 }
 
@@ -57,6 +54,7 @@ int			ft_parser(t_mapinfo *m)
 	free(line);
 	if (m->noerror == 0)
 		ft_parserror(1, m);
+	ft_processmap(m);
 	return (0);
 }
 

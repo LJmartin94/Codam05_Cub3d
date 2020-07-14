@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:48:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/14 17:47:49 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/14 22:14:01 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,9 @@ int	ft_parserror(int type, t_mapinfo *m)
 	{
 		errno = 79;
 		perror("Error\nProblem encountered with map elements, they \
-may be missing, repeated, contain garbage data or be misplaced");
+may be missing, repeated, contain nonsensical data or be misplaced");
 	}
 	else if (type == 2) //COMM Check still needs to be written
-	{
-		errno = 79;
-		perror("Error\nOne or more map elements contain invalid data");
-	}
-	else if (type == 3) //COMM Check still needs to be written
 	{
 		errno = 79;
 		perror("Error\nThe map provided is invalid, and can cause \
