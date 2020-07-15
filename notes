@@ -6,5 +6,6 @@ Could write the printf-heavy debug function in a norm approved way using write a
 
 Minimum Resolution is currently 1x1, this should probably be larger but I don't know what size is realistic yet.
 
-Need to check what happens if a GNL malloc fails :(
+Use Michelle's testers to check valid and invalid maps etc
 
+Can a sprite be considered a wall for the purposes of sealing off a valid map?
