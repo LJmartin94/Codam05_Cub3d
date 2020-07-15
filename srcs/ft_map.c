@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/14 22:17:07 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 18:26:27 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/15 22:32:05 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,38 @@ void	ft_scanmap(t_mapinfo *m)
 	}
 }
 
-int		ft_copymap(t_mapinfo *original, t_mapinfo *copy)
+void	ft_copymap(t_mapinfo *org, t_mapinfo *cpy)
 {
-	copy->map = (char **)malloc(sizeof(char *) * (m->ydim + 1)); //HALF WRITTEN, REVIEW
+	int x;
+
+	//MAYBE call ft_constructor here to get rid of ugly uninitialised junk data?
+	cpy->map = (char **)malloc(sizeof(char *) * (org->ydim + 1));
+	if (cpy->map == 0)
+		ft_clearcopy(1, cpy, org);
+	cpy->map[org->ydim] = NULL;
+	cpy->ydim = 0;
+	while (org->map[cpy->ydim] != NULL)
+	{
+		x = ft_linelen(org->map[cpy->ydim], '\0');
+		cpy->map[cpy->ydim] = (char *)malloc(sizeof(char) * (x + 1));
+		if (cpy->map[cpy->ydim] == 0)
+			ft_clearcopy(1, cpy, org);
+		x = 0;
+		while (org->map[cpy->ydim][x] != '\0')
+		{
+			cpy->map[cpy->ydim][x] = org->map[cpy->ydim][x];
+			x++;
+		}
+		(cpy->ydim)++;
+	}
+	cpy->posx = org->posx;
+	cpy->posy = org->posy;
+	cpy->noerror = org->noerror;
+	ft_printall(cpy);
+}
+
+int		ft_clearcopy(int error, t_mapinfo *cpy, t_mapinfo *org)
+{
+	//go to malloc error in the case of actual error, else just clean up the copy
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 15:00:22 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/15 22:28:16 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int				ft_fetchres(t_mapinfo *mapinfo, char *line, int *i);
 int				ft_processmap(t_mapinfo *m, char *cub);
 int				ft_getmap(t_mapinfo *m, char *cub);
 void			ft_scanmap(t_mapinfo *m);
+void			ft_copymap(t_mapinfo *original, t_mapinfo *copy);
+int				ft_clearcopy(int error, t_mapinfo *cpy, t_mapinfo *org);
 
 void			ft_quit(int ret, t_mapinfo *mapinfo);
 
