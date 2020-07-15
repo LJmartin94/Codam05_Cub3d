@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:48:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/14 22:14:01 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/15 08:46:40 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,14 @@ may be missing, repeated, contain nonsensical data or be misplaced");
 		perror("Error\nThe map provided is invalid, and can cause \
 a player to go out of bounds");
 	}
+	ft_quit(1, m);
+	return (1);
+}
+
+int	ft_mallocerror(t_mapinfo *m)
+{
+	errno = 79; //Shouldnt be 79
+	perror("Error\nFailed to allocate sufficient memory with malloc");
 	ft_quit(1, m);
 	return (1);
 }

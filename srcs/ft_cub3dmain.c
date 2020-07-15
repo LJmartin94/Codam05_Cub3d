@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:42:12 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/14 17:29:47 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/15 07:52:21 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int		ft_printall(t_mapinfo *m)
 	printf("C:		%d,%d,%d\n", m->cr, m->cg, m->cb);
 	printf("Calc var:	%d\n", m->x);
 
+	printf("Map start:	%d\n", m->mapstart);
+	printf("Map Y dim:	%d\n", m->ydim);
+	
 	// char	facing;
 	// int		mapstart;
 	// int		mapxdim;
@@ -44,6 +47,7 @@ int		main(int argc, char **argv)
 	mapinfo.fd = open(argv[1], O_RDONLY);
 	ft_prelimcheck(argc, argv[1], &mapinfo);
 	ft_parser(&mapinfo);
+	ft_processmap(&mapinfo, argv[1]);
 	ft_printall(&mapinfo);
 	ft_quit(0, &mapinfo);
 }

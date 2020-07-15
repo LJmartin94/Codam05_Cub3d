@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:41:20 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/14 22:15:40 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/15 07:57:25 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,26 @@ t_mapinfo	ft_constructor(t_mapinfo mapinfo)
 	mapinfo.cg = -1;
 	mapinfo.cb = -1;
 	mapinfo.facing = '\0';
+	mapinfo.mapstart = 0;
+	mapinfo.ydim = 1;
+	mapinfo.map = NULL;
 	return (mapinfo);
 }
 
-int			ft_parser(t_mapinfo *m)
+void		ft_parser(t_mapinfo *m)
 {
 	char	*line;
 	int		i;
 	char	tag;
 
-	while (get_next_line(m->fd, &line) && ft_elemxref(m, '0') && m->noerror)
+	while (get_next_line(m->fd, &line) && m->noerror)
 	{
 		i = 0;
-		while (line[i] != '\0')
+		if (ft_elemxref(m, '0'))
+			m->mapstart++;
+		else
+			m->ydim++;
+		while (line[i] != '\0' && ft_elemxref(m, '0'))
 		{
 			ft_skipspace(line, &i);
 			tag = ft_gettag(line, &i);
@@ -54,8 +61,6 @@ int			ft_parser(t_mapinfo *m)
 	free(line);
 	if (m->noerror == 0)
 		ft_parserror(1, m);
-	ft_processmap(m);
-	return (0);
 }
 
 int			ft_elemxref(t_mapinfo *mapinfo, char flag)

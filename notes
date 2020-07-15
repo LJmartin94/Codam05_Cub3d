@@ -5,3 +5,6 @@ Still need to add --save flag as said in the subject, currently that will just r
 Could write the printf-heavy debug function in a norm approved way using write and punter etc, and maybe include it as a runnable function using a '--debug' flag or something. That could help explain why my program rejects  .cub file if an evaluator uses a faulty one during the eval.
 
 Minimum Resolution is currently 1x1, this should probably be larger but I don't know what size is realistic yet.
+
+Need to check what happens if a GNL malloc fails :(
+

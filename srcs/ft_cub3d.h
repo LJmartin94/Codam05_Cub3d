@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/14 22:16:14 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/15 08:45:22 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ typedef	struct	s_mapinfo
 	int		cb;
 	int		x;
 	char	facing;
+	int		mapstart;
+	int		ydim;
+	char	**map;
 }				t_mapinfo;
 
 int				ft_printall(t_mapinfo *m); //DEBUG ONLY
@@ -52,9 +55,10 @@ int				main(int argc, char **argv);
 int				ft_prelimcheck(int argc, char *mapfile, t_mapinfo *m);
 int				ft_checkcub(char *mapfile);
 int				ft_parserror(int type, t_mapinfo *m);
+int				ft_mallocerror(t_mapinfo *m);
 
 t_mapinfo		ft_constructor(t_mapinfo mapinfo);
-int				ft_parser(t_mapinfo *mapinfo);
+void			ft_parser(t_mapinfo *mapinfo);
 int				ft_elemxref(t_mapinfo *mapinfo, char flag);
 int				ft_skipspace(char *line, int *i);
 
@@ -64,7 +68,8 @@ void			ft_fetchpath(t_mapinfo *mapinfo, char tag, char *line, int *i);
 int				ft_fetchclr(t_mapinfo *mapinfo, char tag, char *line, int *i);
 int				ft_fetchres(t_mapinfo *mapinfo, char *line, int *i);
 
-int				ft_processmap(t_mapinfo *m);
+int				ft_processmap(t_mapinfo *m, char *cub);
+int				ft_getmap(t_mapinfo *m, char *cub);
 
 void			ft_quit(int ret, t_mapinfo *mapinfo);
 
