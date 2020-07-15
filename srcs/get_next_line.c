@@ -6,34 +6,34 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 21:37:34 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 08:33:08 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/15 10:28:11 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-int		get_next_line(int fd, char **line)
+int		get_next_line(t_mapinfo *m, char **line)
 {
 	static char	remainder[BUFFER_SIZE + 1];
 	int			i;
 	int			nl;
 	int			red;
 
-	if (line == NULL || fd < 0 || (read(fd, 0, 0) == -1) || BUFFER_SIZE < 0)
-		return (-1);
+	if (line == NULL || m->fd < 0 || BUFFER_SIZE < 0)
+		ft_quit(-1, m);
 	*line = (char *)malloc(sizeof(char) * (1));
 	if (*line == 0)
-		return (ft_gnlerror(remainder, line));
+		return (ft_gnlerror(remainder, line, m));
 	i = 0;
 	nl = 1;
 	while (nl)
 	{
 		if (remainder[0] == '\0')
-			red = ft_fill_remainder(remainder, fd, &nl);
+			red = ft_fill_remainder(remainder, m->fd, &nl);
 		if (red == -1)
-			return (ft_gnlerror(remainder, line));
+			return (ft_gnlerror(remainder, line, m));
 		if (!(ft_malloc_expander(line, i, ft_linelen(remainder, '\n'))))
-			return (ft_gnlerror(remainder, line));
+			return (ft_gnlerror(remainder, line, m));
 		if (remainder[0] != '\0')
 			red = ft_handle_remainder(line, remainder, &i, &nl);
 	}
@@ -86,7 +86,7 @@ void	ft_clear_remainder(char *remainder, int j)
 	}
 }
 
-int		ft_gnlerror(char *remainder, char **line)
+int		ft_gnlerror(char *remainder, char **line, t_mapinfo *m)
 {
 	int i;
 
@@ -99,5 +99,6 @@ int		ft_gnlerror(char *remainder, char **line)
 	if (!(*line == 0))
 		free(*line);
 	*line = NULL;
+	ft_mallocerror(m);
 	return (-1);
 }

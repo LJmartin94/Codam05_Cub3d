@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:42:12 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 07:52:21 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/15 11:05:06 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		ft_printall(t_mapinfo *m)
 {
+	int i = 0;
+	
 	printf("No error: 	%d\n", m->noerror);
 	printf("Fd: 		%d\n", m->fd);
 	printf("Resx: 		%ld\n", m->resx);
@@ -31,11 +33,16 @@ int		ft_printall(t_mapinfo *m)
 
 	printf("Map start:	%d\n", m->mapstart);
 	printf("Map Y dim:	%d\n", m->ydim);
+	printf("Char **map:	%p\n", m->map);
+	printf("Contents of map:\n");
+	while (m->map[i] != NULL)
+	{
+		printf("%s\n", m->map[i]);
+		i++;
+	}
 	
 	// char	facing;
-	// int		mapstart;
-	// int		mapxdim;
-	// int		mapydim;
+
 	return (0);
 }
 

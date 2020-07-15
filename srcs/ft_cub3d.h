@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 08:45:22 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/15 10:15:03 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ int				ft_getmap(t_mapinfo *m, char *cub);
 
 void			ft_quit(int ret, t_mapinfo *mapinfo);
 
-int				get_next_line(int fd, char **line);
+int				get_next_line(t_mapinfo *m, char **line);
 int				ft_fill_remainder(char *remainder, int fd, int *nl);
 int				ft_handle_remainder(char **line, char *rmn, int *i, int *nl);
 void			ft_clear_remainder(char *remainder, int j);
-int				ft_gnlerror(char *remainder, char **line);
+int				ft_gnlerror(char *remainder, char **line, t_mapinfo *m);
 
 int				ft_malloc_expander(char **str, int size, int grow);
 size_t			ft_linelen(const char *s, char n);

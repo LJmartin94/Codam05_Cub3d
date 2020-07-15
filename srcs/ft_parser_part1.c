@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:41:20 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 07:57:25 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/15 10:18:58 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		ft_parser(t_mapinfo *m)
 	int		i;
 	char	tag;
 
-	while (get_next_line(m->fd, &line) && m->noerror)
+	while (get_next_line(m, &line) && m->noerror)
 	{
 		i = 0;
 		if (ft_elemxref(m, '0'))
