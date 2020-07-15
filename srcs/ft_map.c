@@ -6,19 +6,22 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/14 22:17:07 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 11:03:05 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/15 14:59:26 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-int	ft_processmap(t_mapinfo *m, char *cub)
+int		ft_processmap(t_mapinfo *m, char *cub)
 {
 	ft_getmap(m, cub);
+	ft_scanmap(m);
+	if (m->noerror == 0)
+		ft_parserror(2, m);
 	return (0);
 }
 
-int	ft_getmap(t_mapinfo *m, char *cub)
+int		ft_getmap(t_mapinfo *m, char *cub)
 {
 	char	*line;
 	int		i;
@@ -41,6 +44,34 @@ int	ft_getmap(t_mapinfo *m, char *cub)
 		get_next_line(m, &(m->map[m->ydim]));
 		m->ydim++;
 	}
-	m->map[m->ydim] = NULL; //check how this should be done properly
+	m->map[m->ydim] = NULL;
 	return (0);
+}
+
+void	ft_scanmap(t_mapinfo *m)
+{
+	int i;
+	int j;
+
+	m->noerror = (m->ydim < 1) ? 0 : m->noerror;
+	i = 0;
+	while (m->map[i] != NULL)
+	{
+		j = 0;
+		while (m->map[i][j] != '\0')
+		{
+			if (m->facing == '\0' && (m->map[i][j] == 'N' || \
+		m->map[i][j] == 'S' || m->map[i][j] == 'W' || m->map[i][j] == 'E'))
+			{
+				m->facing = m->map[i][j];
+				m->posy = i;
+				m->posx = j;
+			}
+			else if (m->map[i][j] != ' ' && m->map[i][j] != '0' \
+		&& m->map[i][j] != '1' && m->map[i][j] != '2')
+				m->noerror = 0;
+			j++;
+		}
+		i++;
+	}
 }

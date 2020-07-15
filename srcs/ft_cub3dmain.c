@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:42:12 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 11:05:06 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/15 13:50:25 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int		ft_printall(t_mapinfo *m)
 {
-	int i = 0;
-	
+	int i;
+
+	i = 0;
 	printf("No error: 	%d\n", m->noerror);
 	printf("Fd: 		%d\n", m->fd);
 	printf("Resx: 		%ld\n", m->resx);
@@ -37,12 +38,20 @@ int		ft_printall(t_mapinfo *m)
 	printf("Contents of map:\n");
 	while (m->map[i] != NULL)
 	{
-		printf("%s\n", m->map[i]);
+		printf("|%s|\n", m->map[i]);
 		i++;
 	}
 	
 	// char	facing;
 
+	// i = 0;
+	// while (i < 107)
+	// {
+	// 	errno = i;
+	// 	printf("Error %d:\n", i);
+	// 	perror("Error");
+	// 	i++;
+	// }
 	return (0);
 }
 

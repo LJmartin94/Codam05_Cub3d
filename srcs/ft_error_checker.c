@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:48:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 08:46:40 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/15 14:45:20 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,13 @@ int	ft_parserror(int type, t_mapinfo *m)
 		perror("Error\nProblem encountered with map elements, they \
 may be missing, repeated, contain nonsensical data or be misplaced");
 	}
-	else if (type == 2) //COMM Check still needs to be written
+	else if (type == 2)
+	{
+		errno = 79;
+		perror("Error\nThe map contains invalid characters, multiple \
+starting positions or junk data after the last map element is fetched");
+	}
+	else if (type == 3) //COMM Check still needs to be written
 	{
 		errno = 79;
 		perror("Error\nThe map provided is invalid, and can cause \
@@ -73,7 +79,7 @@ a player to go out of bounds");
 
 int	ft_mallocerror(t_mapinfo *m)
 {
-	errno = 79; //Shouldnt be 79
+	errno = 12;
 	perror("Error\nFailed to allocate sufficient memory with malloc");
 	ft_quit(1, m);
 	return (1);
