@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:42:12 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/16 15:30:22 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/16 16:42:00 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ int		main(int argc, char **argv)
 	ft_prelimcheck(argc, argv[1], &mapinfo);
 	ft_parser(&mapinfo);
 	ft_processmap(&mapinfo, argv[1]);
-	ft_printall(&mapinfo);
-	ft_quit(0, &mapinfo);
+	//ft_printall(&mapinfo);
+	xt_quit(0, &mapinfo);
 }

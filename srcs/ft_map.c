@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/14 22:17:07 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/16 15:27:03 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/16 16:43:26 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int		ft_processmap(t_mapinfo *m, char *cub)
 	ft_getmap(m, cub);
 	ft_scanmap(m);
 	if (m->noerror == 0)
-		ft_parserror(2, m);
+		xt_parserror(2, m);
 	ft_copymap(m, &ffm);
 	ft_floodfill(&ffm, m->posx, m->posy);
 	if (ffm.noerror == 0)
-		{
-			ft_clearcopy(0, &ffm, m);
-			ft_parserror(3, m);
-		}
+	{
+		ft_clearcopy(0, &ffm, m);
+		xt_parserror(3, m);
+	}
 	ft_clearcopy(0, &ffm, m);
 	return (0);
 }
@@ -46,7 +46,7 @@ int		ft_getmap(t_mapinfo *m, char *cub)
 	}
 	m->map = (char **)malloc(sizeof(char *) * (m->ydim + 1));
 	if (m->map == 0)
-		ft_mallocerror(m);
+		xt_mallocerror(m);
 	i = m->ydim;
 	m->ydim = 0;
 	while (m->ydim < i)
@@ -93,7 +93,7 @@ void	ft_copymap(t_mapinfo *org, t_mapinfo *cpy)
 	*cpy = ft_constructor(*cpy);
 	cpy->map = (char **)malloc(sizeof(char *) * (org->ydim + 1));
 	if (cpy->map == 0)
-		ft_mallocerror(org);
+		xt_mallocerror(org);
 	cpy->map[org->ydim] = NULL;
 	cpy->ydim = 0;
 	while (org->map[cpy->ydim] != NULL)
@@ -114,22 +114,3 @@ void	ft_copymap(t_mapinfo *org, t_mapinfo *cpy)
 	cpy->noerror = org->noerror;
 }
 
-int		ft_clearcopy(int error, t_mapinfo *c, t_mapinfo *org)
-{
-	int lines;
-
-	if (c->map != NULL)
-	{
-		lines = 0;
-		while (lines < c->ydim)
-		{
-			free(c->map[lines]);
-			lines++;
-		}
-		free(c->map);
-		c->map = NULL;
-	}
-	if (error == 1)
-		ft_mallocerror(org);
-	return (0);
-}

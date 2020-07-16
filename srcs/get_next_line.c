@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 21:37:34 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 10:28:11 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/16 16:41:19 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int		get_next_line(t_mapinfo *m, char **line)
 	int			red;
 
 	if (line == NULL || m->fd < 0 || BUFFER_SIZE < 0)
-		ft_quit(-1, m);
+		xt_quit(-1, m);
 	*line = (char *)malloc(sizeof(char) * (1));
 	if (*line == 0)
-		return (ft_gnlerror(remainder, line, m));
+		return (xt_gnlerror(remainder, line, m));
 	i = 0;
 	nl = 1;
 	while (nl)
@@ -31,9 +31,9 @@ int		get_next_line(t_mapinfo *m, char **line)
 		if (remainder[0] == '\0')
 			red = ft_fill_remainder(remainder, m->fd, &nl);
 		if (red == -1)
-			return (ft_gnlerror(remainder, line, m));
+			return (xt_gnlerror(remainder, line, m));
 		if (!(ft_malloc_expander(line, i, ft_linelen(remainder, '\n'))))
-			return (ft_gnlerror(remainder, line, m));
+			return (xt_gnlerror(remainder, line, m));
 		if (remainder[0] != '\0')
 			red = ft_handle_remainder(line, remainder, &i, &nl);
 	}
@@ -86,7 +86,7 @@ void	ft_clear_remainder(char *remainder, int j)
 	}
 }
 
-int		ft_gnlerror(char *remainder, char **line, t_mapinfo *m)
+int		xt_gnlerror(char *remainder, char **line, t_mapinfo *m)
 {
 	int i;
 
@@ -99,6 +99,6 @@ int		ft_gnlerror(char *remainder, char **line, t_mapinfo *m)
 	if (!(*line == 0))
 		free(*line);
 	*line = NULL;
-	ft_mallocerror(m);
+	xt_mallocerror(m);
 	return (-1);
 }

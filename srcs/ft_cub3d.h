@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/16 14:47:48 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/16 16:42:02 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int				main(int argc, char **argv);
 
 int				ft_prelimcheck(int argc, char *mapfile, t_mapinfo *m);
 int				ft_checkcub(char *mapfile);
-int				ft_parserror(int type, t_mapinfo *m);
-int				ft_mallocerror(t_mapinfo *m);
+int				xt_parserror(int type, t_mapinfo *m);
+int				xt_mallocerror(t_mapinfo *m);
 
 t_mapinfo		ft_constructor(t_mapinfo mapinfo);
 void			ft_parser(t_mapinfo *mapinfo);
@@ -74,17 +74,17 @@ int				ft_processmap(t_mapinfo *m, char *cub);
 int				ft_getmap(t_mapinfo *m, char *cub);
 void			ft_scanmap(t_mapinfo *m);
 void			ft_copymap(t_mapinfo *original, t_mapinfo *copy);
-int				ft_clearcopy(int error, t_mapinfo *cpy, t_mapinfo *org);
 
 int				ft_floodfill(t_mapinfo *ffm, int x, int y);
 
-void			ft_quit(int ret, t_mapinfo *mapinfo);
+void			xt_quit(int ret, t_mapinfo *mapinfo);
+int				ft_clearcopy(int error, t_mapinfo *cpy, t_mapinfo *org);
 
 int				get_next_line(t_mapinfo *m, char **line);
 int				ft_fill_remainder(char *remainder, int fd, int *nl);
 int				ft_handle_remainder(char **line, char *rmn, int *i, int *nl);
 void			ft_clear_remainder(char *remainder, int j);
-int				ft_gnlerror(char *remainder, char **line, t_mapinfo *m);
+int				xt_gnlerror(char *remainder, char **line, t_mapinfo *m);
 
 int				ft_malloc_expander(char **str, int size, int grow);
 size_t			ft_linelen(const char *s, char n);

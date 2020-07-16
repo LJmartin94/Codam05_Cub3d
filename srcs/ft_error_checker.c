@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:48:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/16 15:26:07 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/16 16:41:56 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_prelimcheck(int argc, char *mapfile, t_mapinfo *m)
 	}
 	else
 		return (0);
-	ft_quit(1, m);
+	xt_quit(1, m);
 	return (1);
 }
 
@@ -53,7 +53,7 @@ int	ft_checkcub(char *mapfile)
 		return (1);
 }
 
-int	ft_parserror(int type, t_mapinfo *m)
+int	xt_parserror(int type, t_mapinfo *m)
 {
 	if (type == 1)
 	{
@@ -73,14 +73,14 @@ starting positions or junk data after the last map element is fetched");
 		perror("Error\nThe map provided is invalid, and can cause \
 a player to go out of bounds");
 	}
-	ft_quit(1, m);
+	xt_quit(1, m);
 	return (1);
 }
 
-int	ft_mallocerror(t_mapinfo *m)
+int	xt_mallocerror(t_mapinfo *m)
 {
 	errno = 12;
 	perror("Error\nFailed to allocate sufficient memory with malloc");
-	ft_quit(1, m);
+	xt_quit(1, m);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:41:20 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 10:18:58 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/16 16:43:07 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void		ft_parser(t_mapinfo *m)
 	}
 	free(line);
 	if (m->noerror == 0)
-		ft_parserror(1, m);
+		xt_parserror(1, m);
 }
 
 int			ft_elemxref(t_mapinfo *mapinfo, char flag)

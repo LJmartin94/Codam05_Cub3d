@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 12:47:12 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/07/15 08:18:42 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/16 16:44:23 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void		ft_fetchpath(t_mapinfo *m, char tag, char *line, int *i)
 	j = ft_linelen(&(line[*i]), '\0');
 	validpath = (char *)malloc(sizeof(char) * (j + 1));
 	if (validpath == 0)
-		ft_mallocerror(m);
+		xt_mallocerror(m);
 	j = 0;
 	while (line[*i] != '\0')
 	{

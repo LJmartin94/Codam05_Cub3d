@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/16 13:33:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/07/16 15:22:58 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/16 16:35:26 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_floodfill(t_mapinfo *ffm, int x, int y)
 {
 	if (y == 0 || (y + 1) == ffm->ydim || x == 0 || ffm->map[y][x + 1] == '\0'\
-	|| ffm->noerror == 0 || ffm->map[y][x] == ' ')
+	|| ffm->noerror == 0 || ffm->map[y][x] == ' ' || ffm->map[y][x] == '\0')
 	{
 		ffm->noerror = 0;
 		return (1);
