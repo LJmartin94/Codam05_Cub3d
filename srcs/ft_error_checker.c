@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:48:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 14:45:20 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/16 15:26:07 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ may be missing, repeated, contain nonsensical data or be misplaced");
 		perror("Error\nThe map contains invalid characters, multiple \
 starting positions or junk data after the last map element is fetched");
 	}
-	else if (type == 3) //COMM Check still needs to be written
+	else if (type == 3)
 	{
 		errno = 79;
 		perror("Error\nThe map provided is invalid, and can cause \

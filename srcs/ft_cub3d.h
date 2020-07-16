@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 22:28:16 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/16 14:47:48 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void			ft_scanmap(t_mapinfo *m);
 void			ft_copymap(t_mapinfo *original, t_mapinfo *copy);
 int				ft_clearcopy(int error, t_mapinfo *cpy, t_mapinfo *org);
 
+int				ft_floodfill(t_mapinfo *ffm, int x, int y);
+
 void			ft_quit(int ret, t_mapinfo *mapinfo);
 
 int				get_next_line(t_mapinfo *m, char **line);
@@ -87,5 +89,6 @@ int				ft_gnlerror(char *remainder, char **line, t_mapinfo *m);
 int				ft_malloc_expander(char **str, int size, int grow);
 size_t			ft_linelen(const char *s, char n);
 char			*ft_strstr(const char *haystack, const char *needle);
+char			ft_charinset(char tofind, char *set);
 
 #endif

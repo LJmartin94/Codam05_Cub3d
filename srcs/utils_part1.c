@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/08 19:03:23 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/09 17:23:53 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/16 15:21:01 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,21 @@ char	*ft_strstr(const char *haystack, const char *needle)
 		if (j == 0)
 			i++;
 	}
+	return (0);
+}
+
+char	ft_charinset(char tofind, char *set)
+{
+	int i;
+
+	i = 0;
+	while (set[i] != '\0')
+	{
+		if (tofind == set[i])
+			return (1);
+		i++;
+	}
+	if (tofind == '\0')
+		return (1);
 	return (0);
 }

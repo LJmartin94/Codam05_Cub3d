@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/14 22:17:07 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/15 22:32:05 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/16 15:27:03 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ int		ft_processmap(t_mapinfo *m, char *cub)
 	if (m->noerror == 0)
 		ft_parserror(2, m);
 	ft_copymap(m, &ffm);
+	ft_floodfill(&ffm, m->posx, m->posy);
+	if (ffm.noerror == 0)
+		{
+			ft_clearcopy(0, &ffm, m);
+			ft_parserror(3, m);
+		}
+	ft_clearcopy(0, &ffm, m);
 	return (0);
 }
 
@@ -83,10 +90,10 @@ void	ft_copymap(t_mapinfo *org, t_mapinfo *cpy)
 {
 	int x;
 
-	//MAYBE call ft_constructor here to get rid of ugly uninitialised junk data?
+	*cpy = ft_constructor(*cpy);
 	cpy->map = (char **)malloc(sizeof(char *) * (org->ydim + 1));
 	if (cpy->map == 0)
-		ft_clearcopy(1, cpy, org);
+		ft_mallocerror(org);
 	cpy->map[org->ydim] = NULL;
 	cpy->ydim = 0;
 	while (org->map[cpy->ydim] != NULL)
@@ -103,14 +110,26 @@ void	ft_copymap(t_mapinfo *org, t_mapinfo *cpy)
 		}
 		(cpy->ydim)++;
 	}
-	cpy->posx = org->posx;
-	cpy->posy = org->posy;
+	cpy->map[org->posy][org->posx] = 'x';
 	cpy->noerror = org->noerror;
-	ft_printall(cpy);
 }
 
-int		ft_clearcopy(int error, t_mapinfo *cpy, t_mapinfo *org)
+int		ft_clearcopy(int error, t_mapinfo *c, t_mapinfo *org)
 {
-	//go to malloc error in the case of actual error, else just clean up the copy
+	int lines;
+
+	if (c->map != NULL)
+	{
+		lines = 0;
+		while (lines < c->ydim)
+		{
+			free(c->map[lines]);
+			lines++;
+		}
+		free(c->map);
+		c->map = NULL;
+	}
+	if (error == 1)
+		ft_mallocerror(org);
 	return (0);
 }
