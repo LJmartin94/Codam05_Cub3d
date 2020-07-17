@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 13:38:48 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/07/16 16:41:54 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/17 19:00:19 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	xt_quit(int ret, t_mapinfo *m)
 		free(m->map);
 		m->map = NULL;
 	}
+	ft_clearcopy(0, m->copy, m);
 	exit(ret);
 }
 

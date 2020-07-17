@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/14 22:17:07 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/16 16:43:26 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/17 19:13:34 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,7 @@ int		ft_processmap(t_mapinfo *m, char *cub)
 	ft_copymap(m, &ffm);
 	ft_floodfill(&ffm, m->posx, m->posy);
 	if (ffm.noerror == 0)
-	{
-		ft_clearcopy(0, &ffm, m);
 		xt_parserror(3, m);
-	}
-	ft_clearcopy(0, &ffm, m);
 	return (0);
 }
 
@@ -112,5 +108,34 @@ void	ft_copymap(t_mapinfo *org, t_mapinfo *cpy)
 	}
 	cpy->map[org->posy][org->posx] = 'x';
 	cpy->noerror = org->noerror;
+	org->copy = cpy;
 }
 
+void	ft_floodfill(t_mapinfo *ffm, int x, int y)
+{
+	if (y == 0 || (y + 1) == ffm->ydim || x == 0 || ffm->map[y][x + 1] == '\0'\
+	|| ffm->noerror == 0 || ffm->map[y][x] == ' ' || ffm->map[y][x] == '\0')
+	{
+		ffm->noerror = 0;
+		return ;
+	}
+	if (ffm->map[y][x] == '2')
+		(ffm->spriteno)++;
+	ffm->map[y][x] = 'x';
+	if (ft_charinset(ffm->map[y - 1][x], "02 "))
+		ft_floodfill(ffm, x, y - 1);
+	if (ft_charinset(ffm->map[y - 1][x + 1], "02 "))
+		ft_floodfill(ffm, x + 1, y - 1);
+	if (ft_charinset(ffm->map[y][x + 1], "02 "))
+		ft_floodfill(ffm, x + 1, y);
+	if (ft_charinset(ffm->map[y + 1][x + 1], "02 "))
+		ft_floodfill(ffm, x + 1, y + 1);
+	if (ft_charinset(ffm->map[y + 1][x], "02 "))
+		ft_floodfill(ffm, x, y + 1);
+	if (ft_charinset(ffm->map[y + 1][x - 1], "02 "))
+		ft_floodfill(ffm, x - 1, y + 1);
+	if (ft_charinset(ffm->map[y][x - 1], "02 "))
+		ft_floodfill(ffm, x - 1, y);
+	if (ft_charinset(ffm->map[y - 1][x - 1], "02 "))
+		ft_floodfill(ffm, x - 1, y - 1);
+}

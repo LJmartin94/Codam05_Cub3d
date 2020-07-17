@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/16 16:42:02 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/17 19:14:02 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,30 @@
 
 typedef	struct	s_mapinfo
 {
-	int		noerror;
-	int		fd;
-	long	resx;
-	long	resy;
-	char	*northtex;
-	char	*southtex;
-	char	*westtex;
-	char	*easttex;
-	char	*spritetex;
-	int		fr;
-	int		fg;
-	int		fb;
-	int		cr;
-	int		cg;
-	int		cb;
-	int		x;
-	char	facing;
-	int		posy;
-	int		posx;
-	int		mapstart;
-	int		ydim;
-	char	**map;
+	struct s_mapinfo	*copy;
+	int					noerror;
+	int					fd;
+	long				resx;
+	long				resy;
+	char				*northtex;
+	char				*southtex;
+	char				*westtex;
+	char				*easttex;
+	char				*spritetex;
+	int					spriteno;
+	int					fr;
+	int					fg;
+	int					fb;
+	int					cr;
+	int					cg;
+	int					cb;
+	int					x;
+	char				facing;
+	int					posy;
+	int					posx;
+	int					mapstart;
+	int					ydim;
+	char				**map;
 }				t_mapinfo;
 
 int				ft_printall(t_mapinfo *m); //DEBUG ONLY
@@ -74,8 +76,7 @@ int				ft_processmap(t_mapinfo *m, char *cub);
 int				ft_getmap(t_mapinfo *m, char *cub);
 void			ft_scanmap(t_mapinfo *m);
 void			ft_copymap(t_mapinfo *original, t_mapinfo *copy);
-
-int				ft_floodfill(t_mapinfo *ffm, int x, int y);
+void			ft_floodfill(t_mapinfo *ffm, int x, int y);
 
 void			xt_quit(int ret, t_mapinfo *mapinfo);
 int				ft_clearcopy(int error, t_mapinfo *cpy, t_mapinfo *org);
