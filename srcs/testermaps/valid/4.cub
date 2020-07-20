@@ -1,0 +1,16 @@
+R 1600 800
+NO textures/wall_1.png
+SO textures/wall_2.png
+WE textures/wall_3.png
+EA textures/wall_4.png
+
+S textures/sprite_1.xpm
+
+F 184,113,39
+C 51,198,227
+
+1111111111111
+1222222222221
+12222W0002221
+1222222222221
+1111111111111

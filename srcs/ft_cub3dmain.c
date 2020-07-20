@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:42:12 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/16 16:42:00 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/20 21:20:54 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		ft_printall(t_mapinfo *m)
 	int i;
 
 	i = 0;
+	printf("Struct ID:	%p\n", m);
 	printf("No error: 	%d\n", m->noerror);
 	printf("Fd: 		%d\n", m->fd);
 	printf("Resx: 		%ld\n", m->resx);
@@ -34,6 +35,7 @@ int		ft_printall(t_mapinfo *m)
 
 	printf("Map start:	%d\n", m->mapstart);
 	printf("Map Y dim:	%d\n", m->ydim);
+	printf("Struct cpy:	%p\n", m->copy);
 	printf("Char **map:	%p\n", m->map);
 	printf("Contents of map:\n");
 	while (m->map[i] != NULL)

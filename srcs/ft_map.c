@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/14 22:17:07 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/17 19:13:34 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/20 20:05:52 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int		ft_processmap(t_mapinfo *m, char *cub)
 	if (m->noerror == 0)
 		xt_parserror(2, m);
 	ft_copymap(m, &ffm);
-	ft_floodfill(&ffm, m->posx, m->posy);
-	if (ffm.noerror == 0)
+	ft_floodfill(m->copy, m->posx, m->posy);
+	if (m->copy->noerror == 0)
 		xt_parserror(3, m);
 	return (0);
 }
@@ -80,35 +80,35 @@ void	ft_scanmap(t_mapinfo *m)
 		}
 		i++;
 	}
+	m->noerror = (m->facing == '\0') ? 0 : m->noerror;
 }
 
 void	ft_copymap(t_mapinfo *org, t_mapinfo *cpy)
 {
-	int x;
-
+	cpy = (t_mapinfo *)malloc(sizeof(t_mapinfo));
+	if (cpy == 0)
+		xt_mallocerror(org);
+	org->copy = cpy;
 	*cpy = ft_constructor(*cpy);
 	cpy->map = (char **)malloc(sizeof(char *) * (org->ydim + 1));
 	if (cpy->map == 0)
-		xt_mallocerror(org);
+		ft_clearcopy(1, cpy, org);
 	cpy->map[org->ydim] = NULL;
 	cpy->ydim = 0;
 	while (org->map[cpy->ydim] != NULL)
 	{
-		x = ft_linelen(org->map[cpy->ydim], '\0');
-		cpy->map[cpy->ydim] = (char *)malloc(sizeof(char) * (x + 1));
+		cpy->x = ft_linelen(org->map[cpy->ydim], '\0');
+		cpy->map[cpy->ydim] = (char *)malloc(sizeof(char) * (cpy->x + 1));
 		if (cpy->map[cpy->ydim] == 0)
 			ft_clearcopy(1, cpy, org);
-		x = 0;
-		while (org->map[cpy->ydim][x] != '\0')
+		cpy->x = 0;
+		while (org->map[cpy->ydim][cpy->x] != '\0')
 		{
-			cpy->map[cpy->ydim][x] = org->map[cpy->ydim][x];
-			x++;
+			cpy->map[cpy->ydim][cpy->x] = org->map[cpy->ydim][cpy->x];
+			(cpy->x)++;
 		}
 		(cpy->ydim)++;
 	}
-	cpy->map[org->posy][org->posx] = 'x';
-	cpy->noerror = org->noerror;
-	org->copy = cpy;
 }
 
 void	ft_floodfill(t_mapinfo *ffm, int x, int y)

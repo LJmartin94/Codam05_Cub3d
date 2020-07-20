@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 13:38:48 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/07/17 19:00:19 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/20 22:01:33 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int		ft_clearcopy(int error, t_mapinfo *c, t_mapinfo *org)
 {
 	int lines;
 
+	if (org->copy == NULL)
+		return (0);
 	if (c->map != NULL)
 	{
 		lines = 0;
@@ -56,6 +58,8 @@ int		ft_clearcopy(int error, t_mapinfo *c, t_mapinfo *org)
 		free(c->map);
 		c->map = NULL;
 	}
+	free(org->copy);
+	org->copy = NULL;
 	if (error == 1)
 		xt_mallocerror(org);
 	return (0);
