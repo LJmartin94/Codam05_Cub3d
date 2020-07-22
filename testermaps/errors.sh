@@ -1,5 +1,5 @@
 cd ..
-gcc -o cub3D *.c -I .
+make
 cd testermaps
 
 printf "\ncol_inv.cub\n"
