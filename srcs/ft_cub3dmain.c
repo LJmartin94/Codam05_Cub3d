@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:42:12 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/21 22:28:12 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/23 00:53:43 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		main(int argc, char **argv)
 {
 	t_mapinfo	mapinfo;
 
-	mapinfo = ft_constructor(mapinfo);
+	mapinfo = ft_constructor(&mapinfo);
 	mapinfo.fd = open(argv[1], O_RDONLY);
 	ft_prelimcheck(argc, argv[1], &mapinfo);
 	ft_parser(&mapinfo);

@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/17 19:14:02 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/23 00:53:56 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int				ft_checkcub(char *mapfile);
 int				xt_parserror(int type, t_mapinfo *m);
 int				xt_mallocerror(t_mapinfo *m);
 
-t_mapinfo		ft_constructor(t_mapinfo mapinfo);
+t_mapinfo		ft_constructor(t_mapinfo *mapinfo);
 void			ft_parser(t_mapinfo *mapinfo);
 int				ft_elemxref(t_mapinfo *mapinfo, char flag);
 int				ft_skipspace(char *line, int *i);

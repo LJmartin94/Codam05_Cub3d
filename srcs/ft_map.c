@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/14 22:17:07 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/21 22:28:29 by limartin      ########   odam.nl         */
+/*   Updated: 2020/07/23 00:56:10 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_copymap(t_mapinfo *org, t_mapinfo *cpy)
 	if (cpy == 0)
 		xt_mallocerror(org);
 	org->copy = cpy;
-	*cpy = ft_constructor(*cpy);
+	*cpy = ft_constructor(cpy);
 	cpy->map = (char **)malloc(sizeof(char *) * (org->ydim + 1));
 	if (cpy->map == 0)
 		ft_clearcopy(1, cpy, org);
