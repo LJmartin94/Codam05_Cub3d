@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/07/23 01:22:37 by lindsay       ########   odam.nl          #
+#    Updated: 2020/07/23 01:51:27 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ INCL_PATH = ./srcs/
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror 
+#-fsanitize=address -g
 
 HEADER_FILES = $(INCL_PATH)ft_cub3d.h
 
@@ -49,7 +50,8 @@ endif
 ifdef FOR_LINUX
 INCLUDE_MLX_HEADERS = -I/usr/include
 LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz
-MLX_DIR = mlx_linux
+MLX_DIR = mlx
+#MLX_DIR = mlx_linux
 #MLX_LIB = libmlx.dylib
 else 
 INCLUDE_MLX_HEADERS = -I. 
@@ -88,17 +90,17 @@ opengl:
 	rm -rf mlx
 	mkdir mlx
 	cp -r ./opengl/* mlx
-	$(MAKE) all
+	$(MAKE) linux
 
 mms:
 	rm -rf mlx
 	mkdir mlx
 	cp -r ./mms/* mlx
-	$(MAKE) LIB_NAME=1 all 
+	$(MAKE) LIB_NAME=1 linux 
 
 clean:
 	@make clean -C ./mlx
-	@make clean -C ./mlx_linux
+	#@make clean -C ./mlx_linux
 	rm -f $(OBJ) $(BOBJ)
 
 fclean: clean
