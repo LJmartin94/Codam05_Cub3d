@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/07/22 19:08:36 by lindsay       ########   odam.nl          #
+#    Updated: 2020/07/22 21:54:21 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,20 +38,32 @@ OBJ := ${SRC:%.c=%.o}
 
 BOBJ := ${SRC_B:%.c=%.o}
 
-#Avoid relinking
+#Avoid relinking bonus
 ifdef WITH_BONUS
 COMPILE_OBJECTS = $(OBJ) $(BOBJ)
 else
 COMPILE_OBJECTS = $(OBJ)
 endif
 
+#Specify OS for MLX (Mac default)
+ifdef FOR_LINUX
+INCLUDE_MLX_HEADERS = -I/usr/include -Imlx_linux
+LINK_LIBRARY = -Lmlx_linux -lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+else 
+INCLUDE_MLX_HEADERS = -Imlx
+LINK_LIBRARY = -Lmlx -lmlx -framework OpenGL -framework AppKit
+endif
+
 all: $(NAME)
 
 $(NAME): $(COMPILE_OBJECTS)
-	$(CC) -o $(NAME) $(COMPILE_OBJECTS)
+	$(CC) -o $(NAME) $(COMPILE_OBJECTS) $(LINK_LIBRARY)
 
 %.o: %.c $(HEADER_FILES)
-	$(CC) $(CFLAGS) -c -o $@ $< -I $(INCL_PATH)
+	$(CC) $(CFLAGS) -c -o $@ $< -I $(INCL_PATH) $(INCLUDE_MLX_HEADERS) -O3
+
+linux:
+	@ $(MAKE) FOR_LINUX=1 all
 
 bonus:
 	@ $(MAKE) WITH_BONUS=1 all
