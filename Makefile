@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/07/22 21:54:21 by lindsay       ########   odam.nl          #
+#    Updated: 2020/07/23 00:40:17 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,28 +47,40 @@ endif
 
 #Specify OS for MLX (Mac default)
 ifdef FOR_LINUX
-INCLUDE_MLX_HEADERS = -I/usr/include -Imlx_linux
-LINK_LIBRARY = -Lmlx_linux -lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+INCLUDE_MLX_HEADERS = -I/usr/include
+LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz
+MLX_DIR = mms
+MLX_LIB = libmlx.dylib
 else 
-INCLUDE_MLX_HEADERS = -Imlx
-LINK_LIBRARY = -Lmlx -lmlx -framework OpenGL -framework AppKit
+INCLUDE_MLX_HEADERS = -I. 
+LINK_LIBRARY = -framework OpenGL -framework AppKit
+MLX_DIR = opengl
+MLX_LIB = libmlx.a
 endif
 
 all: $(NAME)
 
 $(NAME): $(COMPILE_OBJECTS)
-	$(CC) -o $(NAME) $(COMPILE_OBJECTS) $(LINK_LIBRARY)
+	$(CC) -o $(NAME) $(COMPILE_OBJECTS) -L$(MLX_DIR) -l$(MLX_DIR) -I$(MLX_DIR) $(LINK_LIBRARY)
 
-%.o: %.c $(HEADER_FILES)
-	$(CC) $(CFLAGS) -c -o $@ $< -I $(INCL_PATH) $(INCLUDE_MLX_HEADERS) -O3
+%.o: %.c $(HEADER_FILES) $(MLX_LIB)
+	$(CC) $(CFLAGS) -c -o $@ $< -I $(INCL_PATH) $(INCLUDE_MLX_HEADERS) -I$(MLX_DIR) -O3
 
-linux:
-	@ $(MAKE) FOR_LINUX=1 all
+$(MLX_LIB):
+	make -C ./$(MLX_DIR)
+	cp ./$(MLX_DIR)/$(MLX_LIB) $(MLX_LIB)
+#both of these need to be silenced
 
 bonus:
 	@ $(MAKE) WITH_BONUS=1 all
 
+linux:
+	$(MAKE) FOR_LINUX=1 all
+#silence this one too
+
 clean:
+	@make clean -C ./mms
+	@make clean -C ./opengl
 	rm -f $(OBJ) $(BOBJ)
 
 fclean: clean
