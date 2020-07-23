@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/07/23 12:44:35 by lindsay       ########   odam.nl          #
+#    Updated: 2020/07/23 13:28:13 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ else
 MLX_DIR = mlx
 MLX_LIB = libmlx.dylib
 INCLUDE_MLX_HEADERS = -I. 
-LINK_LIBRARY = -framework OpenGL -framework AppKit
+LINK_LIBRARY = -framework OpenGL -framework AppKit -lmlx
 endif
 
 # ifdef LIB_NAME
@@ -68,7 +68,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(COMPILE_OBJECTS)
-	$(CC) -o $(NAME) $(COMPILE_OBJECTS) -L$(MLX_DIR) -l$(MLX_DIR) $(LINK_LIBRARY)
+	$(CC) -o $(NAME) $(COMPILE_OBJECTS) -L$(MLX_DIR) $(LINK_LIBRARY)
 
 %.o: %.c $(HEADER_FILES) $(MLX_LIB)
 	$(CC) -o $@ -c $< $(CFLAGS) -O3 -I$(MLX_DIR) $(INCLUDE_MLX_HEADERS) -I $(INCL_PATH)
@@ -98,11 +98,14 @@ linux:
 clean:
 	@make clean -C ./mlx
 	@make clean -C ./mlx_linux
+	@rm -f ./mlx_linux/Makefile.gen
 	rm -f $(OBJ) $(BOBJ)
+	rm -f libmlx.dylib
+	rm -f libmlx.a
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus linux
+.PHONY: all bonus linux clean fclean re
