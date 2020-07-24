@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:48:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/20 20:12:04 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/23 15:34:00 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,15 @@ int	xt_mallocerror(t_mapinfo *m)
 {
 	errno = 12;
 	perror("Error\nFailed to allocate sufficient memory with malloc");
+	xt_quit(1, m);
+	return (1);
+}
+
+int	xt_mlxerror(t_mapinfo *m)
+{
+	errno = 79;
+	perror("Error\nOne of the functions in the MiniLibX library quit \
+unexpectedly or failed to start");
 	xt_quit(1, m);
 	return (1);
 }

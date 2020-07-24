@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/23 00:53:56 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/23 16:56:19 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stddef.h>
+# include <mlx.h>
 
 typedef	struct	s_mapinfo
 {
@@ -60,6 +61,7 @@ int				ft_prelimcheck(int argc, char *mapfile, t_mapinfo *m);
 int				ft_checkcub(char *mapfile);
 int				xt_parserror(int type, t_mapinfo *m);
 int				xt_mallocerror(t_mapinfo *m);
+int				xt_mlxerror(t_mapinfo *m);
 
 t_mapinfo		ft_constructor(t_mapinfo *mapinfo);
 void			ft_parser(t_mapinfo *mapinfo);
@@ -77,6 +79,8 @@ int				ft_getmap(t_mapinfo *m, char *cub);
 void			ft_scanmap(t_mapinfo *m);
 void			ft_copymap(t_mapinfo *original, t_mapinfo *copy);
 void			ft_floodfill(t_mapinfo *ffm, int x, int y);
+
+int				ft_window(t_mapinfo *m);
 
 void			xt_quit(int ret, t_mapinfo *mapinfo);
 int				ft_clearcopy(int error, t_mapinfo *cpy, t_mapinfo *org);

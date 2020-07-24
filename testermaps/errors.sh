@@ -1,7 +1,3 @@
-cd ..
-make
-cd testermaps
-
 printf "\ncol_inv.cub\n"
 ../cub3D ./error/col_inv.cub
 

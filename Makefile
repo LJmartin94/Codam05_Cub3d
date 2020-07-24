@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/07/23 13:28:13 by lindsay       ########   odam.nl          #
+#    Updated: 2020/07/24 16:19:07 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC		= $(SRC_PATH)ft_cub3dmain.c \
 		$(SRC_PATH)ft_parser_part1.c \
 		$(SRC_PATH)ft_parser_part2.c \
 		$(SRC_PATH)ft_map.c \
+		$(SRC_PATH)ft_window.c \
 		$(SRC_PATH)ft_quit.c \
 		$(SRC_PATH)get_next_line.c \
 		$(SRC_PATH)utils_part1.c
@@ -50,50 +51,36 @@ endif
 ifdef FOR_LINUX
 MLX_DIR = mlx_linux
 MLX_LIB = libmlx.a
-INCLUDE_MLX_HEADERS = -I/usr/include
-LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz -I$(MLX_DIR)
+INCLUDE_MLX_HEADERS = /usr/include
+LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz
+#LINK_LIBRARY = -L/usr/lib -I./$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz -lbsd
 else 
 MLX_DIR = mlx
 MLX_LIB = libmlx.dylib
-INCLUDE_MLX_HEADERS = -I. 
-LINK_LIBRARY = -framework OpenGL -framework AppKit -lmlx
+INCLUDE_MLX_HEADERS = . 
+LINK_LIBRARY = -framework OpenGL -framework AppKit
 endif
-
-# ifdef LIB_NAME
-# MLX_LIB = libmlx.dylib
-# else
-# MLX_LIB = libmlx.a
-# endif
 
 all: $(NAME)
 
 $(NAME): $(COMPILE_OBJECTS)
-	$(CC) -o $(NAME) $(COMPILE_OBJECTS) -L$(MLX_DIR) $(LINK_LIBRARY)
+	$(CC) -o $(NAME) $(COMPILE_OBJECTS) -L$(MLX_DIR) -lmlx $(LINK_LIBRARY)
 
 %.o: %.c $(HEADER_FILES) $(MLX_LIB)
-	$(CC) -o $@ -c $< $(CFLAGS) -O3 -I$(MLX_DIR) $(INCLUDE_MLX_HEADERS) -I $(INCL_PATH)
+	$(CC) -o $@ -c $< $(CFLAGS) -O3 -I$(INCLUDE_MLX_HEADERS) -I./$(MLX_DIR) -I $(INCL_PATH)
 
 $(MLX_LIB):
 	@make -C ./$(MLX_DIR)
 	@cp ./$(MLX_DIR)/$(MLX_LIB) $(MLX_LIB)
+	#sudo cp -r ./libmlx.a /usr/local/lib/
+	# sudo cp -r ./mlx_linux/man/man1 /usr/local/man/
+	# sudo cp -r ./mlx_linux/mlx.h /usr/local/include/
 
 bonus:
 	@ $(MAKE) WITH_BONUS=1 all
 
 linux:
 	@ $(MAKE) FOR_LINUX=1 all
-
-# opengl:
-# 	rm -rf mlx
-# 	mkdir mlx
-# 	cp -r ./opengl/* mlx
-# 	$(MAKE) linux
-
-# mms:
-# 	rm -rf mlx
-# 	mkdir mlx
-# 	cp -r ./mms/* mlx
-# 	$(MAKE) LIB_NAME=1 linux 
 
 clean:
 	@make clean -C ./mlx

@@ -1,10 +1,10 @@
 R a600 800
-NO textures/wall_3.xpm
-SO textures/wall_3.xpm
-WE textures/wood.png
-EA textures/wood.png
+NO testermaps/textures/wall_3.xpm
+SO testermaps/textures/wall_3.xpm
+WE testermaps/textures/wood.png
+EA testermaps/textures/wood.png
 
-S  textures/sprite_3.xpm
+S  testermaps/textures/sprite_3.xpm
 
 F 184,113,39
 C 51,198,227

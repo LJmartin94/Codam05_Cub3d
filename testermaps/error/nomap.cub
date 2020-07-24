@@ -1,12 +1,12 @@
 R 1920 1080
 F 220,100,0
 C 225,30,255
-NO textures/wall_1.xpm
-SO textures/wall_2.png
+NO testermaps/textures/wall_1.xpm
+SO testermaps/textures/wall_2.png
 
-EA textures/wall_4.xpm
+EA testermaps/textures/wall_4.xpm
 
 
 
-S textures/sprite_1.xpm
-WE textures/wall_3.xpm
+S testermaps/textures/sprite_1.xpm
+WE testermaps/textures/wall_3.xpm
