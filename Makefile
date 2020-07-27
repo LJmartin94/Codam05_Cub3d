@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/07/24 16:19:07 by lindsay       ########   odam.nl          #
+#    Updated: 2020/07/27 17:56:31 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ INCL_PATH = ./srcs/
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror 
-#-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 HEADER_FILES = $(INCL_PATH)ft_cub3d.h
 
@@ -53,7 +52,7 @@ MLX_DIR = mlx_linux
 MLX_LIB = libmlx.a
 INCLUDE_MLX_HEADERS = /usr/include
 LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz
-#LINK_LIBRARY = -L/usr/lib -I./$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz -lbsd
+#LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz  -I./$(MLX_DIR) -lbsd
 else 
 MLX_DIR = mlx
 MLX_LIB = libmlx.dylib
@@ -72,9 +71,6 @@ $(NAME): $(COMPILE_OBJECTS)
 $(MLX_LIB):
 	@make -C ./$(MLX_DIR)
 	@cp ./$(MLX_DIR)/$(MLX_LIB) $(MLX_LIB)
-	#sudo cp -r ./libmlx.a /usr/local/lib/
-	# sudo cp -r ./mlx_linux/man/man1 /usr/local/man/
-	# sudo cp -r ./mlx_linux/mlx.h /usr/local/include/
 
 bonus:
 	@ $(MAKE) WITH_BONUS=1 all
