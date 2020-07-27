@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/23 16:56:19 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/27 18:58:06 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@ typedef	struct	s_mapinfo
 	int					ydim;
 	char				**map;
 }				t_mapinfo;
+
+typedef	struct	s_img
+{
+	void		*cont;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+}				t_img;
 
 int				ft_printall(t_mapinfo *m); //DEBUG ONLY
 
