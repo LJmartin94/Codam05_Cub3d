@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/27 18:58:06 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/29 14:32:32 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef	struct	s_img
 	void		*cont;
 	char		*addr;
 	int			bits_per_pixel;
-	int			line_length;
+	int			line_bytes;
 	int			endian;
 }				t_img;
 
@@ -90,6 +90,7 @@ void			ft_copymap(t_mapinfo *original, t_mapinfo *copy);
 void			ft_floodfill(t_mapinfo *ffm, int x, int y);
 
 int				ft_window(t_mapinfo *m);
+void			ft_put_pixel_img(t_img *img, int x, int y, int colour);
 
 void			xt_quit(int ret, t_mapinfo *mapinfo);
 int				ft_clearcopy(int error, t_mapinfo *cpy, t_mapinfo *org);

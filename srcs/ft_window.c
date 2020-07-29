@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/23 15:39:24 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/07/27 19:17:09 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/07/29 14:35:48 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		ft_window(t_mapinfo *m)
 {
 	void	*mlx;
 	void	*mlx_win;
+	t_img	imga;
 
 	mlx = mlx_init();
 	if (mlx == 0)
@@ -23,17 +24,36 @@ int		ft_window(t_mapinfo *m)
 	mlx_win = mlx_new_window(mlx, m->resx, m->resy, "Test");
 	if (mlx_win == 0)
 		xt_mlxerror(m);
-	mlx_loop(mlx);
-
-	t_img	imga;
 	imga.cont = mlx_new_image(mlx, m->resx, m->resy);
 	imga.addr = mlx_get_data_addr(imga.cont, &imga.bits_per_pixel, \
-	&imga.line_length, &imga.endian)
+	&imga.line_bytes, &imga.endian);
 
-	ft_put_pixel_img();
+	int		x;
+	int		y;
+	int		colour;
+	colour = ((m->cb) + (m->cg * 16 * 16) + (m->cr * 16 * 16 * 16 * 16));
+	y = 0;
+	while (y < m->resy)
+	{
+		x = 0;
+		while (x < m->resx)
+		{
+			ft_put_pixel_img(&imga, x, y, colour);
+			x++;
+		}
+		y++;
+	}
+	mlx_put_image_to_window(mlx, mlx_win, imga.cont, 0, 0);
+	mlx_loop(mlx);
 	return (0);
 }
 
-void	ft_put_pixel_img()
+void	ft_put_pixel_img(t_img *img, int x, int y, int colour)
 {
+	char	*dst;
+	int		pxl_mem_size;
+
+	pxl_mem_size = (img->bits_per_pixel / 8);
+	dst = img->addr + (y * img->line_bytes + x * pxl_mem_size);
+	*(unsigned int*)dst = colour;
 }
