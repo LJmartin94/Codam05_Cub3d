@@ -94,4 +94,7 @@ printf "\nToo many args: ./cub3D ./valid/1.cub ./valid/2.cub\n"
 printf "\nInvalid permissions\n"
 ../cub3D ./error/forbidden.cub
 
+printf "\nTurlough's colours\n"
+../cub3D ./error/turlough.cub
+
 printf "\n"
