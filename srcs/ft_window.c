@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/23 15:39:24 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/06 17:46:19 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/06 19:18:14 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,27 @@ void	ft_heavensplit(t_mapinfo *m, t_img imga);
 
 void	ft_resize(void *mlx, t_mapinfo *m);
 
+int		ft_mlx_run(t_data *data);
+
 int		ft_window(t_mapinfo *m)
 {
-	void	*mlx;
-	void	*mlx_win;
-	t_img	imga;
+	t_data	d;
 
-	mlx = mlx_init();
-	if (mlx == 0)
+	d.m = m;
+	d.mlx = mlx_init();
+	if (d.mlx == 0)
 		xt_mlxerror(m);
-	ft_resize(mlx, m);
-	mlx_win = mlx_new_window(mlx, m->resx, m->resy, "Test");
-	if (mlx_win == 0)
+	ft_resize(d.mlx, m);
+	d.win = mlx_new_window(d.mlx, m->resx, m->resy, "Test");
+	if (d.win == 0)
 		xt_mlxerror(m);
-	imga.cont = mlx_new_image(mlx, m->resx, m->resy);
-	imga.addr = mlx_get_data_addr(imga.cont, &imga.bits_per_pixel, \
-	&imga.line_bytes, &imga.endian);
-	ft_heavensplit(m, imga);
-	mlx_put_image_to_window(mlx, mlx_win, imga.cont, 0, 0);
-	mlx_loop(mlx);
+	d.imga.cont = mlx_new_image(d.mlx, m->resx, m->resy);
+	d.imga.addr = mlx_get_data_addr(d.imga.cont, &d.imga.bits_per_pixel, \
+	&d.imga.line_bytes, &d.imga.endian);
+	ft_heavensplit(m, d.imga);
+	//mlx_put_image_to_window(d.mlx, d.win, d.imga.cont, 0, 0);
+	mlx_loop_hook(d.mlx, &ft_mlx_run, &d);
+	mlx_loop(d.mlx);
 	return (0);
 }
 
@@ -50,16 +52,6 @@ void	ft_resize(void *mlx, t_mapinfo *m)
 		m->resx = x;
 	if (y < m->resy)
 		m->resy = y;
-}
-
-void	ft_put_pixel_img(t_img *img, int x, int y, int colour)
-{
-	char	*dst;
-	int		pxl_mem_size;
-
-	pxl_mem_size = (img->bits_per_pixel / 8);
-	dst = img->addr + (y * img->line_bytes + x * pxl_mem_size);
-	*(unsigned int*)dst = colour;
 }
 
 void	ft_heavensplit(t_mapinfo *m, t_img imga)
@@ -82,4 +74,20 @@ void	ft_heavensplit(t_mapinfo *m, t_img imga)
 		if (y >= (m->resy / 2))
 			colour = ((m->fb) + (m->fg * 256) + (m->fr * 256 * 256));
 	}
+}
+
+void	ft_put_pixel_img(t_img *img, int x, int y, int colour)
+{
+	char	*dst;
+	int		pxl_mem_size;
+
+	pxl_mem_size = (img->bits_per_pixel / 8);
+	dst = img->addr + (y * img->line_bytes + x * pxl_mem_size);
+	*(unsigned int*)dst = colour;
+}
+
+int	ft_mlx_run(t_data *data)
+{
+	mlx_put_image_to_window(data->mlx, data->win, data->imga.cont, 0, 0);
+	return (0);
 }
