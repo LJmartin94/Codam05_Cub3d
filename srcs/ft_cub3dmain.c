@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:42:12 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/23 16:56:33 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/07 14:17:52 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,16 @@ int		ft_printall(t_mapinfo *m)
 int		main(int argc, char **argv)
 {
 	t_mapinfo	mapinfo;
+	t_data		d;
 
 	mapinfo = ft_constructor(&mapinfo);
 	mapinfo.fd = open(argv[1], O_RDONLY);
 	ft_prelimcheck(argc, argv[1], &mapinfo);
 	ft_parser(&mapinfo);
 	ft_processmap(&mapinfo, argv[1]);
-	ft_window(&mapinfo);
+	d = ft_window(&mapinfo);
+	mlx_loop_hook(d.mlx, &ft_mlx_run, &d);
+	mlx_loop(d.mlx);
 	//ft_printall(&mapinfo);
 	xt_quit(0, &mapinfo);
 }

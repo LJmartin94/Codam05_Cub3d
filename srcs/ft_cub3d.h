@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/06 18:59:31 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/07 14:21:35 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,12 @@ typedef	struct	s_img
 
 typedef struct	s_data
 {
-	t_mapinfo	*m;
-	t_img		imga;
-	t_img		imgb;
-	void		*mlx;
-	void		*win;
+	t_mapinfo		*m;
+	t_img			imga;
+	t_img			imgb;
+	void			*mlx;
+	void			*win;
+	long			frame;
 }				t_data;
 
 int				ft_printall(t_mapinfo *m); //DEBUG ONLY
@@ -98,8 +99,12 @@ void			ft_scanmap(t_mapinfo *m);
 void			ft_copymap(t_mapinfo *original, t_mapinfo *copy);
 void			ft_floodfill(t_mapinfo *ffm, int x, int y);
 
-int				ft_window(t_mapinfo *m);
+t_data			ft_window(t_mapinfo *m);
+void			ft_resize(void *mlx, t_mapinfo *m);
+void			ft_createimgs(t_img *a, t_img *b, void *mlx, t_mapinfo *m);
 void			ft_put_pixel_img(t_img *img, int x, int y, int colour);
+
+int				ft_mlx_run(t_data *data);
 
 void			xt_quit(int ret, t_mapinfo *mapinfo);
 int				ft_clearcopy(int error, t_mapinfo *cpy, t_mapinfo *org);
