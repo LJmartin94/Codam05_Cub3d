@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/08/07 14:22:25 by lindsay       ########   odam.nl          #
+#    Updated: 2020/08/07 19:32:11 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC		= $(SRC_PATH)ft_cub3dmain.c \
 		$(SRC_PATH)ft_parser_part2.c \
 		$(SRC_PATH)ft_map.c \
 		$(SRC_PATH)ft_window.c \
+		$(SRC_PATH)ft_raycaster.c \
 		$(SRC_PATH)ft_mlx.c \
 		$(SRC_PATH)ft_quit.c \
 		$(SRC_PATH)get_next_line.c \

@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/07 14:48:19 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/07 19:31:33 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ t_data			ft_window(t_mapinfo *m);
 void			ft_resize(void *mlx, t_mapinfo *m);
 void			ft_createimgs(t_img *a, t_img *b, void *mlx, t_mapinfo *m);
 void			ft_put_pixel_img(t_img *img, int x, int y, int colour);
+
+int				ft_castray(t_data *d);
 
 int				ft_mlx_run(t_data *data);
 
