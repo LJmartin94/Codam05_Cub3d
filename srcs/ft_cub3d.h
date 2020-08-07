@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/07 14:21:35 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/07 14:48:19 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,24 @@ typedef	struct	s_img
 	int			endian;
 }				t_img;
 
+typedef	struct	s_raydata
+{
+	double		xpos;
+	double		ypos;
+	double		xdir;
+	double		ydir;
+	double		xplane;
+	double		yplane;
+	double		time;
+	double		oldtime;
+}				t_raydata;
+
 typedef struct	s_data
 {
 	t_mapinfo		*m;
 	t_img			imga;
 	t_img			imgb;
+	t_raydata		r;
 	void			*mlx;
 	void			*win;
 	long			frame;
