@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/07 19:31:33 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/10 14:40:48 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <mlx.h>
+# include <math.h>
 
 typedef	struct	s_mapinfo
 {
@@ -64,14 +65,24 @@ typedef	struct	s_img
 
 typedef	struct	s_raydata
 {
-	double		xpos;
-	double		ypos;
-	double		xdir;
-	double		ydir;
+	double		pxpos; //tba
+	double		pypos; //tba
+	double		pxdir;
+	double		pydir;
 	double		xplane;
 	double		yplane;
-	double		time;
-	double		oldtime;
+	double		wixel;
+	double		rxdir;
+	double		rydir;
+	int			rxpos; //tba
+	int			rypos; //tba
+	double		nsside; //tba
+	double		weside; //tba
+	double		nsdelta;
+	double		wedelta;
+	double		raylen;
+	// double		time;
+	// double		oldtime;
 }				t_raydata;
 
 typedef struct	s_data

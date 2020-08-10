@@ -7,3 +7,8 @@ Could write the printf-heavy debug function in a norm approved way using write a
 Minimum Resolution is currently 1x1, this should probably be larger but I don't know what size is realistic yet.
 
 Need to make sure rex and resy in struct are scaled down to screens max res if they are larger than screen max res
+
+Need to handle spaces between the individual parts of map elements
+
+In ft_raycaster, wedelta is infinite if facing north or south, and nsdelta is infinite if facing west or east
+
