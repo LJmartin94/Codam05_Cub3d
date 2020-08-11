@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/10 14:40:48 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/11 18:41:16 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,26 @@ typedef	struct	s_img
 
 typedef	struct	s_raydata
 {
-	double		pxpos; //tba
-	double		pypos; //tba
-	double		pxdir;
-	double		pydir;
+	double		pxpos; //player x position
+	double		pypos; //player y position
+	double		pxdir; //player W-E direction
+	double		pydir; //player N-S direction
 	double		xplane;
 	double		yplane;
 	double		wixel;
 	double		rxdir;
 	double		rydir;
-	int			rxpos; //tba
-	int			rypos; //tba
-	double		nsside; //tba
-	double		weside; //tba
+	int			rxpos;
+	int			rypos;
+	double		nsside;
+	double		weside;
 	double		nsdelta;
 	double		wedelta;
 	double		raylen;
-	// double		time;
-	// double		oldtime;
+	int			stepx;
+	int			stepy;
+	int			hit;
+	int			pole;
 }				t_raydata;
 
 typedef struct	s_data
