@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/11 19:02:45 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/12 14:28:46 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		ft_castray(t_data *d)
 	ft_initraydata(&(d->r), d->m);
 	while (x <= d->m->resx)
 	{
-		d->r.wixel = 2 * x / (double)d->m->resx - 1;
+		d->r.wixel = -1 + (x / (double)d->m->resx) * 2;
 		d->r.rxdir = d->r.pxdir + d->r.xplane * d->r.wixel;
 		d->r.rydir = d->r.pydir + d->r.yplane * d->r.wixel;
 		d->r.rxpos = (int)d->r.pxpos;
@@ -87,10 +87,10 @@ int		ft_initraydata(t_raydata *r, t_mapinfo *m)
 	r->pydir = (m->facing == 'S') ? 1 : 0;
 	r->pxdir = (m->facing == 'W') ? -1 : r->pxdir;
 	r->pydir = (m->facing == 'N') ? -1 : r->pydir;
-	r->xplane = (r->pxdir == 1) ? fov : 0;
-	r->yplane = (r->pydir == 1) ? (-1 * fov) : 0;
-	r->xplane = (r->pxdir == -1) ? (-1 * fov) : r->xplane; //making the plane negative might be wrong
-	r->yplane = (r->pydir == -1) ? fov : r->yplane;
+	r->yplane = (r->pxdir == 1) ? fov : 0;
+	r->xplane = (r->pydir == 1) ? (-1 * fov) : 0;
+	r->yplane = (r->pxdir == -1) ? (-1 * fov) : r->yplane; //making the plane negative might be wrong
+	r->xplane = (r->pydir == -1) ? fov : r->xplane;
 	return (0);
 }
 
@@ -98,14 +98,14 @@ int		ft_ppostobox(t_data *d, int x)
 {
 	d->r.stepx = 0;
 	d->r.stepy = 0;
-	d->r.weside = 1;
-	d->r.nsside = 1;
+	d->r.weside = 0; //this is also sometimes infinite, in case rxdir = 0
+	d->r.nsside = 0; //this is also sometimes infinite
 	if (d->r.rxdir < 0)
 	{
 		d->r.stepx = -1;
 		d->r.weside = (d->r.pxpos - d->r.rxpos) * d->r.wedelta;
 	}
-	else if (d->r.rxdir > 0)
+	else if (d->r.rxdir >= 0)
 	{
 		d->r.stepx = 1;
 		d->r.weside = (d->r.rxpos + 1 - d->r.pxpos) * d->r.wedelta;
@@ -115,7 +115,7 @@ int		ft_ppostobox(t_data *d, int x)
 		d->r.stepy = -1;
 		d->r.nsside = (d->r.pypos - d->r.rypos) * d->r.nsdelta;
 	}
-	else if (d->r.rydir > 0)
+	else if (d->r.rydir >= 0)
 	{
 		d->r.stepy = 1;
 		d->r.nsside = (d->r.rypos + 1 - d->r.pypos) * d->r.nsdelta;
@@ -130,15 +130,15 @@ int		ft_findwall(t_data *d, int x)
 	{
 		if (d->r.weside < d->r.nsside)
 		{
-			d->r.weside = d->r.weside + d->r.wedelta;
-			d->r.rxpos = d->r.rxpos + d->r.stepx;
 			d->r.pole = 0;
+			d->r.rxpos = d->r.rxpos + d->r.stepx;
+			d->r.weside = d->r.weside + d->r.wedelta;
 		}
 		else
 		{
-			d->r.nsside = d->r.nsside + d->r.nsdelta;
-			d->r.rypos = d->r.rypos + d->r.stepy;
 			d->r.pole = 1;
+			d->r.rypos = d->r.rypos + d->r.stepy;
+			d->r.nsside = d->r.nsside + d->r.nsdelta;
 		}
 		d->r.hit = (d->m->map[d->r.rypos][d->r.rxpos] > '0') ? 1 : 0;
 	}
@@ -157,7 +157,7 @@ int		ft_colourwixel(t_data *d, int x)
 	
 	d->r.raylen = (d->r.pole == 0) ? \
 	((d->r.rxpos - d->r.pxpos + se) / d->r.rxdir) : \
-	((d->r.rypos - d->r.pypos + se) / d->r.rydir);
+	((d->r.rypos - d->r.pypos + se) / d->r.rydir); //trying to remember logic behind /rydir
 	
 	height = (int)(d->m->resy / d->r.raylen);
 	wstart = d->m->resy / 2 - height / 2;
