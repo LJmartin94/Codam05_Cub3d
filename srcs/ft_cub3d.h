@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/11 18:41:16 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/15 03:14:27 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef	struct	s_raydata
 	double		weside;
 	double		nsdelta;
 	double		wedelta;
-	double		raylen;
+	double		camraylen;
 	int			stepx;
 	int			stepy;
 	int			hit;
