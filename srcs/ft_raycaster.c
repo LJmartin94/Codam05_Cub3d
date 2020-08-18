@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/15 03:14:44 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/18 14:50:45 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int		ft_colourwixel(t_data *d, int x)
 	
 	d->r.camraylen = (d->r.pole == 0) ? \
 	((d->r.rxpos - d->r.pxpos + se) / d->r.rxdir) : \
-	((d->r.rypos - d->r.pypos + se) / d->r.rydir); //trying to remember logic behind /rydir
+	((d->r.rypos - d->r.pypos + se) / d->r.rydir);
 	
 	height = (int)(d->m->resy / d->r.camraylen);
 	wstart = d->m->resy / 2 - height / 2;
