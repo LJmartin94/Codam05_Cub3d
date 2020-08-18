@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/18 14:50:45 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/18 18:38:06 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int		ft_initraydata(t_raydata *r, t_mapinfo *m);
 
-int		ft_ppostobox(t_data *d, int x);
+int		ft_ppostobox(t_data *d);
 
-int		ft_findwall(t_data *d, int x);
+int		ft_findwall(t_data *d);
 
 int		ft_colourwixel(t_data *d, int x);
 
-void	ft_buildwall(t_mapinfo *m, t_img imga);
+int		ft_buildwall(t_data *d, int x, int wstart, int wend);
 
 int		ft_raycastdebug(t_data *d, int x)
 {
@@ -67,10 +67,10 @@ int		ft_castray(t_data *d)
 		(d->r.rxdir * d->r.rxdir)); //this is sometimes inf
 		d->r.nsdelta = sqrt(1 + (d->r.rxdir * d->r.rxdir) / \
 		(d->r.rydir * d->r.rydir)); //this is sometimes inf
-		ft_ppostobox(d, x);
-		ft_findwall(d, x);
+		ft_ppostobox(d);
+		ft_findwall(d);
 		ft_colourwixel(d, x);
-		ft_raycastdebug(d, x);
+		//ft_raycastdebug(d, x);
 		x++;
 	}
 	return (0);
@@ -94,7 +94,7 @@ int		ft_initraydata(t_raydata *r, t_mapinfo *m)
 	return (0);
 }
 
-int		ft_ppostobox(t_data *d, int x)
+int		ft_ppostobox(t_data *d)
 {
 	d->r.stepx = 0;
 	d->r.stepy = 0;
@@ -120,10 +120,10 @@ int		ft_ppostobox(t_data *d, int x)
 		d->r.stepy = 1;
 		d->r.nsside = (d->r.rypos + 1 - d->r.pypos) * d->r.nsdelta;
 	}
-	return (x); //remove x if unused
+	return (0);
 }
 
-int		ft_findwall(t_data *d, int x)
+int		ft_findwall(t_data *d)
 {
 	d->r.hit = 0;
 	while (d->r.hit == 0)
@@ -142,49 +142,55 @@ int		ft_findwall(t_data *d, int x)
 		}
 		d->r.hit = (d->m->map[d->r.rypos][d->r.rxpos] > '0') ? 1 : 0;
 	}
-	return (x); //remove x if unused
+	return (0);
 }
 
 int		ft_colourwixel(t_data *d, int x)
 {
-	int	se;
-	int height;
-	int wstart;
-	int wend;
-	
+	int		se;
+	int		hwall;
+	int		wstart;
+	int		wend;
+
 	se = ((d->r.pole == 0 && d->r.stepx == -1) || \
 	(d->r.pole == 1 && d->r.stepy == -1)) ? 1 : 0;
-	
 	d->r.camraylen = (d->r.pole == 0) ? \
 	((d->r.rxpos - d->r.pxpos + se) / d->r.rxdir) : \
 	((d->r.rypos - d->r.pypos + se) / d->r.rydir);
-	
-	height = (int)(d->m->resy / d->r.camraylen);
-	wstart = d->m->resy / 2 - height / 2;
+	hwall = (int)(d->m->resy / d->r.camraylen);
+	wstart = d->m->resy / 2 - hwall / 2;
 	wstart = (wstart < 0) ? 0 : wstart;
-	wend = d->m->resy / 2 + height / 2;
+	wend = d->m->resy / 2 + hwall / 2;
 	wend = (wend >= d->m->resy) ? d->m->resy - 1 : wend;
-	return (x); //remove x if unused
+	ft_buildwall(d, x, wstart, wend);
+	return (x);
 }
 
-void	ft_buildwall(t_mapinfo *m, t_img imga)
+int		ft_buildwall(t_data *d, int x, int wstart, int wend)
 {
-	int		x;
 	int		y;
 	int		colour;
+	t_img	*img;
 
-	colour = ((m->cb) + (m->cg * 16 * 16) + (m->cr * 16 * 16 * 16 * 16));
 	y = 0;
-	while (y < m->resy)
+	colour = (d->m->cb + d->m->cg * 256 + d->m->cr * 256 * 256);
+	img = (d->frame % 2 == 1) ? &(d->imga) : &(d->imgb);
+	while (y < wstart)
 	{
-		x = 0;
-		while (x < m->resx)
-		{
-			ft_put_pixel_img(&imga, x, y, colour);
-			x++;
-		}
+		ft_put_pixel_img(img, x, y, colour);
 		y++;
-		if (y >= (m->resy / 2))
-			colour = ((m->fb) + (m->fg * 256) + (m->fr * 256 * 256));
 	}
+	colour = (d->r.pole == 1) ? 0xCC6600 : 0xA6692C;
+	while (y < wend)
+	{
+		ft_put_pixel_img(img, x, y, colour);
+		y++;
+	}
+	colour = (d->m->fb + d->m->fg * 256 + d->m->fr * 256 * 256);
+	while (y < d->m->resy)
+	{
+		ft_put_pixel_img(img, x, y, colour);
+		y++;
+	}
+	return (0);
 }
