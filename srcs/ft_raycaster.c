@@ -6,51 +6,13 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/18 18:38:06 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/19 16:31:09 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-int		ft_initraydata(t_raydata *r, t_mapinfo *m);
-
-int		ft_ppostobox(t_data *d);
-
-int		ft_findwall(t_data *d);
-
-int		ft_colourwixel(t_data *d, int x);
-
-int		ft_buildwall(t_data *d, int x, int wstart, int wend);
-
-int		ft_raycastdebug(t_data *d, int x)
-{
-	if (x % 200 == 0 || d->r.wixel == 0 || d->r.wixel == 1 || d->r.wixel == -1)
-	{
-		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
-		printf("int x: 			%d\n", x);
-		printf("double pxpos:	%f\n", d->r.pxpos);
-		printf("double pypos:	%f\n", d->r.pypos);
-		printf("double pxdir:	%f\n", d->r.pxdir);
-		printf("double pydir:	%f\n", d->r.pydir);
-		printf("double xplane:	%f\n", d->r.xplane);
-		printf("double yplane:	%f\n", d->r.yplane);
-		printf("double wixel:	%f\n", d->r.wixel);
-		printf("double rxdir:	%f\n", d->r.rxdir);
-		printf("double rydir:	%f\n", d->r.rydir);
-		printf("double rxpos:	%d\n", d->r.rxpos);
-		printf("double rypos:	%d\n", d->r.rypos);
-		printf("double wedelta:	%f\n", d->r.wedelta);
-		printf("double nsdelta:	%f\n", d->r.nsdelta);
-
-		printf("int stepx:		%d\n", d->r.stepx);
-		printf("int stepy:		%d\n", d->r.stepy);
-		printf("double weside:	%f\n", d->r.weside);
-		printf("double nsside:	%f\n", d->r.nsside);
-	}
-	return (0);
-}
-
-int		ft_castray(t_data *d)
+void	ft_castray(t_data *d)
 {
 	int x;
 
@@ -63,43 +25,28 @@ int		ft_castray(t_data *d)
 		d->r.rydir = d->r.pydir + d->r.yplane * d->r.wixel;
 		d->r.rxpos = (int)d->r.pxpos;
 		d->r.rypos = (int)d->r.pypos;
-		d->r.wedelta = sqrt(1 + (d->r.rydir * d->r.rydir) / \
-		(d->r.rxdir * d->r.rxdir)); //this is sometimes inf
-		d->r.nsdelta = sqrt(1 + (d->r.rxdir * d->r.rxdir) / \
-		(d->r.rydir * d->r.rydir)); //this is sometimes inf
+		d->r.nsdelta = (d->r.rydir == 0) ? 1 : 0;
+		d->r.wedelta = (d->r.rxdir == 0) ? 1 : 0;
+		if (d->r.rxdir != 0 && d->r.rydir != 0)
+		{
+			d->r.wedelta = sqrt(1 + (d->r.rydir * d->r.rydir) / \
+			(d->r.rxdir * d->r.rxdir));
+			d->r.nsdelta = sqrt(1 + (d->r.rxdir * d->r.rxdir) / \
+			(d->r.rydir * d->r.rydir));
+		}
 		ft_ppostobox(d);
 		ft_findwall(d);
 		ft_colourwixel(d, x);
-		//ft_raycastdebug(d, x);
 		x++;
 	}
-	return (0);
-}
-
-int		ft_initraydata(t_raydata *r, t_mapinfo *m)
-{
-	double fov;
-
-	fov = 0.66;
-	r->pxpos = (double)m->posx + 0.5;
-	r->pypos = (double)m->posy + 0.5;
-	r->pxdir = (m->facing == 'E') ? 1 : 0;
-	r->pydir = (m->facing == 'S') ? 1 : 0;
-	r->pxdir = (m->facing == 'W') ? -1 : r->pxdir;
-	r->pydir = (m->facing == 'N') ? -1 : r->pydir;
-	r->yplane = (r->pxdir == 1) ? fov : 0;
-	r->xplane = (r->pydir == 1) ? (-1 * fov) : 0;
-	r->yplane = (r->pxdir == -1) ? (-1 * fov) : r->yplane; //making the plane negative might be wrong
-	r->xplane = (r->pydir == -1) ? fov : r->xplane;
-	return (0);
 }
 
 int		ft_ppostobox(t_data *d)
 {
 	d->r.stepx = 0;
 	d->r.stepy = 0;
-	d->r.weside = 0; //this is also sometimes infinite, in case rxdir = 0
-	d->r.nsside = 0; //this is also sometimes infinite
+	d->r.weside = 0;
+	d->r.nsside = 0;
 	if (d->r.rxdir < 0)
 	{
 		d->r.stepx = -1;

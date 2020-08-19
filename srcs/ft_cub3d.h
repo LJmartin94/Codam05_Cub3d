@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/15 03:14:27 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/19 16:16:43 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,15 @@ int				ft_printall(t_mapinfo *m); //DEBUG ONLY
 
 int				main(int argc, char **argv);
 
+t_mapinfo		ft_constructor(t_mapinfo *mapinfo);
+int				ft_initraydata(t_raydata *r, t_mapinfo *m);
+
 int				ft_prelimcheck(int argc, char *mapfile, t_mapinfo *m);
 int				ft_checkcub(char *mapfile);
 int				xt_parserror(int type, t_mapinfo *m);
 int				xt_mallocerror(t_mapinfo *m);
 int				xt_mlxerror(t_mapinfo *m);
 
-t_mapinfo		ft_constructor(t_mapinfo *mapinfo);
 void			ft_parser(t_mapinfo *mapinfo);
 int				ft_elemxref(t_mapinfo *mapinfo, char flag);
 int				ft_skipspace(char *line, int *i);
@@ -130,7 +132,11 @@ void			ft_resize(void *mlx, t_mapinfo *m);
 void			ft_createimgs(t_img *a, t_img *b, void *mlx, t_mapinfo *m);
 void			ft_put_pixel_img(t_img *img, int x, int y, int colour);
 
-int				ft_castray(t_data *d);
+void			ft_castray(t_data *d);
+int				ft_ppostobox(t_data *d);
+int				ft_findwall(t_data *d);
+int				ft_colourwixel(t_data *d, int x);
+int				ft_buildwall(t_data *d, int x, int wstart, int wend);
 
 int				ft_mlx_run(t_data *data);
 

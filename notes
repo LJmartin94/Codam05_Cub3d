@@ -10,3 +10,4 @@ Need to handle spaces between the individual parts of map elements
 
 In ft_raycaster, wedelta is infinite if facing north or south, and nsdelta is infinite if facing west or east
 
+Check what the difference is between having a plane be negative or positive in ft_initraydat in ft_constructors.c, when rotation and movement is possible 

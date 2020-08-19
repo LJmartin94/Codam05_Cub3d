@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/08/07 19:32:11 by lindsay       ########   odam.nl          #
+#    Updated: 2020/08/19 14:42:39 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 HEADER_FILES = $(INCL_PATH)ft_cub3d.h
 
 SRC		= $(SRC_PATH)ft_cub3dmain.c \
+		$(SRC_PATH)ft_constructors.c \
 		$(SRC_PATH)ft_error_checker.c \
 		$(SRC_PATH)ft_parser_part1.c \
 		$(SRC_PATH)ft_parser_part2.c \

@@ -6,13 +6,11 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/23 15:39:24 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/18 17:27:14 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/19 13:45:33 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
-
-void	ft_heavensplit(t_mapinfo *m, t_img imga);
 
 t_data	ft_window(t_mapinfo *m)
 {
@@ -50,33 +48,9 @@ void	ft_createimgs(t_img *a, t_img *b, void *mlx, t_mapinfo *m)
 	a->cont = mlx_new_image(mlx, m->resx, m->resy);
 	a->addr = mlx_get_data_addr(a->cont, &a->bits_per_pixel, \
 	&a->line_bytes, &a->endian);
-	//ft_heavensplit(m, *a);
 	b->cont = mlx_new_image(mlx, m->resx, m->resy);
 	b->addr = mlx_get_data_addr(b->cont, &b->bits_per_pixel, \
 	&b->line_bytes, &b->endian);
-	//ft_heavensplit(m, *b);
-}
-
-void	ft_heavensplit(t_mapinfo *m, t_img imga)
-{
-	int		x;
-	int		y;
-	int		colour;
-
-	colour = ((m->cb) + (m->cg * 16 * 16) + (m->cr * 16 * 16 * 16 * 16));
-	y = 0;
-	while (y < m->resy)
-	{
-		x = 0;
-		while (x < m->resx)
-		{
-			ft_put_pixel_img(&imga, x, y, colour);
-			x++;
-		}
-		y++;
-		if (y >= (m->resy / 2))
-			colour = ((m->fb) + (m->fg * 256) + (m->fr * 256 * 256));
-	}
 }
 
 void	ft_put_pixel_img(t_img *img, int x, int y, int colour)

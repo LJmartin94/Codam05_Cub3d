@@ -6,37 +6,11 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:41:20 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/23 00:53:30 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/19 14:39:58 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
-
-t_mapinfo	ft_constructor(t_mapinfo *mapinfo)
-{
-	mapinfo->fd = -1;
-	mapinfo->noerror = 1;
-	mapinfo->resx = -1;
-	mapinfo->resy = -1;
-	mapinfo->northtex = NULL;
-	mapinfo->southtex = NULL;
-	mapinfo->westtex = NULL;
-	mapinfo->easttex = NULL;
-	mapinfo->spritetex = NULL;
-	mapinfo->spriteno = 0;
-	mapinfo->fr = -1;
-	mapinfo->fg = -1;
-	mapinfo->fb = -1;
-	mapinfo->cr = -1;
-	mapinfo->cg = -1;
-	mapinfo->cb = -1;
-	mapinfo->facing = '\0';
-	mapinfo->mapstart = 0;
-	mapinfo->ydim = 1;
-	mapinfo->map = NULL;
-	mapinfo->copy = NULL;
-	return (*mapinfo);
-}
 
 void		ft_parser(t_mapinfo *m)
 {
