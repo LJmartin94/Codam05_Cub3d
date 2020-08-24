@@ -6,16 +6,12 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/19 16:16:43 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/24 18:31:42 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CUB3D_H
 # define FT_CUB3D_H
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
 
 # include <fcntl.h>
 # include <errno.h>
@@ -25,6 +21,43 @@
 # include <stddef.h>
 # include <mlx.h>
 # include <math.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+# ifdef LINUX
+
+typedef enum	e_linux_keys
+{
+	W = 119,
+	A = 97,
+	S = 115,
+	D = 100,
+	UP = 65362,
+	DOWN = 65364,
+	LEFT = 65361,
+	RIGHT = 65363,
+	ESC = 65307,
+}				t_linux_keys;
+# endif
+
+# ifndef LINUX
+#  define LINUX 0
+
+typedef enum	e_mac_keys
+{
+	W = 13,
+	A = 0,
+	S = 1,
+	D = 2,
+	UP = 126,
+	DOWN = 125,
+	LEFT = 123,
+	RIGHT = 124,
+	ESC = 53,
+}				t_mac_keys;
+# endif
 
 typedef	struct	s_mapinfo
 {
@@ -137,6 +170,8 @@ int				ft_ppostobox(t_data *d);
 int				ft_findwall(t_data *d);
 int				ft_colourwixel(t_data *d, int x);
 int				ft_buildwall(t_data *d, int x, int wstart, int wend);
+
+int				ft_listen_for_event(t_data *data);
 
 int				ft_mlx_run(t_data *data);
 

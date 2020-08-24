@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/08/19 14:42:39 by lindsay       ########   odam.nl          #
+#    Updated: 2020/08/24 17:41:15 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC		= $(SRC_PATH)ft_cub3dmain.c \
 		$(SRC_PATH)ft_map.c \
 		$(SRC_PATH)ft_window.c \
 		$(SRC_PATH)ft_raycaster.c \
+		$(SRC_PATH)ft_keyhook.c \
 		$(SRC_PATH)ft_mlx.c \
 		$(SRC_PATH)ft_quit.c \
 		$(SRC_PATH)get_next_line.c \
@@ -56,21 +57,25 @@ MLX_DIR = mlx_linux
 MLX_LIB = libmlx.a
 INCLUDE_MLX_HEADERS = /usr/include
 LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz
+OS_FLAG = LINUX=1
 #LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz  -I./$(MLX_DIR) -lbsd
 else 
 MLX_DIR = mlx
 MLX_LIB = libmlx.dylib
 INCLUDE_MLX_HEADERS = . 
 LINK_LIBRARY = -framework OpenGL -framework AppKit
+OS_FLAG = LINUX=0
 endif
 
 all: $(NAME)
 
 $(NAME): $(COMPILE_OBJECTS)
-	$(CC) -o $(NAME) $(COMPILE_OBJECTS) -L$(MLX_DIR) -lmlx $(LINK_LIBRARY) $(CFLAGS)
+	$(CC) -o $(NAME) $(COMPILE_OBJECTS) -L$(MLX_DIR) -lmlx $(LINK_LIBRARY) \
+	$(CFLAGS) -D $(OS_FLAG)
 
 %.o: %.c $(HEADER_FILES) $(MLX_LIB)
-	$(CC) -o $@ -c $< $(CFLAGS) -O3 -I$(INCLUDE_MLX_HEADERS) -I./$(MLX_DIR) -I $(INCL_PATH)
+	$(CC) -o $@ -c $< $(CFLAGS) -O3 -I$(INCLUDE_MLX_HEADERS) -I./$(MLX_DIR) \
+	-I $(INCL_PATH) -D $(OS_FLAG)
 
 $(MLX_LIB):
 	@make -C ./$(MLX_DIR)
