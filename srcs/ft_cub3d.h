@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/24 18:31:42 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/25 15:24:16 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,20 @@ typedef	struct	s_raydata
 	int			pole;
 }				t_raydata;
 
+typedef	struct	s_movementdata
+{
+	double		newpx;
+	double		newpy;
+	double		speed;
+}				t_movementdata;
+
 typedef struct	s_data
 {
 	t_mapinfo		*m;
 	t_img			imga;
 	t_img			imgb;
 	t_raydata		r;
+	t_movementdata	md;
 	void			*mlx;
 	void			*win;
 	long			frame;
@@ -172,6 +180,13 @@ int				ft_colourwixel(t_data *d, int x);
 int				ft_buildwall(t_data *d, int x, int wstart, int wend);
 
 int				ft_listen_for_event(t_data *data);
+int				ft_event_switchboard(int key, t_data *d);
+
+void			ft_wasd(t_data *d, int key);
+int				ft_wmove(t_data *d);
+int				ft_smove(t_data *d);
+int				ft_dmove(t_data *d);
+int				ft_amove(t_data *d);
 
 int				ft_mlx_run(t_data *data);
 

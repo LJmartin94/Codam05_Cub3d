@@ -11,3 +11,12 @@ Need to handle spaces between the individual parts of map elements
 In ft_raycaster, wedelta is infinite if facing north or south, and nsdelta is infinite if facing west or east
 
 Check what the difference is between having a plane be negative or positive in ft_initraydat in ft_constructors.c, when rotation and movement is possible 
+
+Go through the subject pdf again when you think youre finished
+
+Current problems with basic movement functionality:
+There is an in built delay between when a key is held down between the first press registered and a continued subsequent registering of presses.
+You cannot hold down to direction keys simultaneously to move diagonally.
+Pressing one movement key will interupt the other, ongoing, movement: even if that key has not been released yet.
+These issues should all be fixable when listening for key releases as well as key presses, I think.
+

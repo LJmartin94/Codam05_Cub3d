@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/19 16:31:09 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/25 13:56:54 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_castray(t_data *d)
 	int x;
 
 	x = 0;
-	ft_initraydata(&(d->r), d->m);
 	while (x <= d->m->resx)
 	{
 		d->r.wixel = -1 + (x / (double)d->m->resx) * 2;
