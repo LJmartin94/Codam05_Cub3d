@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/25 15:24:16 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/26 16:18:14 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,9 @@ typedef	struct	s_movementdata
 	double		newpx;
 	double		newpy;
 	double		speed;
+	double		ccw;
+	double		rot;
+	double		prevx;
 }				t_movementdata;
 
 typedef struct	s_data
@@ -183,10 +186,7 @@ int				ft_listen_for_event(t_data *data);
 int				ft_event_switchboard(int key, t_data *d);
 
 void			ft_wasd(t_data *d, int key);
-int				ft_wmove(t_data *d);
-int				ft_smove(t_data *d);
-int				ft_dmove(t_data *d);
-int				ft_amove(t_data *d);
+void			ft_rot(t_data *d, int key);
 
 int				ft_mlx_run(t_data *data);
 
