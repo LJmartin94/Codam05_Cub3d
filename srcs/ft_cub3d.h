@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/26 16:18:14 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/27 21:58:23 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ typedef	struct	s_movementdata
 	double		ccw;
 	double		rot;
 	double		prevx;
+	//int			pressed; probably need individual direction variables
 }				t_movementdata;
 
 typedef struct	s_data
