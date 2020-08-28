@@ -20,3 +20,6 @@ You cannot hold down to direction keys simultaneously to move diagonally.
 Pressing one movement key will interupt the other, ongoing, movement: even if that key has not been released yet.
 These issues should all be fixable when listening for key releases as well as key presses, I think.
 
+Can make strafing euclidean by doing something like "if (perpmov != 0 && parmov != 0), 
+then movspd = ((sqrt(movspd * movspd + movspd * movspd))/2), then reset it to what it was at the end of the calc.
+

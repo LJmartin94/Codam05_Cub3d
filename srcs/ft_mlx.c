@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 14:20:31 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/24 16:26:15 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/28 14:24:25 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 int		ft_mlx_run(t_data *data)
 {
-	ft_castray(data);
-	data->frame++;
-	if (data->frame % 2 == 0)
-		mlx_put_image_to_window(data->mlx, data->win, data->imga.cont, 0, 0);
-	else
-		mlx_put_image_to_window(data->mlx, data->win, data->imgb.cont, 0, 0);
+	if (data->md.perpmov != 0 || data->md.parmov != 0)
+		ft_wasd(data);
+	if (data->md.rotating != 0)
+		ft_rot(data);
+	ft_update_window(data);
 	return (0);
 }

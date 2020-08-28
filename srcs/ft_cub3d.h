@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/27 21:58:23 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/28 14:14:26 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,13 @@ typedef	struct	s_movementdata
 {
 	double		newpx;
 	double		newpy;
-	double		speed;
+	double		movspd;
 	double		ccw;
-	double		rot;
+	double		rotspd;
 	double		prevx;
-	//int			pressed; probably need individual direction variables
+	int			perpmov;
+	int			parmov;
+	int			rotating;
 }				t_movementdata;
 
 typedef struct	s_data
@@ -176,6 +178,7 @@ t_data			ft_window(t_mapinfo *m);
 void			ft_resize(void *mlx, t_mapinfo *m);
 void			ft_createimgs(t_img *a, t_img *b, void *mlx, t_mapinfo *m);
 void			ft_put_pixel_img(t_img *img, int x, int y, int colour);
+void			ft_update_window(t_data *data);
 
 void			ft_castray(t_data *d);
 int				ft_ppostobox(t_data *d);
@@ -186,8 +189,8 @@ int				ft_buildwall(t_data *d, int x, int wstart, int wend);
 int				ft_listen_for_event(t_data *data);
 int				ft_event_switchboard(int key, t_data *d);
 
-void			ft_wasd(t_data *d, int key);
-void			ft_rot(t_data *d, int key);
+void			ft_wasd(t_data *d);
+void			ft_rot(t_data *d);
 
 int				ft_mlx_run(t_data *data);
 

@@ -6,33 +6,33 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/25 13:06:36 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/27 17:41:33 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/28 14:14:09 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-void	ft_wasd(t_data *d, int key)
+void	ft_wasd(t_data *d)
 {
-	if (key == W || key == UP)
+	if (d->md.perpmov == -1)
 	{
-		d->md.newpx = d->r.pxpos + (d->r.pxdir * d->md.speed);
-		d->md.newpy = d->r.pypos + (d->r.pydir * d->md.speed);
+		d->md.newpx = d->r.pxpos + (d->r.pxdir * d->md.movspd);
+		d->md.newpy = d->r.pypos + (d->r.pydir * d->md.movspd);
 	}
-	if (key == S || key == DOWN)
+	if (d->md.perpmov == 1)
 	{
-		d->md.newpx = d->r.pxpos - (d->r.pxdir * d->md.speed);
-		d->md.newpy = d->r.pypos - (d->r.pydir * d->md.speed);
+		d->md.newpx = d->r.pxpos - (d->r.pxdir * d->md.movspd);
+		d->md.newpy = d->r.pypos - (d->r.pydir * d->md.movspd);
 	}
-	if (key == D)
+	if (d->md.parmov == 1)
 	{
-		d->md.newpx = d->r.pxpos + (d->r.pydir * d->md.speed * -1);
-		d->md.newpy = d->r.pypos + (d->r.pxdir * d->md.speed);
+		d->md.newpx = d->r.pxpos + (d->r.pydir * d->md.movspd * -1);
+		d->md.newpy = d->r.pypos + (d->r.pxdir * d->md.movspd);
 	}
-	if (key == A)
+	if (d->md.parmov == -1)
 	{
-		d->md.newpx = d->r.pxpos + (d->r.pydir * d->md.speed);
-		d->md.newpy = d->r.pypos + (d->r.pxdir * d->md.speed * -1);
+		d->md.newpx = d->r.pxpos + (d->r.pydir * d->md.movspd);
+		d->md.newpy = d->r.pypos + (d->r.pxdir * d->md.movspd * -1);
 	}
 	if (d->m->map[(int)d->r.pypos][(int)d->md.newpx] == '0')
 		d->r.pxpos = d->md.newpx;
@@ -40,17 +40,19 @@ void	ft_wasd(t_data *d, int key)
 		d->r.pypos = d->md.newpy;
 }
 
-void	ft_rot(t_data *d, int key)
+void	ft_rot(t_data *d)
 {
-	d->md.prevx = d->r.pxdir;
-	d->md.ccw = (key == LEFT) ? -1 : 1;
-	d->r.pxdir = d->r.pxdir * cos(d->md.rot) - d->r.pydir * sin(d->md.rot) \
-	* d->md.ccw;
-	d->r.pydir = d->r.pydir * cos(d->md.rot) + d->md.prevx * sin(d->md.rot) \
-	* d->md.ccw;
-	d->md.prevx = d->r.xplane;
-	d->r.xplane = d->r.xplane * cos(d->md.rot) - d->r.yplane * sin(d->md.rot) \
-	* d->md.ccw;
-	d->r.yplane = d->r.yplane * cos(d->md.rot) + d->md.prevx * sin(d->md.rot) \
-	* d->md.ccw;
+	if (d->md.rotating != 0)
+	{
+		d->md.prevx = d->r.pxdir;
+		d->r.pxdir = d->r.pxdir * cos(d->md.rotspd) - d->r.pydir * \
+		sin(d->md.rotspd) * d->md.rotating;
+		d->r.pydir = d->r.pydir * cos(d->md.rotspd) + d->md.prevx * \
+		sin(d->md.rotspd) * d->md.rotating;
+		d->md.prevx = d->r.xplane;
+		d->r.xplane = d->r.xplane * cos(d->md.rotspd) - d->r.yplane * \
+		sin(d->md.rotspd) * d->md.rotating;
+		d->r.yplane = d->r.yplane * cos(d->md.rotspd) + d->md.prevx * \
+		sin(d->md.rotspd) * d->md.rotating;
+	}
 }
