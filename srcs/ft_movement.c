@@ -6,11 +6,13 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/25 13:06:36 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/28 14:14:09 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/28 20:05:34 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
+
+void	ft_checkcollision(t_data *d);
 
 void	ft_wasd(t_data *d)
 {
@@ -19,21 +21,29 @@ void	ft_wasd(t_data *d)
 		d->md.newpx = d->r.pxpos + (d->r.pxdir * d->md.movspd);
 		d->md.newpy = d->r.pypos + (d->r.pydir * d->md.movspd);
 	}
+	ft_checkcollision(d);
 	if (d->md.perpmov == 1)
 	{
 		d->md.newpx = d->r.pxpos - (d->r.pxdir * d->md.movspd);
 		d->md.newpy = d->r.pypos - (d->r.pydir * d->md.movspd);
 	}
+	ft_checkcollision(d);
 	if (d->md.parmov == 1)
 	{
 		d->md.newpx = d->r.pxpos + (d->r.pydir * d->md.movspd * -1);
 		d->md.newpy = d->r.pypos + (d->r.pxdir * d->md.movspd);
 	}
+	ft_checkcollision(d);
 	if (d->md.parmov == -1)
 	{
 		d->md.newpx = d->r.pxpos + (d->r.pydir * d->md.movspd);
 		d->md.newpy = d->r.pypos + (d->r.pxdir * d->md.movspd * -1);
 	}
+	ft_checkcollision(d);
+}
+
+void	ft_checkcollision(t_data *d)
+{
 	if (d->m->map[(int)d->r.pypos][(int)d->md.newpx] == '0')
 		d->r.pxpos = d->md.newpx;
 	if (d->m->map[(int)d->md.newpy][(int)d->r.pxpos] == '0')

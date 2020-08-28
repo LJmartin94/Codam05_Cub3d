@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 14:39:09 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/26 16:27:58 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/28 20:00:51 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,15 @@ int			ft_initraydata(t_raydata *r, t_mapinfo *m)
 	r->yplane = (r->pxdir == -1) ? (-1 * fov) : r->yplane;
 	r->xplane = (r->pydir == -1) ? fov : r->xplane;
 	m->map[m->posy][m->posx] = '0';
+	return (0);
+}
+
+int			ft_getmovin(t_data *d)
+{
+	d->md.movspd = 0.05;
+	d->md.rotspd = 0.05;
+	d->md.perpmov = 0;
+	d->md.parmov = 0;
+	d->md.rotating = 0;
 	return (0);
 }
