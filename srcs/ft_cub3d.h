@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/28 20:11:29 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/31 15:26:19 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,13 @@ typedef	struct	s_movementdata
 	double		newpx;
 	double		newpy;
 	double		movspd;
+	double		direct;
+	double		strafe;
 	double		ccw;
 	double		rotspd;
 	double		prevx;
-	int			perpmov;
-	int			parmov;
+	int			v;
+	int			h;
 	int			rotating;
 }				t_movementdata;
 
@@ -188,7 +190,8 @@ int				ft_colourwixel(t_data *d, int x);
 int				ft_buildwall(t_data *d, int x, int wstart, int wend);
 
 int				ft_listen_for_event(t_data *data);
-int				ft_event_switchboard(int key, t_data *d);
+int				ft_pressed(int key, t_data *d);
+int				ft_release(int key, t_data *d);
 
 void			ft_wasd(t_data *d);
 void			ft_checkcollision(t_data *d);

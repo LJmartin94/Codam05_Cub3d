@@ -8,18 +8,8 @@ Minimum Resolution is currently 1x1, this should probably be larger but I don't 
 
 Need to handle spaces between the individual parts of map elements
 
-In ft_raycaster, wedelta is infinite if facing north or south, and nsdelta is infinite if facing west or east
-
-Check what the difference is between having a plane be negative or positive in ft_initraydat in ft_constructors.c, when rotation and movement is possible 
-
 Go through the subject pdf again when you think youre finished
 
-Current problems with basic movement functionality:
-There is an in built delay between when a key is held down between the first press registered and a continued subsequent registering of presses.
-You cannot hold down to direction keys simultaneously to move diagonally.
-Pressing one movement key will interupt the other, ongoing, movement: even if that key has not been released yet.
-These issues should all be fixable when listening for key releases as well as key presses, I think.
+Need to update makefile rules, make re etc.
 
-Can make strafing euclidean by doing something like "if (perpmov != 0 && parmov != 0), 
-then movspd = ((sqrt(movspd * movspd + movspd * movspd))/2), then reset it to what it was at the end of the calc.
-
+Check if you can trigger an error with a valid .cub file by leaving it in a directory and telling the program it is located at "that_dir/*", shouldnt be an error, but might be in my current setup.

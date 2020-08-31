@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 14:39:09 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/28 20:00:51 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/31 15:26:12 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ int			ft_initraydata(t_raydata *r, t_mapinfo *m)
 int			ft_getmovin(t_data *d)
 {
 	d->md.movspd = 0.05;
+	d->md.direct = d->md.movspd;
+	d->md.strafe = (sqrt(pow(d->md.movspd, 2) + pow(d->md.movspd, 2))) / 2;
 	d->md.rotspd = 0.05;
-	d->md.perpmov = 0;
-	d->md.parmov = 0;
+	d->md.v = 0;
+	d->md.h = 0;
 	d->md.rotating = 0;
 	return (0);
 }

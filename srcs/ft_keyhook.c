@@ -6,14 +6,11 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/22 16:50:46 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/28 20:10:55 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/08/31 15:29:26 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
-
-int		ft_pressed(int key, t_data *d);
-int		ft_release(int key, t_data *d);
 
 int		ft_listen_for_event(t_data *data)
 {
@@ -25,13 +22,13 @@ int		ft_listen_for_event(t_data *data)
 int		ft_pressed(int key, t_data *d)
 {
 	if (key == W || key == UP)
-		d->md.perpmov = -1;
+		d->md.v = -1;
 	else if (key == S || key == DOWN)
-		d->md.perpmov = 1;
+		d->md.v = 1;
 	else if (key == A)
-		d->md.parmov = -1;
+		d->md.h = -1;
 	else if (key == D)
-		d->md.parmov = 1;
+		d->md.h = 1;
 	else if (key == LEFT)
 		d->md.rotating = -1;
 	else if (key == RIGHT)
@@ -44,13 +41,13 @@ int		ft_pressed(int key, t_data *d)
 int		ft_release(int key, t_data *d)
 {
 	if (key == W || key == UP)
-		d->md.perpmov = 0;
+		d->md.v = 0;
 	else if (key == S || key == DOWN)
-		d->md.perpmov = 0;
+		d->md.v = 0;
 	else if (key == A)
-		d->md.parmov = 0;
+		d->md.h = 0;
 	else if (key == D)
-		d->md.parmov = 0;
+		d->md.h = 0;
 	else if (key == LEFT)
 		d->md.rotating = 0;
 	else if (key == RIGHT)
