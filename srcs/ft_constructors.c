@@ -6,11 +6,13 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 14:39:09 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/31 15:26:12 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/02 13:47:50 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
+
+int			ft_gettex(t_data *d);
 
 t_mapinfo	ft_constructor(t_mapinfo *mapinfo)
 {
@@ -66,5 +68,20 @@ int			ft_getmovin(t_data *d)
 	d->md.v = 0;
 	d->md.h = 0;
 	d->md.rotating = 0;
+	return (0);
+}
+
+int			ft_gettex(t_data *d)
+{
+	d->tex.north = mlx_xpm_file_to_image(d->mlx, d->m->northtex, \
+	d->tex.nw, d->tex.nh);
+	d->tex.south = mlx_xpm_file_to_image(d->mlx, d->m->southtex, \
+	d->tex.sw, d->tex.sh);
+	d->tex.west = mlx_xpm_file_to_image(d->mlx, d->m->westtex, \
+	d->tex.ww, d->tex.wh);
+	d->tex.east = mlx_xpm_file_to_image(d->mlx, d->m->easttex, \
+	d->tex.ew, d->tex.eh);
+	d->tex.sprite = mlx_xpm_file_to_image(d->mlx, d->m->spritetex, \
+	d->tex.spw, d->tex.sph);
 	return (0);
 }

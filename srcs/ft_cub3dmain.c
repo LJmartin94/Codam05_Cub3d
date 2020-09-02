@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:42:12 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/28 18:21:01 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/02 13:39:04 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int		main(int argc, char **argv)
 	d = ft_window(&mapinfo);
 	ft_initraydata(&(d.r), d.m);
 	ft_getmovin(&d);
+	ft_gettex(&d);
 	ft_listen_for_event(&d);
 	mlx_loop_hook(d.mlx, &ft_mlx_run, &d);
 	mlx_loop(d.mlx);

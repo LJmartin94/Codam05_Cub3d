@@ -13,3 +13,5 @@ Go through the subject pdf again when you think youre finished
 Need to update makefile rules, make re etc.
 
 Check if you can trigger an error with a valid .cub file by leaving it in a directory and telling the program it is located at "that_dir/*", shouldnt be an error, but might be in my current setup.
+
+First get xpm textures to work, then see if I can make png's work too.
