@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/08/31 15:26:19 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/02 13:33:15 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ typedef	struct	s_img
 
 typedef	struct	s_raydata
 {
-	double		pxpos; //player x position
-	double		pypos; //player y position
-	double		pxdir; //player W-E direction
-	double		pydir; //player N-S direction
+	double		pxpos;
+	double		pypos;
+	double		pxdir;
+	double		pydir;
 	double		xplane;
 	double		yplane;
 	double		wixel;
@@ -135,6 +135,26 @@ typedef	struct	s_movementdata
 	int			rotating;
 }				t_movementdata;
 
+typedef	struct	s_exture
+{
+	void		*north;
+	int			nw;
+	int			nh;
+	void		*south;
+	int			sw;
+	int			sh;
+	void		*west;
+	int			ww;
+	int			wh;
+	void		*east;
+	int			ew;
+	int			eh;
+	void		*sprite;
+	int			spw;
+	int			sph;
+}				t_exture;
+
+
 typedef struct	s_data
 {
 	t_mapinfo		*m;
@@ -142,6 +162,7 @@ typedef struct	s_data
 	t_img			imgb;
 	t_raydata		r;
 	t_movementdata	md;
+	t_exture		tex;
 	void			*mlx;
 	void			*win;
 	long			frame;
