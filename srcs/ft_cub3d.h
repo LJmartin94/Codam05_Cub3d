@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/09/02 13:43:52 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/02 19:45:26 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,20 +138,20 @@ typedef	struct	s_movementdata
 typedef	struct	s_exture
 {
 	void		*north;
-	int			*nw;
-	int			*nh;
+	int			nw;
+	int			nh;
 	void		*south;
-	int			*sw;
-	int			*sh;
+	int			sw;
+	int			sh;
 	void		*west;
-	int			*ww;
-	int			*wh;
+	int			ww;
+	int			wh;
 	void		*east;
-	int			*ew;
-	int			*eh;
+	int			ew;
+	int			eh;
 	void		*sprite;
-	int			*spw;
-	int			*sph;
+	int			spw;
+	int			sph;
 }				t_exture;
 
 typedef struct	s_data
@@ -174,6 +174,7 @@ int				main(int argc, char **argv);
 t_mapinfo		ft_constructor(t_mapinfo *mapinfo);
 int				ft_initraydata(t_raydata *r, t_mapinfo *m);
 int				ft_getmovin(t_data *d);
+int				ft_getteximgs(t_data *d);
 
 int				ft_prelimcheck(int argc, char *mapfile, t_mapinfo *m);
 int				ft_checkcub(char *mapfile);

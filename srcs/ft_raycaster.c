@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/08/25 13:56:54 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/02 19:43:36 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,10 @@ int		ft_buildwall(t_data *d, int x, int wstart, int wend)
 	colour = (d->r.pole == 1) ? 0xCC6600 : 0xA6692C;
 	while (y < wend)
 	{
+		char *imag;
+		imag = d->tex.sprite;
+		imag = imag;
+		colour = *(unsigned int*)imag;
 		ft_put_pixel_img(img, x, y, colour);
 		y++;
 	}
@@ -140,3 +144,13 @@ int		ft_buildwall(t_data *d, int x, int wstart, int wend)
 	}
 	return (0);
 }
+
+// void	ft_put_pixel_img(t_img *img, int x, int y, int colour)
+// {
+// 	char	*dst;
+// 	int		pxl_mem_size;
+
+// 	pxl_mem_size = (img->bits_per_pixel / 8);
+// 	dst = img->addr + (y * img->line_bytes + x * pxl_mem_size);
+// 	*(unsigned int*)dst = colour;
+// }
