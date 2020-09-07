@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/07 15:47:20 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/07 16:04:57 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ int		ft_buildwall(t_data *d, int x, int wstart, int wend)
 		ft_put_pixel_img(img, x, y, colour);
 		y++;
 	}
-	colour = (d->r.pole == 1) ? 0xCC6600 : 0xA6692C;
 	while (y < wend)
 	{
 		colour = ft_gettexel(d, x, y);
@@ -149,8 +148,9 @@ int		ft_gettexel(t_data *d, int x, int y)
 	t_img	tex;
 	int		pxl_mem_size;
 	char	*texel;
-	int colour;
+	int		colour;
 
+	colour = (d->r.pole == 1) ? 0xCC6600 : 0xA6692C;
 	y = 1;
 	x = 15;
 	tex = (d->r.pole == 1) ? d->tex.stex : d->tex.wtex; //only differentiating between NS/WE
