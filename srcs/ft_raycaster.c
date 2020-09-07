@@ -6,13 +6,13 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/07 16:04:57 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/07 20:01:57 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-int		ft_gettexel(t_data *d, int x, int y);
+int		ft_gettexel(t_data *d, int x, int y, int wstart, int wend);
 
 void	ft_castray(t_data *d)
 {
@@ -130,7 +130,7 @@ int		ft_buildwall(t_data *d, int x, int wstart, int wend)
 	}
 	while (y < wend)
 	{
-		colour = ft_gettexel(d, x, y);
+		colour = ft_gettexel(d, x, y, wstart, wend);
 		ft_put_pixel_img(img, x, y, colour);
 		y++;
 	}
@@ -143,19 +143,38 @@ int		ft_buildwall(t_data *d, int x, int wstart, int wend)
 	return (0);
 }
 
-int		ft_gettexel(t_data *d, int x, int y)
+int		ft_gettexel(t_data *d, int x, int y, int wstart, int wend)
 {
 	t_img	tex;
 	int		pxl_mem_size;
 	char	*texel;
 	int		colour;
+	double	xx;
 
-	colour = (d->r.pole == 1) ? 0xCC6600 : 0xA6692C;
-	y = 1;
-	x = 15;
-	tex = (d->r.pole == 1) ? d->tex.stex : d->tex.wtex; //only differentiating between NS/WE
+	xx = (double)x;//filler
+	colour = (d->r.pole == 1) ? 0xCC6600 : 0xA6692C; //old colours
+	tex = (d->r.pole == 1) ? d->tex.stex : d->tex.wtex; //filler
+	if (d->r.pole == 1 && d->r.rydir < 0)
+		tex = d->tex.stex;
+	else if (d->r.pole == 1 && d->r.rydir >= 0)
+		tex = d->tex.ntex;
+	else if (d->r.pole == 0 && d->r.rxdir < 0)
+		tex = d->tex.etex;
+	else if (d->r.pole == 0 && d->r.rxdir >= 0)
+		tex = d->tex.wtex;
+	
+	if (d->r.pole == 1)
+		xx = (double)(d->r.pxpos + d->r.camraylen * d->r.rxdir);
+	else
+		xx = (double)(d->r.pypos + d->r.camraylen * d->r.rydir);
+	xx = (double)((xx - floor(xx)) * tex.width);
+	
+	//x = (x / (double)d->m->resx) * tex.width; //this makes x relative to the screen rather than the wall
+	
+	y = ((y - wstart) / (double)(wend - wstart)) * tex.height;
+	
 	pxl_mem_size = (tex.bits_per_pixel / 8);
-	texel = tex.addr + (y * tex.line_bytes + x * pxl_mem_size); //grabbing arbitrary x and y where the textures differ notably
+	texel = tex.addr + (y * tex.line_bytes + (int)xx * pxl_mem_size);
 	colour = *(unsigned int*)texel;
 	return (colour);
 }

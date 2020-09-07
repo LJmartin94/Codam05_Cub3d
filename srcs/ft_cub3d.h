@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/09/07 14:06:29 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/07 18:11:51 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ typedef	struct	s_img
 	int			bits_per_pixel;
 	int			line_bytes;
 	int			endian;
+	int			width;
+	int			height;
 }				t_img;
 
 typedef	struct	s_raydata
@@ -139,24 +141,14 @@ typedef	struct	s_exture
 {
 	t_img		ntex;
 	void		*north;
-	int			nw;
-	int			nh;
 	t_img		stex;
 	void		*south;
-	int			sw;
-	int			sh;
 	t_img		wtex;
 	void		*west;
-	int			ww;
-	int			wh;
 	t_img		etex;
 	void		*east;
-	int			ew;
-	int			eh;
 	t_img		sptex;
 	void		*sprite;
-	int			spw;
-	int			sph;
 }				t_exture;
 
 typedef struct	s_data

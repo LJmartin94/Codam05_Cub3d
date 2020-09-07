@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 14:39:09 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/07 14:05:35 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/07 18:11:08 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ int			ft_getmovin(t_data *d)
 int			ft_getteximgs(t_data *d)
 {
 	d->tex.north = mlx_xpm_file_to_image(d->mlx, d->m->northtex, \
-	&(d->tex.nw), &(d->tex.nh));
+	&(d->tex.ntex.width), &(d->tex.ntex.height));
 	d->tex.south = mlx_xpm_file_to_image(d->mlx, d->m->southtex, \
-	&(d->tex.sw), &(d->tex.sh));
+	&(d->tex.stex.width), &(d->tex.stex.height));
 	d->tex.west = mlx_xpm_file_to_image(d->mlx, d->m->westtex, \
-	&(d->tex.ww), &(d->tex.wh));
+	&(d->tex.wtex.width), &(d->tex.wtex.height));
 	d->tex.east = mlx_xpm_file_to_image(d->mlx, d->m->easttex, \
-	&(d->tex.ew), &(d->tex.eh));
+	&(d->tex.etex.width), &(d->tex.etex.height));
 	d->tex.sprite = mlx_xpm_file_to_image(d->mlx, d->m->spritetex, \
-	&(d->tex.spw), &(d->tex.sph));
+	&(d->tex.sptex.width), &(d->tex.sptex.height));
 	if (d->tex.north == NULL || d->tex.south == NULL || \
 	d->tex.west == NULL || d->tex.east == NULL || d->tex.sprite == NULL)
 		xt_mlxerror(d->m);
