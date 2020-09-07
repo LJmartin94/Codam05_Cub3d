@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 14:39:09 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/02 19:45:08 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/07 14:05:35 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,16 @@ int			ft_getteximgs(t_data *d)
 	if (d->tex.north == NULL || d->tex.south == NULL || \
 	d->tex.west == NULL || d->tex.east == NULL || d->tex.sprite == NULL)
 		xt_mlxerror(d->m);
+	d->tex.ntex.addr = mlx_get_data_addr(d->tex.north, \
+	&d->tex.ntex.bits_per_pixel, &d->tex.ntex.line_bytes, &d->tex.ntex.endian);
+	d->tex.stex.addr = mlx_get_data_addr(d->tex.south, \
+	&d->tex.stex.bits_per_pixel, &d->tex.stex.line_bytes, &d->tex.stex.endian);
+	d->tex.wtex.addr = mlx_get_data_addr(d->tex.west, \
+	&d->tex.wtex.bits_per_pixel, &d->tex.wtex.line_bytes, &d->tex.wtex.endian);
+	d->tex.etex.addr = mlx_get_data_addr(d->tex.east, \
+	&d->tex.etex.bits_per_pixel, &d->tex.etex.line_bytes, &d->tex.etex.endian);
+	d->tex.sptex.addr = mlx_get_data_addr(d->tex.sprite, \
+	&d->tex.sptex.bits_per_pixel, &d->tex.sptex.line_bytes, \
+	&d->tex.sptex.endian);
 	return (0);
 }

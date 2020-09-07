@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/09/02 19:45:26 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/07 14:06:29 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,18 +137,23 @@ typedef	struct	s_movementdata
 
 typedef	struct	s_exture
 {
+	t_img		ntex;
 	void		*north;
 	int			nw;
 	int			nh;
+	t_img		stex;
 	void		*south;
 	int			sw;
 	int			sh;
+	t_img		wtex;
 	void		*west;
 	int			ww;
 	int			wh;
+	t_img		etex;
 	void		*east;
 	int			ew;
 	int			eh;
+	t_img		sptex;
 	void		*sprite;
 	int			spw;
 	int			sph;

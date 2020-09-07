@@ -15,3 +15,6 @@ Need to update makefile rules, make re etc.
 Check if you can trigger an error with a valid .cub file by leaving it in a directory and telling the program it is located at "that_dir/*", shouldnt be an error, but might be in my current setup.
 
 First get xpm textures to work, then see if I can make png's work too.
+
+Can sometimes cause a 'heap buffer overflow' when stepping backwards first thing when the map is first loaded.
+This could be due to player position not being set properly yet, or perhaps something in the parser that has not yet converted the letter at the start pos on the map to a regular 0?

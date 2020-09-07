@@ -6,11 +6,13 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/02 19:43:36 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/07 15:47:20 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
+
+int		ft_gettexel(t_data *d, int x, int y);
 
 void	ft_castray(t_data *d)
 {
@@ -129,10 +131,7 @@ int		ft_buildwall(t_data *d, int x, int wstart, int wend)
 	colour = (d->r.pole == 1) ? 0xCC6600 : 0xA6692C;
 	while (y < wend)
 	{
-		char *imag;
-		imag = d->tex.sprite;
-		imag = imag;
-		colour = *(unsigned int*)imag;
+		colour = ft_gettexel(d, x, y);
 		ft_put_pixel_img(img, x, y, colour);
 		y++;
 	}
@@ -143,6 +142,22 @@ int		ft_buildwall(t_data *d, int x, int wstart, int wend)
 		y++;
 	}
 	return (0);
+}
+
+int		ft_gettexel(t_data *d, int x, int y)
+{
+	t_img	tex;
+	int		pxl_mem_size;
+	char	*texel;
+	int colour;
+
+	y = 1;
+	x = 15;
+	tex = (d->r.pole == 1) ? d->tex.stex : d->tex.wtex; //only differentiating between NS/WE
+	pxl_mem_size = (tex.bits_per_pixel / 8);
+	texel = tex.addr + (y * tex.line_bytes + x * pxl_mem_size); //grabbing arbitrary x and y where the textures differ notably
+	colour = *(unsigned int*)texel;
+	return (colour);
 }
 
 // void	ft_put_pixel_img(t_img *img, int x, int y, int colour)
