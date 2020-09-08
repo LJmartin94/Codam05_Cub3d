@@ -6,13 +6,13 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/07 20:01:57 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/09 01:00:49 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-int		ft_gettexel(t_data *d, int x, int y, int wstart, int wend);
+int		ft_gettexel(t_data *d, int y, int wstart, int wend);
 
 void	ft_castray(t_data *d)
 {
@@ -130,7 +130,7 @@ int		ft_buildwall(t_data *d, int x, int wstart, int wend)
 	}
 	while (y < wend)
 	{
-		colour = ft_gettexel(d, x, y, wstart, wend);
+		colour = ft_gettexel(d, y, wstart, wend);
 		ft_put_pixel_img(img, x, y, colour);
 		y++;
 	}
@@ -143,15 +143,14 @@ int		ft_buildwall(t_data *d, int x, int wstart, int wend)
 	return (0);
 }
 
-int		ft_gettexel(t_data *d, int x, int y, int wstart, int wend)
+int		ft_gettexel(t_data *d, int y, int wstart, int wend)
 {
 	t_img	tex;
 	int		pxl_mem_size;
 	char	*texel;
 	int		colour;
-	double	xx;
+	double	x;
 
-	xx = (double)x;//filler
 	colour = (d->r.pole == 1) ? 0xCC6600 : 0xA6692C; //old colours
 	tex = (d->r.pole == 1) ? d->tex.stex : d->tex.wtex; //filler
 	if (d->r.pole == 1 && d->r.rydir < 0)
@@ -162,19 +161,28 @@ int		ft_gettexel(t_data *d, int x, int y, int wstart, int wend)
 		tex = d->tex.etex;
 	else if (d->r.pole == 0 && d->r.rxdir >= 0)
 		tex = d->tex.wtex;
-	
 	if (d->r.pole == 1)
-		xx = (double)(d->r.pxpos + d->r.camraylen * d->r.rxdir);
+		x = (double)(d->r.pxpos + d->r.camraylen * d->r.rxdir);
 	else
-		xx = (double)(d->r.pypos + d->r.camraylen * d->r.rydir);
-	xx = (double)((xx - floor(xx)) * tex.width);
-	
-	//x = (x / (double)d->m->resx) * tex.width; //this makes x relative to the screen rather than the wall
-	
-	y = ((y - wstart) / (double)(wend - wstart)) * tex.height;
-	
+		x = (double)(d->r.pypos + d->r.camraylen * d->r.rydir);
+	x = (double)((x - floor(x)) * tex.width);
+	// y = ((y - wstart) / (double)(wend - wstart)) * tex.height;
+	// if (wstart <= 0)
+	// 	y = y * d->r.camraylen;
+	if (wstart > 0)
+		y = ((y - wstart) / (double)(wend - wstart)) * tex.height;
+	if (wstart <= 0)
+		y = tex.height / 2;
+	//	y = (((y - wstart) / (double)(wend - wstart)) * 2 - 1) * d->r.camraylen * tex.height + tex.height / 2;
+
+	// double step = 1.0 * tex.height / (double)(wend - wstart);
+	// double texPos = ((double)wstart - (double)d->m->resy / 2 + (double)(wend - wstart) / 2) * step;
+	// texPos = texPos + step * (y - 1);
+	// int texy = (int)texPos & (tex.height - 1);
+	// y = texy;
+
 	pxl_mem_size = (tex.bits_per_pixel / 8);
-	texel = tex.addr + (y * tex.line_bytes + (int)xx * pxl_mem_size);
+	texel = tex.addr + (y * tex.line_bytes + (int)x * pxl_mem_size);
 	colour = *(unsigned int*)texel;
 	return (colour);
 }
