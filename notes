@@ -18,3 +18,6 @@ First get xpm textures to work, then see if I can make png's work too.
 
 Can sometimes cause a 'heap buffer overflow' when stepping backwards first thing when the map is first loaded.
 This could be due to player position not being set properly yet, or perhaps something in the parser that has not yet converted the letter at the start pos on the map to a regular 0?
+
+Sometimes segfaults when walking straight into a wall from the starting position without turning slightly first, probably to do with the pxdir or pydir being exactly 0? 
+Need to investigate what causes this exactly, and stop it from happening.

@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/09 13:29:50 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/09 15:42:40 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_castray(t_data *d)
 	int x;
 
 	x = 0;
-	while (x <= d->m->resx)
+	while (x < d->m->resx)
 	{
 		d->r.wixel = -1 + (x / (double)d->m->resx) * 2;
 		d->r.rxdir = d->r.pxdir + d->r.xplane * d->r.wixel;
@@ -109,7 +109,7 @@ int		ft_colourwixel(t_data *d, int x)
 	wstart = d->m->resy / 2 - hwall / 2;
 	wstart = (wstart < 0) ? 0 : wstart;
 	wend = d->m->resy / 2 + hwall / 2;
-	wend = (wend >= d->m->resy) ? d->m->resy - 1 : wend;
+	wend = (wend >= d->m->resy) ? d->m->resy : wend;
 	ft_buildwall(d, x, wstart, wend);
 	return (x);
 }
@@ -146,48 +146,28 @@ int		ft_buildwall(t_data *d, int x, int wstart, int wend)
 int		ft_gettexel(t_data *d, int y, int wstart, int wend)
 {
 	t_img	tex;
-	int		pxl_mem_size;
 	char	*texel;
-	int		colour;
 	double	x;
+	int		colour;
 
-	colour = (d->r.pole == 1) ? 0xCC6600 : 0xA6692C; //old colours
-	tex = (d->r.pole == 1) ? d->tex.stex : d->tex.wtex; //filler
 	if (d->r.pole == 1 && d->r.rydir < 0)
 		tex = d->tex.stex;
 	else if (d->r.pole == 1 && d->r.rydir >= 0)
 		tex = d->tex.ntex;
 	else if (d->r.pole == 0 && d->r.rxdir < 0)
 		tex = d->tex.etex;
-	else if (d->r.pole == 0 && d->r.rxdir >= 0)
+	else
 		tex = d->tex.wtex;
 	if (d->r.pole == 1)
 		x = (double)(d->r.pxpos + d->r.camraylen * d->r.rxdir);
 	else
 		x = (double)(d->r.pypos + d->r.camraylen * d->r.rydir);
 	x = (double)((x - floor(x)) * tex.width);
-	if (wstart > 0) //normal situation, when far enough away from the wall to see a bit of ceiling & floor.
-		y = ((y - wstart) / (double)(wend - wstart)) * tex.height;
-	// if (wstart <= 0)
-	// 	y = ((y - wstart) / (double)(wend - wstart)) * tex.height * d->r.camraylen; //zooms into the top
-	// if (wstart <= 0)
-	// 	y = tex.height / 2; //shows only the middle of the texture
-	// if (wstart <= 0)
-	// 	y = tex.height / 2 + ((((y - wstart) / (double)(wend - wstart)) * 2 - 1) * (tex.height / 2)); //half the texture plus or minus half the texture
-	if (wstart <= 0)
-		y = tex.height / 2 + (((((y - wstart) / (double)(wend - wstart)) * 2 - 1) * (tex.height / 2)) * d->r.camraylen); // half the tex plus or minus half the tex multiplied by the camraylen
-	pxl_mem_size = (tex.bits_per_pixel / 8);
-	texel = tex.addr + (y * tex.line_bytes + (int)x * pxl_mem_size);
+	y = (((y - wstart) / (double)(wend - wstart)) * 2 - 1) \
+	* (tex.height / 2);
+	y = (d->r.camraylen <= 1) ? y * d->r.camraylen : y;
+	y = y + (tex.height / 2);
+	texel = tex.addr + (y * tex.line_bytes + (int)x * (tex.bits_per_pixel / 8));
 	colour = *(unsigned int*)texel;
 	return (colour);
 }
-
-// void	ft_put_pixel_img(t_img *img, int x, int y, int colour)
-// {
-// 	char	*dst;
-// 	int		pxl_mem_size;
-
-// 	pxl_mem_size = (img->bits_per_pixel / 8);
-// 	dst = img->addr + (y * img->line_bytes + x * pxl_mem_size);
-// 	*(unsigned int*)dst = colour;
-// }
