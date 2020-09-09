@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/09 01:00:49 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/09 13:29:50 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,21 +166,16 @@ int		ft_gettexel(t_data *d, int y, int wstart, int wend)
 	else
 		x = (double)(d->r.pypos + d->r.camraylen * d->r.rydir);
 	x = (double)((x - floor(x)) * tex.width);
-	// y = ((y - wstart) / (double)(wend - wstart)) * tex.height;
-	// if (wstart <= 0)
-	// 	y = y * d->r.camraylen;
-	if (wstart > 0)
+	if (wstart > 0) //normal situation, when far enough away from the wall to see a bit of ceiling & floor.
 		y = ((y - wstart) / (double)(wend - wstart)) * tex.height;
+	// if (wstart <= 0)
+	// 	y = ((y - wstart) / (double)(wend - wstart)) * tex.height * d->r.camraylen; //zooms into the top
+	// if (wstart <= 0)
+	// 	y = tex.height / 2; //shows only the middle of the texture
+	// if (wstart <= 0)
+	// 	y = tex.height / 2 + ((((y - wstart) / (double)(wend - wstart)) * 2 - 1) * (tex.height / 2)); //half the texture plus or minus half the texture
 	if (wstart <= 0)
-		y = tex.height / 2;
-	//	y = (((y - wstart) / (double)(wend - wstart)) * 2 - 1) * d->r.camraylen * tex.height + tex.height / 2;
-
-	// double step = 1.0 * tex.height / (double)(wend - wstart);
-	// double texPos = ((double)wstart - (double)d->m->resy / 2 + (double)(wend - wstart) / 2) * step;
-	// texPos = texPos + step * (y - 1);
-	// int texy = (int)texPos & (tex.height - 1);
-	// y = texy;
-
+		y = tex.height / 2 + (((((y - wstart) / (double)(wend - wstart)) * 2 - 1) * (tex.height / 2)) * d->r.camraylen); // half the tex plus or minus half the tex multiplied by the camraylen
 	pxl_mem_size = (tex.bits_per_pixel / 8);
 	texel = tex.addr + (y * tex.line_bytes + (int)x * pxl_mem_size);
 	colour = *(unsigned int*)texel;
