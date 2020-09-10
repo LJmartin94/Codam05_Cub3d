@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/10 14:21:00 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/10 16:17:45 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		ft_colourwixel(t_data *d, int x)
 	wstart = d->m->resy / 2 - hwall / 2;
 	wstart = (wstart < 0) ? 0 : wstart;
 	wend = d->m->resy / 2 + hwall / 2;
-	wend = (wend >= d->m->resy) ? d->m->resy : wend;
+	wend = (wend >= d->m->resy) ? d->m->resy - 1 : wend;
 	ft_buildwall(d, x, wstart, wend);
 	return (x);
 }
@@ -165,7 +165,7 @@ int		ft_gettexel(t_data *d, int y, int wstart, int wend)
 	x = (double)((x - floor(x)) * tex.width);
 	if (0)
 	{
-		y = (((y - wstart) / (double)(wend - wstart)) * 2 - 1) \
+		y = (((y - wstart) / (double)(wend - wstart)) * 2 - 1) 
 		* (tex.height / 2);
 		y = (d->r.camraylen <= 1) ? y * d->r.camraylen : y;
 		y = y + (tex.height / 2);
@@ -173,27 +173,40 @@ int		ft_gettexel(t_data *d, int y, int wstart, int wend)
 
 	if (1)
 	{
-		int lineHeight = (int)(d->m->resy / d->r.camraylen);
-		int	drawStart = -lineHeight / 2 + d->m->resy / 2;
-		drawStart = (drawStart < 0) ? 0 : drawStart;
-			// The variable drawStart is synonymous with our wstart.
-		int drawStart = wstart;
-		int drawEnd = lineHeight / 2 + d->m->resy / 2;
-		drawEnd = (drawEnd >= d->m->resy) ? d->m->resy - 1 : drawEnd;
-			// "drawEnd" is only used as a stopping condition for the loop, 
-			//  whereas we have moved this code inside the loop and don't need it here.
-			//  drawEnd should be synonymous with our wend however.
-		drawEnd = wend;
-		double step = 1.0 * tex.height / lineHeight;
-		double texPos = (drawStart - d->m->resy / 2 + lineHeight / 2) * step;
-		y = y - drawStart;
+		//Somewhat native
+		// int hwall = (int)(d->m->resy / d->r.camraylen);
+		// double step = 1.0 * tex.height / hwall;
+		// double texPos = (wstart - d->m->resy / 2 + hwall / 2) * step;
+		// y = y - wstart;
+		// //inside their loop
+		// if (y > 0)
+		// 	texPos = texPos + step * (y - 1);
+		// int texY = (int)texPos & (tex.height - 1);
+		// y = texY;
 
-		//inside their loop
-		if (y > 0)
-			texPos = texPos + step * (y - 1);
-		int texY = (int)texPos & (tex.height - 1);
+		//No need for texY variable
+		// int hwall = (int)(d->m->resy / d->r.camraylen);
+		// double step = 1.0 * tex.height / hwall;
+		// double texPos = (wstart - d->m->resy / 2 + hwall / 2) * step;
+		// y = y - wstart;
+		// if (y > 0)
+		// 	texPos = texPos + step * (y - 1);
+		// y = (int)texPos & (tex.height - 1);
 
-		y = texY;
+		//No need for texPos variable
+		// int hwall = (int)(d->m->resy / d->r.camraylen);
+		// double step = 1.0 * tex.height / hwall;
+		// y = y - wstart;
+		// y = (wstart - d->m->resy / 2 + hwall / 2) * step + step * ((y - 1) % ( y + 1));
+		// y = y & (tex.height - 1);
+
+		//No need for multiple y calculations		
+		// 	int hwall = (int)(d->m->resy / d->r.camraylen);
+		// 	double step = (1.0 * tex.height / hwall);
+		// 	y = (int)((wstart - d->m->resy / 2 + hwall / 2) * step + step * ((y - wstart - 1) % (y - wstart + 1))) & (tex.height - 1);
+	
+		//One crazy one-line calculation
+		y = (int)((wstart - d->m->resy / 2 + (int)(d->m->resy / d->r.camraylen) / 2) * (1.0 * tex.height / (int)(d->m->resy / d->r.camraylen)) + (1.0 * tex.height / (int)(d->m->resy / d->r.camraylen)) * ((y - wstart - 1) % (y - wstart + 1))) & (tex.height - 1);
 	}
 
 	texel = tex.addr + (y * tex.line_bytes + (int)x * (tex.bits_per_pixel / 8));
