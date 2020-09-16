@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/09/07 18:11:51 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/16 14:38:56 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,8 +204,10 @@ void			ft_update_window(t_data *data);
 void			ft_castray(t_data *d);
 int				ft_ppostobox(t_data *d);
 int				ft_findwall(t_data *d);
+
 int				ft_colourwixel(t_data *d, int x);
 int				ft_buildwall(t_data *d, int x, int wstart, int wend);
+int				ft_gettexel(t_data *d, double y, int wstart, int wend);
 
 int				ft_listen_for_event(t_data *data);
 int				ft_pressed(int key, t_data *d);
