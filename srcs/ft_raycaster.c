@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/10 16:17:45 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/16 14:06:51 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,15 +163,29 @@ int		ft_gettexel(t_data *d, int y, int wstart, int wend)
 	else
 		x = (double)(d->r.pypos + d->r.camraylen * d->r.rydir);
 	x = (double)((x - floor(x)) * tex.width);
-	if (0)
+	if (1)
 	{
-		y = (((y - wstart) / (double)(wend - wstart)) * 2 - 1) 
+		// y = (((y - wstart) / (double)(wend - wstart)) * 2 - 1) 
+		// * (tex.height / 2);
+		// y = (d->r.camraylen <= 1) ? y * d->r.camraylen : y;
+		// y = y + (tex.height / 2);
+
+		// double ycalc = (double)y;
+		// int hwall = (int)(d->m->resy / d->r.camraylen); //height of wall relative to screen, how many screen pixels to draw (less than yres = wall is far)
+		// double step = 1.0 * tex.height / hwall; //y number of pixels to skip down in the texture after drawing pixel (less than 1 = wall is close)
+		// ycalc = (double)(((y - wstart) / (double)(wend - wstart)) * 2 - 1); // 
+		// ycalc = (hwall >= d->m->resy) ? (double)((double) ycalc * (double)(tex.height / 2) / (double)(hwall / d->m->resy)) : (double)((double)ycalc * (double)(tex.height / 2));
+		// y = (int)ycalc + (tex.height / 2);
+		// hwall = step; //filler
+
+		double ycalc = (double)y;
+		ycalc = (((y - wstart) / (double)(wend - wstart)) * 2 - 1) 
 		* (tex.height / 2);
-		y = (d->r.camraylen <= 1) ? y * d->r.camraylen : y;
-		y = y + (tex.height / 2);
+		ycalc = (d->r.camraylen <= 1) ? ycalc * d->r.camraylen : ycalc;
+		y = (int)ycalc + (tex.height / 2);
 	}
 
-	if (1)
+	if (0)
 	{
 		//Somewhat native
 		// int hwall = (int)(d->m->resy / d->r.camraylen);
@@ -185,13 +199,13 @@ int		ft_gettexel(t_data *d, int y, int wstart, int wend)
 		// y = texY;
 
 		//No need for texY variable
-		// int hwall = (int)(d->m->resy / d->r.camraylen);
-		// double step = 1.0 * tex.height / hwall;
-		// double texPos = (wstart - d->m->resy / 2 + hwall / 2) * step;
-		// y = y - wstart;
-		// if (y > 0)
-		// 	texPos = texPos + step * (y - 1);
-		// y = (int)texPos & (tex.height - 1);
+		int hwall = (int)(d->m->resy / d->r.camraylen); //height of wall relative to screen, how many screen pixels to draw (less than yres = wall is far)
+		double step = 1.0 * tex.height / hwall; //y number of pixels to skip down in the texture after drawing pixel (less than 1 = wall is close)
+		double texPos = (wstart - d->m->resy / 2 + hwall / 2) * step; //at what pixel height you start in the texture (if larger than 0, wall is close), incremented by step for each y
+		y = y - wstart; //make start of the wall 0, second wall screen pixel 1 etc
+		if (y > 0)
+			texPos = texPos + step * (y - 1);
+		y = (int)texPos & (tex.height - 1);
 
 		//No need for texPos variable
 		// int hwall = (int)(d->m->resy / d->r.camraylen);
@@ -206,7 +220,7 @@ int		ft_gettexel(t_data *d, int y, int wstart, int wend)
 		// 	y = (int)((wstart - d->m->resy / 2 + hwall / 2) * step + step * ((y - wstart - 1) % (y - wstart + 1))) & (tex.height - 1);
 	
 		//One crazy one-line calculation
-		y = (int)((wstart - d->m->resy / 2 + (int)(d->m->resy / d->r.camraylen) / 2) * (1.0 * tex.height / (int)(d->m->resy / d->r.camraylen)) + (1.0 * tex.height / (int)(d->m->resy / d->r.camraylen)) * ((y - wstart - 1) % (y - wstart + 1))) & (tex.height - 1);
+		//y = (int)((wstart - d->m->resy / 2 + (int)(d->m->resy / d->r.camraylen) / 2) * (1.0 * tex.height / (int)(d->m->resy / d->r.camraylen)) + (1.0 * tex.height / (int)(d->m->resy / d->r.camraylen)) * ((y - wstart - 1) % (y - wstart + 1))) & (tex.height - 1);
 	}
 
 	texel = tex.addr + (y * tex.line_bytes + (int)x * (tex.bits_per_pixel / 8));
