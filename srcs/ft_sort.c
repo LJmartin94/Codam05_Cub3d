@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/17 13:31:23 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/18 17:18:11 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/22 17:13:19 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	ft_cutthedeck(char **tosort, int len);
 int	ft_shufflethedeck(char **tosort, int len);
 int	ft_bibubblecut(char **tosort);
+int	ft_bbbs(char **tosort, int first, int last);
+int ft_mergesort(char **tosort, int first, int last);
 
 int	ft_bibubblesort(char **tosort)
 {
@@ -280,12 +282,19 @@ int	ft_cutthedeck(char **tosort, int len)
 
 int	main(int argc, char **argv)
 {
+	int last;
+
+	last = 0;
+	while (argv[1][last] != '\0')
+		last++;
 	if (argv[2][0] == 'b')
 		ft_bibubblesort(&argv[1]);
 	if (argv[2][0] == 'n')
 		ft_actualbubblesort(&argv[1]);
 	if (argv[2][0] == 'c')
 		ft_bibubblecut(&argv[1]);
+	if (argv[2][0] == 'm')
+		ft_mergesort(&argv[1], 0, last - 1);
 	// 	ft_cutsort(&argv[1]);
 	return (0);
 }
@@ -405,3 +414,58 @@ int	ft_bbbsthis(char **tosort, int *first, int *last)
 	return (change);
 }
 
+int ft_mergesort(char **tosort, int first, int last)
+{
+	int mid;
+
+	printf("merge sort: %d, %d\n", first, last);
+	if ((last - first) <= 2)
+		ft_bbbs(tosort, first, last);
+	else
+	{
+		mid = ((last - first) / 2) + first;
+		ft_mergesort(tosort, first, mid);
+		ft_mergesort(tosort, mid + 1, last);
+	}
+	return (0);
+}
+
+int	ft_bbbs(char **tosort, int first, int last)
+{
+	int i;
+	int done;
+	int holdvalue;
+	int dir;
+	int counter = 0;
+	int change;
+
+	i = first;
+	done = 0;
+	change = 0;
+	printf("%d)	string: %s\n", counter, (*tosort));
+	dir = 1;
+	while (!done || i != first)
+	{
+	//printf("|%d, %d|\n", i, last);
+		if ((dir == -1 && i == first) || (dir == 1 && i == last))
+		{
+			done = 1;
+			dir = dir * -1;
+			first = (i == first) ? first + dir : first;
+			last = (i == last) ? last + dir : last;
+			i = i + dir;
+		}
+		//printf("	comparing: '%c'[%d] to '%c'[%d] next	(comparing values between %d and %d)\n", (*tosort)[i], i, (*tosort)[i + dir], i + dir, first, last);
+		if ((*tosort)[i] * dir < (*tosort)[i + dir] * dir)
+		{
+			holdvalue = (*tosort)[i];
+			(*tosort)[i] = (*tosort)[i + dir];
+			(*tosort)[i + dir] = holdvalue;
+			change++;
+		}
+		i = i + dir;
+		counter++;
+		//printf("%d)	string: %s", counter, (*tosort));
+	}
+	return (change);
+}
