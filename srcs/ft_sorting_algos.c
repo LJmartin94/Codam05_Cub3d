@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/22 17:25:55 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/23 21:34:10 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/24 17:22:03 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,42 +248,180 @@ int	ft_mergesort(char **tosort, int first, int last)
 	return (0);
 }
 
+void	ft_printfuckeneverything(char *context, char **tosort, int first, int mid, int last, int l, int r, int i, int l2);
+
+// int ft_merge(char **tosort, int first, int mid, int last)
+// {
+// 	int		i;
+// 	int		l;
+// 	int		r;
+// 	char	val;
+
+// 	printf("|%s|\n", (*tosort));
+// 	i = first;
+// 	l = mid;
+// 	r = mid + 1;
+// 	while (i != last)
+// 	{
+// 		while ((*tosort)[i] < (*tosort)[r] && i != last)
+// 		{
+// 			ft_printfuckeneverything("i & r need swap", tosort, first, mid, last, l, r, i);
+// 			val = (*tosort)[i];
+// 			(*tosort)[i] = (*tosort)[r];
+// 			(*tosort)[r] = val;
+// 			i++;
+// 			if ((*tosort)[r] < (*tosort)[r + 1] && r != last)
+// 			{
+// 				if ((*tosort)[r] > (*tosort)[r - 1])
+// 					l = r;
+// 				r++;
+// 			}
+// 			if ((*tosort)[r] <= (*tosort)[r - 1] && r != mid + 1)
+// 				r--;
+// 			if ((*tosort)[r] < (*tosort)[l])
+// 				r = l;
+// 			ft_printfuckeneverything("val i & r swapped", tosort, first, mid, last, l, r, i);
+// 			while (r <= i || (r < last && (*tosort)[r] < (*tosort)[r + 1]))
+// 			{
+// 				r++;
+// 				ft_printfuckeneverything("ix i passed r", tosort, first, mid, last, l, r, i);
+// 			}
+// 		}
+// 		while ((*tosort)[i] >= (*tosort)[r] && i != last)
+// 		{
+// 			i++;
+// 			ft_printfuckeneverything("val current i > r", tosort, first, mid, last, l, r, i);
+// 		}
+// 		if (l <= i && l < last)
+// 			l = i + 1;
+// 		while (r <= i || (r < last && (*tosort)[r] < (*tosort)[r + 1]))
+// 		{
+// 			r++;
+// 			ft_printfuckeneverything("ix i passed r", tosort, first, mid, last, l, r, i);
+// 		}
+// 	}
+// }
+
+void	ft_printfuckeneverything(char *context, char **tosort, int first, int mid, int last, int l, int r, int i, int l2)
+{
+	printf("Context: %s, Sorting %d-(%d)-%d:		|", context, first, mid + 1, last);
+	for (int k = first; k != last + 1; k++)
+	{
+	if (k > 0 && (*tosort)[k] > (*tosort)[k - 1])
+	printf("\033[0;31m"); //out of pos = RED
+	if (k == first)
+	printf("\033[0m"); //first char can't be out of pos (WHITE)
+	if (k == l2)
+	printf("\033[0;36m"); //left remain = CYAN
+	if (k == l)
+	printf("\033[0;34m"); //left head = BLUE
+	if (k == r)
+	printf("\033[0;33m"); //right head = YELLOW
+	if (k == i)
+	printf("\033[0;32m"); //index of sorted string = GREEN
+	printf("%c", (*tosort)[k]);
+	printf("\033[0m");
+	}
+	printf("|\n");
+}
+
+// int ft_merge(char **tosort, int first, int mid, int last)
+// {
+// 	int		i;
+// 	int		l1;
+// 	int		l2;
+// 	int		r1;
+// 	char	val;
+
+// 	printf("|%s|\n", (*tosort));
+// 	i = first;
+// 	l1 = first;
+// 	l2 = first + 1;
+// 	r1 = mid + 1;
+// 	while (i != last)
+// 	{
+// 		ft_printfuckeneverything("i & r need swap", tosort, first, mid, last, l1, r1, i, l2);
+// 		if ((*tosort)[l1] >= (*tosort)[r1])
+// 		{
+// 			if (i != l1)
+// 			{
+// 				val = (*tosort)[i];
+// 				(*tosort)[i] = (*tosort)[l1];
+// 				(*tosort)[l1] = val;
+// 			}
+// 			// if (i == l1 && (*tosort)[l1] >= (*tosort)[l2])
+// 			// 	l1 = l1;
+// 			// else
+// 				l1 = l2;
+// 		}
+// 		else if ((*tosort)[r1] > (*tosort)[l1])
+// 		{
+// 			if (i == l1)
+// 				l1 = r1;
+// 			if (i != r1)
+// 			{
+// 				val = (*tosort)[i];
+// 				(*tosort)[i] = (*tosort)[r1];
+// 				(*tosort)[r1] = val;
+// 			}
+// 			r1 = r1 + 1;
+// 		}
+// 		i++;
+// 		if (l1 + 1 != r1)
+// 			l2 = l1 + 1;
+// 		else if (l1 > i)
+// 			l2 = i + 1;
+// 		else
+// 			l2 = last;
+// 		ft_printfuckeneverything("i & r got swap", tosort, first, mid, last, l1, r1, i, l2);
+// 	}
+// }
+
+
 int ft_merge(char **tosort, int first, int mid, int last)
 {
 	int		i;
-	int		l;
-	int		r;
+	int		l1;
+	int		l2;
+	int		r1;
 	char	val;
 
 	printf("|%s|\n", (*tosort));
 	i = first;
-	l = first;
-	r = mid + 1;
+	l1 = first;
+	l2 = first + 1;
+	r1 = mid + 1;
 	while (i != last)
 	{
-		while ((*tosort)[i] < (*tosort)[r] && i != last)
+		ft_printfuckeneverything("i & r need swap", tosort, first, mid, last, l1, r1, i, l2);
+		if ((*tosort)[l1] >= (*tosort)[r1])
 		{
 			val = (*tosort)[i];
-			(*tosort)[i] = (*tosort)[r];
-			(*tosort)[r] = val;
-			i++;
-			if ((*tosort)[r] < (*tosort)[r + 1] && r != last)
-				r++;
-			else if ((*tosort)[r] > (*tosort)[r - 1] && r != mid + 1)
-				r--;
+			(*tosort)[i] = (*tosort)[l1];
+			(*tosort)[l1] = val;
+			l1 = l2;
+			printf(" L ");
 		}
-		while ((*tosort)[i] >= (*tosort)[r] && i != last)
-			i++;
+		else if ((*tosort)[r1] > (*tosort)[l1])
+		{
+			val = (*tosort)[i];
+			(*tosort)[i] = (*tosort)[r1];
+			(*tosort)[r1] = val;
+			l1 = (i == l1) ? r1 : l1;
+			l2 = (i == l2) ? r1 : l2;
+			r1 = (r1 < last) ? r1 + 1 : r1;
+			printf(" R ");
+		}
+		i++;
+		if (l1 + 1 < r1)
+			l2 = l1 + 1;
+		else if (l1 > i && i + 1 < r1)
+			l2 = i;
+		else
+			l2 = last;
+		l1 = (l1 < i) ? i : l1;
+		// l2 = (l2 < i) ? i + 1 : l2;
+		// r1 = (r1 <= l2) ? l2 + 1: r1;
+		ft_printfuckeneverything("i & r got swap", tosort, first, mid, last, l1, r1, i, l2);
 	}
-	printf("Sorting %d-(%d)-%d: |",first, mid + 1, last);
-	for (int k = first; k != last + 1; k++)
-	{
-		if (k > 0 && (*tosort)[k] > (*tosort)[k - 1])
-			printf("\033[0;31m");
-		if (k == r)
-			printf("\033[0;34m");
-		printf("%c", (*tosort)[k]);
-		printf("\033[0m");
-	}
-	printf("|\n");
 }
