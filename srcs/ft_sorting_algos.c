@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/22 17:25:55 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/24 17:22:03 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/26 17:36:50 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,50 +378,100 @@ void	ft_printfuckeneverything(char *context, char **tosort, int first, int mid, 
 // }
 
 
+// int ft_merge(char **tosort, int first, int mid, int last)
+// {
+// 	int		i;
+// 	int		l1;
+// 	int		l2;
+// 	int		r1;
+// 	char	val;
+
+// 	printf("|%s|\n", (*tosort));
+// 	i = first;
+// 	l1 = first;
+// 	l2 = first + 1;
+// 	r1 = mid + 1;
+// 	while (i != last)
+// 	{
+// 		ft_printfuckeneverything("i & r need swap", tosort, first, mid, last, l1, r1, i, l2);
+// 		if ((*tosort)[l1] >= (*tosort)[r1])
+// 		{
+// 			val = (*tosort)[i];
+// 			(*tosort)[i] = (*tosort)[l1];
+// 			(*tosort)[l1] = val;
+// 			l1 = l2;
+// 			printf(" L ");
+// 		}
+// 		else if ((*tosort)[r1] > (*tosort)[l1])
+// 		{
+// 			val = (*tosort)[i];
+// 			(*tosort)[i] = (*tosort)[r1];
+// 			(*tosort)[r1] = val;
+// 			l1 = (i == l1) ? r1 : l1;
+// 			l2 = (i == l2) ? r1 : l2;
+// 			r1 = (r1 < last) ? r1 + 1 : r1;
+// 			printf(" R ");
+// 		}
+// 		i++;
+// 		if (l1 + 1 < r1)
+// 			l2 = l1 + 1;
+// 		else if (l1 > i && i + 1 < r1)
+// 			l2 = i;
+// 		else
+// 			l2 = last;
+// 		l1 = (l1 < i) ? i : l1;
+// 		// l2 = (l2 < i) ? i + 1 : l2;
+// 		// r1 = (r1 <= l2) ? l2 + 1: r1;
+// 		ft_printfuckeneverything("i & r got swap", tosort, first, mid, last, l1, r1, i, l2);
+// 	}
+// }
+
 int ft_merge(char **tosort, int first, int mid, int last)
 {
 	int		i;
-	int		l1;
-	int		l2;
-	int		r1;
+	int		l;
+	int		r;
+	int 	dupofs;
 	char	val;
 
 	printf("|%s|\n", (*tosort));
 	i = first;
-	l1 = first;
-	l2 = first + 1;
-	r1 = mid + 1;
-	while (i != last)
+	l = first;
+	r = mid + 1;
+	while (i < last)
 	{
-		ft_printfuckeneverything("i & r need swap", tosort, first, mid, last, l1, r1, i, l2);
-		if ((*tosort)[l1] >= (*tosort)[r1])
+		ft_printfuckeneverything("i & r need swap", tosort, first, mid, last, l, r, i, last);
+		if ((*tosort)[l] >= (*tosort)[r])
 		{
-			val = (*tosort)[i];
-			(*tosort)[i] = (*tosort)[l1];
-			(*tosort)[l1] = val;
-			l1 = l2;
-			printf(" L ");
+			if (l != i)
+			{
+				val = (*tosort)[i];
+				(*tosort)[i] = (*tosort)[l];
+				(*tosort)[l] = val;
+			}
+			// if (l - 1 > i && l > first && (*tosort)[l - 1] >= (*tosort)[l] && (*tosort)[l + 1] <= (*tosort)[l])
+			// 	l--;
+			if (l + 1 < r && l < last && ((*tosort)[l + 1] >= (*tosort)[l] || l <= i)) //normal case: move l to right if space, and l +1 is indeed higher than ls new value
+			{
+				l++;
+				while (l - 1 > i && (*tosort)[l - 1] >= (*tosort)[l]) //this is an attempt to reset the left head. The l string gets fragmented over time and having multiple indexes with identical values really screws with the sorting.
+					l--;
+			}	
+			else if (l + 1 >= r && i < last  && ((*tosort)[i + 1] > (*tosort)[l] || l <= i)) //run out of space: if l cannot move to the right, move it one to the right of i
+				l = i + 1;
+			if (r < l) //r should always be to the right of l
+				r = l;
 		}
-		else if ((*tosort)[r1] > (*tosort)[l1])
+		else if ((*tosort)[r] > (*tosort)[l])
 		{
 			val = (*tosort)[i];
-			(*tosort)[i] = (*tosort)[r1];
-			(*tosort)[r1] = val;
-			l1 = (i == l1) ? r1 : l1;
-			l2 = (i == l2) ? r1 : l2;
-			r1 = (r1 < last) ? r1 + 1 : r1;
-			printf(" R ");
+			(*tosort)[i] = (*tosort)[r];
+			(*tosort)[r] = val;
+			l = (l == i) ? r : l;
+			r = (r != last && ((*tosort)[r + 1] > (*tosort)[r] || r <= l || r <= i)) ? r + 1 : r;
 		}
 		i++;
-		if (l1 + 1 < r1)
-			l2 = l1 + 1;
-		else if (l1 > i && i + 1 < r1)
-			l2 = i;
-		else
-			l2 = last;
-		l1 = (l1 < i) ? i : l1;
-		// l2 = (l2 < i) ? i + 1 : l2;
-		// r1 = (r1 <= l2) ? l2 + 1: r1;
-		ft_printfuckeneverything("i & r got swap", tosort, first, mid, last, l1, r1, i, l2);
+		ft_printfuckeneverything("i & r got swap", tosort, first, mid, last, l, r, i, last);
 	}
 }
+
