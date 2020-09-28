@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 13:38:48 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/07/21 21:48:12 by limartin      ########   odam.nl         */
+/*   Updated: 2020/09/28 14:59:01 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,24 @@ void	xt_quit(int ret, t_mapinfo *m)
 	if (m->spritetex != NULL)
 		free(m->spritetex);
 	if (m->map != NULL)
-	{
-		m->x = 0;
-		while (m->x < m->ydim)
-		{
-			free(m->map[m->x]);
-			m->x++;
-		}
-		free(m->map);
-		m->map = NULL;
-	}
+		ft_freemap(m);
+	if (m->zbuf != NULL)
+		free(m->zbuf);
 	ft_clearcopy(0, m->copy, m);
 	exit(ret);
+}
+
+int		ft_freemap(t_mapinfo *m)
+{
+	m->x = 0;
+	while (m->x < m->ydim)
+	{
+		free(m->map[m->x]);
+		m->x++;
+	}
+	free(m->map);
+	m->map = NULL;
+	return (0);
 }
 
 int		ft_clearcopy(int error, t_mapinfo *c, t_mapinfo *org)

@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 14:39:09 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/07 18:11:08 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/28 14:47:33 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_mapinfo	ft_constructor(t_mapinfo *mapinfo)
 	mapinfo->ydim = 1;
 	mapinfo->map = NULL;
 	mapinfo->copy = NULL;
+	mapinfo->zbuf = NULL;
 	return (*mapinfo);
 }
 

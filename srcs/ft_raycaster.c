@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/07 19:25:59 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/16 14:39:54 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/28 14:10:42 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		ft_findwall(t_data *d)
 			d->r.rypos = d->r.rypos + d->r.stepy;
 			d->r.nsside = d->r.nsside + d->r.nsdelta;
 		}
-		d->r.hit = (d->m->map[d->r.rypos][d->r.rxpos] > '0') ? 1 : 0;
+		d->r.hit = (d->m->map[d->r.rypos][d->r.rxpos] == '1') ? 1 : 0;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/09/16 16:49:01 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/28 14:59:46 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef	struct	s_mapinfo
 	char				*easttex;
 	char				*spritetex;
 	int					spriteno;
+	double				*zbuf;
 	int					fr;
 	int					fg;
 	int					fb;
@@ -221,6 +222,7 @@ int				ft_mlx_run(t_data *data);
 
 void			xt_quit(int ret, t_mapinfo *mapinfo);
 int				ft_clearcopy(int error, t_mapinfo *cpy, t_mapinfo *org);
+int				ft_freemap(t_mapinfo *m);
 
 int				get_next_line(t_mapinfo *m, char **line);
 int				ft_fill_remainder(char *remainder, int fd, int *nl);
