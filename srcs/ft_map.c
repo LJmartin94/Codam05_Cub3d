@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/14 22:17:07 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/27 17:26:44 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/28 17:49:14 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		ft_processmap(t_mapinfo *m, char *cub)
 	ft_floodfill(m->copy, m->posx, m->posy);
 	if (m->copy->noerror == 0)
 		xt_parserror(3, m);
+	m->spriteno = m->copy->spriteno;
 	return (0);
 }
 

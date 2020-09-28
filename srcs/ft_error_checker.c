@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:48:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/07/23 15:34:00 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/28 16:03:02 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	xt_mlxerror(t_mapinfo *m)
 {
 	errno = 79;
 	perror("Error\nOne of the functions in the MiniLibX library quit \
-unexpectedly or failed to start");
+unexpectedly, failed to start, or did not provide a valid return.");
 	xt_quit(1, m);
 	return (1);
 }

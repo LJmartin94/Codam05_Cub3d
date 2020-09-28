@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/09/28 14:59:46 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/28 17:59:14 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef	struct	s_mapinfo
 	char				*easttex;
 	char				*spritetex;
 	int					spriteno;
+	struct s_sprite		*sprites;
 	double				*zbuf;
 	int					fr;
 	int					fg;
@@ -87,6 +88,12 @@ typedef	struct	s_mapinfo
 	int					ydim;
 	char				**map;
 }				t_mapinfo;
+
+typedef	struct	s_sprite
+{
+	double		x;
+	double		y;
+}				t_sprite;
 
 typedef	struct	s_img
 {
@@ -209,6 +216,9 @@ int				ft_findwall(t_data *d);
 int				ft_colourwixel(t_data *d, int x);
 int				ft_buildwall(t_data *d, int x, int wstart, int wend);
 int				ft_gettexel(t_data *d, double y, int wstart, int wend);
+
+int				ft_scanforsprites(t_data *d);
+void			ft_drawsprites(t_data *d);
 
 int				ft_listen_for_event(t_data *data);
 int				ft_pressed(int key, t_data *d);

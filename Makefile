@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/09/16 14:41:20 by lindsay       ########   odam.nl          #
+#    Updated: 2020/09/28 16:51:43 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC		= $(SRC_PATH)ft_cub3dmain.c \
 		$(SRC_PATH)ft_window.c \
 		$(SRC_PATH)ft_raycaster.c \
 		$(SRC_PATH)ft_colourwixel.c \
+		$(SRC_PATH)ft_drawsprites.c \
 		$(SRC_PATH)ft_keyhook.c \
 		$(SRC_PATH)ft_movement.c \
 		$(SRC_PATH)ft_mlx.c \

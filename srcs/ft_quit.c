@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 13:38:48 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/28 14:59:01 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/28 17:50:42 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	xt_quit(int ret, t_mapinfo *m)
 		ft_freemap(m);
 	if (m->zbuf != NULL)
 		free(m->zbuf);
+	if (m->sprites != NULL)
+		free(m->sprites);
 	ft_clearcopy(0, m->copy, m);
 	exit(ret);
 }

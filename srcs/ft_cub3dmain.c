@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:42:12 by limartin      #+#    #+#                 */
-/*   Updated: 2020/09/02 19:45:57 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/28 17:58:53 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int		main(int argc, char **argv)
 	ft_processmap(&mapinfo, argv[1]);
 	d = ft_window(&mapinfo);
 	ft_initraydata(&(d.r), d.m);
+	ft_scanforsprites(&d);
 	ft_getmovin(&d);
 	ft_getteximgs(&d);
 	ft_listen_for_event(&d);

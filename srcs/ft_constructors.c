@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 14:39:09 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/28 14:47:33 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/28 17:50:03 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_mapinfo	ft_constructor(t_mapinfo *mapinfo)
 	mapinfo->map = NULL;
 	mapinfo->copy = NULL;
 	mapinfo->zbuf = NULL;
+	mapinfo->sprites = NULL;
 	return (*mapinfo);
 }
 
@@ -55,6 +56,10 @@ int			ft_initraydata(t_raydata *r, t_mapinfo *m)
 	r->yplane = (r->pxdir == -1) ? (-1 * fov) : r->yplane;
 	r->xplane = (r->pydir == -1) ? fov : r->xplane;
 	m->map[m->posy][m->posx] = '0';
+	m->zbuf = (double *)malloc(sizeof(double) * m->resx);
+	m->sprites = (t_sprite*)malloc(sizeof(t_sprite) * (m->spriteno));
+	if (m->zbuf == NULL || m->sprites == NULL)
+		xt_mallocerror(m);
 	return (0);
 }
 
