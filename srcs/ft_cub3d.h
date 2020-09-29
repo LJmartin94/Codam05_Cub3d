@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/09/29 12:40:10 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/29 14:19:07 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ int				ft_gettexel(t_data *d, double y, int wstart, int wend);
 
 int				ft_scanforsprites(t_data *d);
 void			ft_drawsprites(t_data *d);
+void			ft_sortsprites(t_sprite **sprite, int l, int r, t_sprite val);
 
 int				ft_listen_for_event(t_data *data);
 int				ft_pressed(int key, t_data *d);
