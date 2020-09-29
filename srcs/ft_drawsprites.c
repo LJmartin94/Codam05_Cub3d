@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/28 16:49:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/29 16:49:05 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/29 17:26:01 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,25 @@ void	ft_lodevsprites(t_data *d)
       // [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
       // [ planeY   dirY ]                                          [ -planeY  planeX ]
 
-      double invDet = 1.0 / (d->r.xplane * d->r.pydir - d->r.pxdir * d->r.yplane); //required for correct matrix multiplication
+      //double invDet = 1.0 / (d->r.xplane * d->r.pydir - d->r.pxdir * d->r.yplane); //required for correct matrix multiplication
+	  double invDet = 1.0;
 
-      double transformX = invDet * (d->r.pydir * spriteX - d->r.pxdir * spriteY);
-      double transformY = invDet * (-1 * d->r.yplane * spriteX + d->r.xplane * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
+    //   double transformX = invDet * (d->r.pydir * spriteX - d->r.pxdir * spriteY);
+    //   double transformY = invDet * (-1 * d->r.yplane * spriteX + d->r.xplane * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
+    //transform sprite with the inverse camera matrix
+      // [ r.xplane   pxdir ]									  	[ r.xplane   pxdir ]
+      // [                  ]	=   1                           * 	[                  ]
+      // [ r.yplane   pydir ]									  	[ r.yplane   pydir ]
+	//transform sprite with the inverse camera matrix
+      // [ planeX   dirX ] -1                                       [ dirY      -dirX ]
+      // [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
+      // [ planeY   dirY ]                                          [ -planeY  planeX ]
+   
+      double transformX = invDet * (d->r.xplane * spriteY + d->r.pxdir * spriteY);
+      double transformY = invDet * (d->r.yplane * spriteX + d->r.pydir * spriteX); 
+
+    //   double transformX = invDet * (d->r.pydir * spriteX + d->r.pxdir * spriteY);
+    //   double transformY = invDet * (d->r.yplane * spriteX + d->r.xplane * spriteY); 
 
 	  int spriteScreenX = (int)((d->m->resx / 2) * (1 + transformX / transformY));
 
