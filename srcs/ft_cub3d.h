@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/09/28 17:59:14 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/09/29 12:40:10 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef	struct	s_sprite
 {
 	double		x;
 	double		y;
+	double		dist;
 }				t_sprite;
 
 typedef	struct	s_img
