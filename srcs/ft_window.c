@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/23 15:39:24 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/09/28 16:48:08 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/02 15:15:20 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_put_pixel_img(t_img *img, int x, int y, int colour)
 void	ft_update_window(t_data *data)
 {
 	ft_castray(data);
-	ft_drawsprites(data);
+	ft_handlesprites(data);
 	data->frame++;
 	if (data->frame % 2 == 0)
 		mlx_put_image_to_window(data->mlx, data->win, data->imga.cont, 0, 0);

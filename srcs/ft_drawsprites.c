@@ -6,13 +6,18 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/28 16:49:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/01 18:26:55 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/02 15:18:14 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-void	ft_lodevsprites(t_data *d);
+int		ft_scanforsprites(t_data *d);
+void	ft_handlesprites(t_data *d);
+void	ft_sortsprites(t_sprite **sprite, int l, int r, t_sprite val);
+int		ft_transformsprite(t_data *d, int s);
+
+void	ft_lodevsprites(t_data *d, double transformX, double transformY);
 int		ft_getspritetexel(t_data *d, int texX, int texY);
 
 int		ft_scanforsprites(t_data *d)
@@ -41,7 +46,7 @@ int		ft_scanforsprites(t_data *d)
 	return (0);
 }
 
-void	ft_drawsprites(t_data *d)
+void	ft_handlesprites(t_data *d)
 {
 	int	s;
 
@@ -53,7 +58,12 @@ void	ft_drawsprites(t_data *d)
 		s++;
 	}
 	ft_sortsprites(&(d->m->sprites), 0, d->m->spriteno - 1, d->m->sprites[0]);
-	ft_lodevsprites(d);
+	s = 0;
+	while (s < d->m->spriteno)
+	{
+		ft_transformsprite(d, s);
+		s++;
+	}
 }
 
 void	ft_sortsprites(t_sprite **sprite, int l, int r, t_sprite val)
@@ -85,24 +95,25 @@ void	ft_sortsprites(t_sprite **sprite, int l, int r, t_sprite val)
 	}
 }
 
-void	ft_lodevsprites(t_data *d)
+int		ft_transformsprite(t_data *d, int s)
 {
-	//after sorting the sprites, do the projection and draw them
-    for(int i = 0; i < d->m->spriteno; i++)
-    {
-      //translate sprite position to relative to camera
-      double spriteX = d->m->sprites[i].x - d->r.pxpos;
-      double spriteY = d->m->sprites[i].y - d->r.pypos;
+	double	xsprite;
+	double	ysprite;
+	double	xval;
 
-      //transform sprite with the inverse camera matrix
-      // [ planeX   dirX ] -1                                       [ dirY      -dirX ]
-      // [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
-      // [ planeY   dirY ]                                          [ -planeY  planeX ]
+	xsprite = d->m->sprites[s].x - d->r.pxpos;
+	ysprite = d->m->sprites[s].y - d->r.pypos;
+	xval = (1.0 / (d->r.xplane * d->r.pydir - d->r.pxdir * d->r.yplane)) * \
+	(d->r.pydir * xsprite - d->r.pxdir * ysprite);
+	ysprite = (1.0 / (d->r.xplane * d->r.pydir - d->r.pxdir * d->r.yplane)) * \
+	(-1 * d->r.yplane * xsprite + d->r.xplane * ysprite);
+	xsprite = xval;
+	ft_lodevsprites(d, xsprite, ysprite);
+	return (0);
+}
 
-     double invDet = 1.0 / (d->r.xplane * d->r.pydir - d->r.pxdir * d->r.yplane); //required for correct matrix multiplication
-	 double transformX = invDet * (d->r.pydir * spriteX - d->r.pxdir * spriteY);
-     double transformY = invDet * (-1 * d->r.yplane * spriteX + d->r.xplane * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
-
+void	ft_lodevsprites(t_data *d, double transformX, double transformY)
+{
 	  int spriteScreenX = (int)((d->m->resx / 2) * (1 + transformX / transformY));
 
       //calculate height of the sprite on screen
@@ -145,16 +156,15 @@ void	ft_lodevsprites(t_data *d)
 				//   buffer[y][stripe] = color; //paint pixel if it isn't black, black is the invisible color
         }
       }
-    }
 }
 
-int		ft_getspritetexel(t_data *d, int texX, int texY)
+int		ft_getspritetexel(t_data *d, int xtex, int ytex)
 {
 	t_img	tex;
 	char	*texel;
 
 	tex = d->tex.sptex;
-	texel = tex.addr + ((int)texY * tex.line_bytes + \
-	(int)texX * (tex.bits_per_pixel / 8));
+	texel = tex.addr + (ytex * tex.line_bytes + \
+	xtex * (tex.bits_per_pixel / 8));
 	return (*(unsigned int*)texel);
 }
