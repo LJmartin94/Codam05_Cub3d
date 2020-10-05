@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/02 15:14:38 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/05 21:46:13 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,19 @@ typedef	struct	s_exture
 	void		*sprite;
 }				t_exture;
 
+typedef	struct	s_rendsprite
+{
+	double	depth;
+	int 	spmidx;
+	double	height;
+	double	width;
+	int		startspy;
+	int		endspy;
+	int		startspx;
+	int		endspx;
+}				t_rendsprite;
+
+
 typedef struct	s_data
 {
 	t_mapinfo		*m;
@@ -168,6 +181,7 @@ typedef struct	s_data
 	t_raydata		r;
 	t_movementdata	md;
 	t_exture		tex;
+	t_rendsprite	rsp;
 	void			*mlx;
 	void			*win;
 	long			frame;
