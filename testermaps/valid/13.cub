@@ -1,0 +1,14 @@
+R 1600 800
+EA testermaps/textures/outline.xpm
+NO testermaps/textures/outline.xpm
+WE testermaps/textures/outline.xpm
+SO testermaps/textures/outline.xpm
+S testermaps/textures/tall_sprite.xpm
+F 184,113,39
+C 51,198,227
+
+1111111111111
+1020000000021
+100N000000001
+1000002000001
+1111111111111

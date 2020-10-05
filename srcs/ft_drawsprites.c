@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/28 16:49:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/02 15:18:14 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/05 20:52:34 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ int		ft_scanforsprites(t_data *d);
 void	ft_handlesprites(t_data *d);
 void	ft_sortsprites(t_sprite **sprite, int l, int r, t_sprite val);
 int		ft_transformsprite(t_data *d, int s);
+int		ft_getspritedims(t_data *d, int spmidx, double depth);
 
-void	ft_lodevsprites(t_data *d, double transformX, double transformY);
+void	ft_lodevsprites(t_data *d, int drawStartX, int drawEndX, int spriteWidth, int spriteScreenX, double transformY, int drawStartY, int drawEndY, int spriteHeight);
 int		ft_getspritetexel(t_data *d, int texX, int texY);
 
 int		ft_scanforsprites(t_data *d)
@@ -108,29 +109,40 @@ int		ft_transformsprite(t_data *d, int s)
 	ysprite = (1.0 / (d->r.xplane * d->r.pydir - d->r.pxdir * d->r.yplane)) * \
 	(-1 * d->r.yplane * xsprite + d->r.xplane * ysprite);
 	xsprite = xval;
-	ft_lodevsprites(d, xsprite, ysprite);
+	xsprite = (int)((d->m->resx / 2) * (1 + xsprite / ysprite));
+	ft_getspritedims(d, (int)xsprite, ysprite);
 	return (0);
 }
 
-void	ft_lodevsprites(t_data *d, double transformX, double transformY)
+int		ft_getspritedims(t_data *d, int spmidx, double depth)
 {
-	  int spriteScreenX = (int)((d->m->resx / 2) * (1 + transformX / transformY));
+	double	scalar;
+	double	size;
+	double	height;
+	double	width;
+	int	startspy;
+	int	endspy;
+	int	startspx;
+	int	endspx;
 
-      //calculate height of the sprite on screen
-      int spriteHeight = abs((int)(d->m->resy / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
-      //calculate lowest and highest pixel to fill in current stripe
-      int drawStartY = -spriteHeight / 2 + d->m->resy / 2;
-      if(drawStartY < 0) drawStartY = 0;
-      int drawEndY = spriteHeight / 2 + d->m->resy / 2;
-      if(drawEndY >= d->m->resy) drawEndY = d->m->resy - 1;
+	scalar = (double)(d->tex.sptex.width) / (d->tex.sptex.height);
+	size = abs((int)(d->m->resy / (depth)));
+	height = (scalar <= 1) ? size : size / scalar;
+	startspy = -height / 2 + d->m->resy / 2;
+	startspy = (startspy < 0) ? 0 : startspy;
+	endspy = height / 2 + d->m->resy / 2;
+	endspy = (endspy > d->m->resy) ? d->m->resy : endspy;
+	width = (scalar >= 1) ? size : size * scalar;
+	startspx = -width / 2 + spmidx;
+	startspx = (startspx < 0) ? 0 : startspx;
+	endspx = width / 2 + spmidx;
+	endspx = (endspx > d->m->resx) ? d->m->resx : endspx;
+	ft_lodevsprites(d, startspx, endspx, width, spmidx, depth, startspy, endspy, height);
+	return (0);
+}
 
-      //calculate width of the sprite
-      int spriteWidth = abs((int)(d->m->resy / (transformY)));
-      int drawStartX = -spriteWidth / 2 + spriteScreenX;
-      if(drawStartX < 0) drawStartX = 0;
-      int drawEndX = spriteWidth / 2 + spriteScreenX;
-      if(drawEndX >= d->m->resx) drawEndX = d->m->resx - 1;
-
+void	ft_lodevsprites(t_data *d, int drawStartX, int drawEndX, int spriteWidth, int spriteScreenX, double transformY, int drawStartY, int drawEndY, int spriteHeight)
+{
       //loop through every vertical stripe of the sprite on screen
       for(int stripe = drawStartX; stripe < drawEndX; stripe++)
       {
@@ -140,7 +152,7 @@ void	ft_lodevsprites(t_data *d, double transformX, double transformY)
         //2) it's on the screen (left)
         //3) it's on the screen (right)
         //4) ZBuffer, with perpendicular distance
-        if(transformY > 0 && stripe > 0 && stripe < d->m->resx && transformY < d->m->zbuf[stripe])
+        if(transformY > 0 && stripe >= 0 && stripe < d->m->resx && transformY < d->m->zbuf[stripe])
         for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
         {
           int g = (y) * 256 - d->m->resy * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
