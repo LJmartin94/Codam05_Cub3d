@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/09/28 16:51:43 by lindsay       ########   odam.nl          #
+#    Updated: 2020/10/05 12:59:47 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,12 +62,14 @@ INCLUDE_MLX_HEADERS = /usr/include
 LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz
 OS_FLAG = LINUX=1
 #LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz  -I./$(MLX_DIR) -lbsd
-else 
+endif
+
+ifndef FOR_LINUX
 MLX_DIR = mlx
 MLX_LIB = libmlx.dylib
 INCLUDE_MLX_HEADERS = . 
 LINK_LIBRARY = -framework OpenGL -framework AppKit
-OS_FLAG = LINUX=0
+OS_FLAG = MAC=1
 endif
 
 all: $(NAME)
