@@ -32,4 +32,4 @@ Can crash map by walking straight forward without turning
 
 Consider filling in floor and ceiling before drawing walls if wall has see through texture
 
-Quite slow on large resolutions, need to see if I can speed it up
+Quite slow on large resolutions, need to see if I can speed it up.
