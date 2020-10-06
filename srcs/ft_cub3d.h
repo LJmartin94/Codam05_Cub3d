@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/05 21:46:13 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/06 17:36:21 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ typedef	struct	s_exture
 
 typedef	struct	s_rendsprite
 {
+	t_img	*towrite;
 	double	depth;
 	int 	spmidx;
 	double	height;
@@ -170,6 +171,9 @@ typedef	struct	s_rendsprite
 	int		endspy;
 	int		startspx;
 	int		endspx;
+	int 	tx;
+	int 	ty;
+	int 	colour;
 }				t_rendsprite;
 
 

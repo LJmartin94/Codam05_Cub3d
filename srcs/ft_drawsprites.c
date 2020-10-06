@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/28 16:49:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/05 22:16:50 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/06 17:37:49 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	ft_sortsprites(t_sprite **sprite, int l, int r, t_sprite val);
 int		ft_orientsprite(t_data *d, int s);
 int		ft_getspritedims(t_data *d);
 int		ft_overlaysprite(t_data *d);
-
-void	ft_lodevsprites(t_data *d, int drawStartX, int drawEndX, int spriteWidth, int spriteScreenX, double transformY, int drawStartY, int drawEndY, int spriteHeight);
 int		ft_getspritetexel(t_data *d, int texX, int texY);
 
 int		ft_scanforsprites(t_data *d)
@@ -61,6 +59,7 @@ void	ft_handlesprites(t_data *d)
 	}
 	ft_sortsprites(&(d->m->sprites), 0, d->m->spriteno - 1, d->m->sprites[0]);
 	s = 0;
+	d->rsp.towrite = (d->frame % 2 == 1) ? &(d->imga) : &(d->imgb);
 	while (s < d->m->spriteno)
 	{
 		ft_orientsprite(d, s);
@@ -123,7 +122,10 @@ int		ft_getspritedims(t_data *d)
 	double	size;
 
 	ratio = (double)(d->tex.sptex.width) / (d->tex.sptex.height);
-	size = abs((int)(d->m->resy / (d->rsp.depth)));
+	if (d->m->resy <= d->m->resx)
+		size = abs((int)(d->m->resy / (d->rsp.depth)));
+	else
+		size = abs((int)(d->m->resx / (d->rsp.depth)));
 	d->rsp.height = (ratio <= 1) ? size : size / ratio;
 	d->rsp.startspy = -d->rsp.height / 2 + d->m->resy / 2;
 	d->rsp.startspy = (d->rsp.startspy < 0) ? 0 : d->rsp.startspy;
@@ -139,64 +141,31 @@ int		ft_getspritedims(t_data *d)
 
 int		ft_overlaysprite(t_data *d)
 {
-	int wixel;
-	//int y;
-	int tx;
-	int ty;
+	int		wixel;
+	int		y;
 
 	wixel = d->rsp.startspx;
 	while (wixel < d->rsp.endspx)
 	{
-		tx = (int)(256 * (wixel - (-d->rsp.width / 2 + d->rsp.spmidx)) * d->tex.sptex.width / d->rsp.width) / 256; // whaaa
-		if (d->rsp.depth > 0 && d->rsp.depth < d->m->zbuf[wixel] && wixel >= 0 && wixel < d->m->resx)
+		d->rsp.tx = (int)(256 * (wixel - (-d->rsp.width / 2 + d->rsp.spmidx)) \
+			* d->tex.sptex.width / d->rsp.width) / 256;
+		if (d->rsp.depth > 0 && d->rsp.depth < d->m->zbuf[wixel] \
+			&& wixel >= 0 && wixel < d->m->resx)
 		{
-				// 	for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
-				// {
-				// int g = (y) * 256 - d->m->resy * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
-				// int texY = ((g * d->tex.sptex.height) / spriteHeight) / 256;
-				// 	t_img	*img;
-				// 	int		colour;
-				
-				// 	img = (d->frame % 2 == 1) ? &(d->imga) : &(d->imgb);
-				// 	colour = ft_getspritetexel(d, texX, texY);
-				// 	if((colour & 0x00FFFFFF) != 0)
-				// 		ft_put_pixel_img(img, stripe, y, colour);
-				// //Uint32 color = texture[sprite[spriteOrder[i]].texture][d->tex.sptex.width * texY + texX]; //get current color from the texture
-				// 		//   buffer[y][stripe] = color; //paint pixel if it isn't black, black is the invisible color
-				// }
+			y = d->rsp.startspy;
+			while (y < d->rsp.endspy)
+			{
+				d->rsp.ty = (256 * (y - d->m->resy / 2.0 + d->rsp.height / 2) \
+					* d->tex.sptex.height / d->rsp.height) / 256;
+				d->rsp.colour = ft_getspritetexel(d, d->rsp.tx, d->rsp.ty);
+				if (d->rsp.colour != 0x00000000)
+					ft_put_pixel_img(d->rsp.towrite, wixel, y, d->rsp.colour);
+				y++;
+			}
 		}
 		wixel++;
 	}
 	return (0);
-}
-
-void	ft_lodevsprites(t_data *d)
-{
-      //loop through every vertical stripe of the sprite on screen
-      for(int stripe = drawStartX; stripe < drawEndX; stripe++)
-      {
-        int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * d->tex.sptex.width / spriteWidth) / 256;
-        //the conditions in the if are:
-        //1) it's in front of camera plane so you don't see things behind you
-        //2) it's on the screen (left)
-        //3) it's on the screen (right)
-        //4) ZBuffer, with perpendicular distance
-        if(transformY > 0 && stripe >= 0 && stripe < d->m->resx && transformY < d->m->zbuf[stripe])
-        for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
-        {
-          int g = (y) * 256 - d->m->resy * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
-          int texY = ((g * d->tex.sptex.height) / spriteHeight) / 256;
-			t_img	*img;
-			int		colour;
-		
-			img = (d->frame % 2 == 1) ? &(d->imga) : &(d->imgb);
-			colour = ft_getspritetexel(d, texX, texY);
-            if((colour & 0x00FFFFFF) != 0)
-		   		ft_put_pixel_img(img, stripe, y, colour);
-        //Uint32 color = texture[sprite[spriteOrder[i]].texture][d->tex.sptex.width * texY + texX]; //get current color from the texture
-				//   buffer[y][stripe] = color; //paint pixel if it isn't black, black is the invisible color
-        }
-      }
 }
 
 int		ft_getspritetexel(t_data *d, int xtex, int ytex)

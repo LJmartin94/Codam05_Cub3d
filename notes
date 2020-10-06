@@ -23,3 +23,7 @@ This could be due to player position not being set properly yet, or perhaps some
 
 Sometimes segfaults when walking straight into a wall from the starting position without turning slightly first, probably to do with the pxdir or pydir being exactly 0? 
 Need to investigate what causes this exactly, and stop it from happening.
+
+Maps 2 and 6 crash, figure out why
+
+Consider filling in floor and ceiling before drawing walls if wall has see through texture
