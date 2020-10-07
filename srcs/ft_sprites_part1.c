@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/28 16:49:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/06 17:56:48 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/07 12:17:46 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_handlesprites(t_data *d)
 	int	s;
 
 	s = 0;
+	if (d->m->spriteno <= 0)
+		return ;
 	while (s < d->m->spriteno)
 	{
 		d->m->sprites[s].dist = pow((d->r.pxpos - d->m->sprites[s].x), 2) + \
