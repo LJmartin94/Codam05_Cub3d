@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/23 15:39:24 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/02 15:15:20 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/07 19:17:35 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void	ft_put_pixel_img(t_img *img, int x, int y, int colour)
 
 	pxl_mem_size = (img->bits_per_pixel / 8);
 	dst = img->addr + (y * img->line_bytes + x * pxl_mem_size);
-	*(unsigned int*)dst = colour;
+	if (colour >= 0x00000000 && (unsigned int)colour <= 0x00FFFFFF)
+		*(unsigned int*)dst = colour;
+	else
+		*(unsigned int*)dst = 0x00000000;
 }
 
 void	ft_update_window(t_data *data)

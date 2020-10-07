@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/06 17:55:42 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/07 17:46:53 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ typedef struct	s_data
 	t_mapinfo		*m;
 	t_img			imga;
 	t_img			imgb;
+	t_img			*thisframe;
 	t_raydata		r;
 	t_movementdata	md;
 	t_exture		tex;

@@ -4,28 +4,20 @@
 
 3) Could write the printf-heavy debug function in a norm approved way using write and punter etc, and maybe include it as a runnable function using a '--debug' flag or something. That could help explain why my program rejects  .cub file if an evaluator uses a faulty one during the eval.
 
-4) Minimum Resolution is currently 1x1, this should probably be larger but I don't know what size is realistic yet.
+4) Need to handle spaces between the individual parts of map elements
 
-5) Need to handle spaces between the individual parts of map elements
+5) Need to update makefile rules, make re etc.
 
-6) Go through the subject pdf again when you think youre finished
+6) Check if you can trigger an error with a valid .cub file by leaving it in a directory and telling the program it is located at "that_dir/*", shouldnt be an error, but might be in my current setup.
 
-7) Need to update makefile rules, make re etc.
+7) See if you can trick it to read a '.cub' directory
 
-8) Check if you can trigger an error with a valid .cub file by leaving it in a directory and telling the program it is located at "that_dir/*", shouldnt be an error, but might be in my current setup.
+8) Perhaps return specific error message if .png file was passed.
 
-9) See if you can trick it to read a '.cub' directory
+9) Unmirror south and east textures, figure out why they are being mirrored in the first place
 
-10) Perhaps return specific error message if .png file was passed.
+10) Quite slow on large resolutions, need to see if I can speed it up.
 
-11) Unmirror south and east textures, figure out why they are being mirrored in the first place
+11) Go through the subject pdf again when you think youre finished
 
-12) Can sometimes cause a 'heap buffer overflow' when stepping backwards first thing when the map is first loaded.
-This could be due to player position not being set properly yet, or perhaps something in the parser that has not yet converted the letter at the start pos on the map to a regular 0?
-
-13) Sometimes segfaults when walking straight into a wall from the starting position without turning slightly first, probably to do with the pxdir or pydir being exactly 0? 
-Need to investigate what causes this exactly, and stop it from happening.
-
-14) Consider filling in floor and ceiling before drawing walls if wall has see through texture
-
-15) Quite slow on large resolutions, need to see if I can speed it up.
+12) Run Norme on everything

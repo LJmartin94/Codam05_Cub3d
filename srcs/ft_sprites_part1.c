@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/28 16:49:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/07 12:17:46 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/07 17:55:15 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		ft_orientsprite(t_data *d, int s)
 	ysprite = (1.0 / (d->r.xplane * d->r.pydir - d->r.pxdir * d->r.yplane)) * \
 	(-1 * d->r.yplane * xsprite + d->r.xplane * ysprite);
 	xsprite = xval;
-	d->rsp.spmidx = (int)((d->m->resx / 2) * (1 + xsprite / ysprite));
+	d->rsp.spmidx = (int)(((d->m->resx - 1) / 2) * (1 + xsprite / ysprite));
 	d->rsp.depth = ysprite;
 	return (0);
 }

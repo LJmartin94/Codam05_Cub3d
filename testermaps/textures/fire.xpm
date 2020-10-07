@@ -2,7 +2,7 @@
 static char *d4bcd33726d9416ddfa9adc5785d595600fOl5TtCQwWfDbR[] = {
 /* columns rows colors chars-per-pixel */
 "433 385 18 1 ",
-"  c None",
+"  c black",
 ". c #762815",
 "X c #7B2C17",
 "o c #802F18",

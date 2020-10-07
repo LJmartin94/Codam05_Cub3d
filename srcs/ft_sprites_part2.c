@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/28 16:49:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/06 17:56:16 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/07 18:35:04 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ int		ft_getspritedims(t_data *d)
 	else
 		size = abs((int)(d->m->resx / (d->rsp.depth)));
 	d->rsp.height = (ratio <= 1) ? size : size / ratio;
-	d->rsp.startspy = -d->rsp.height / 2 + d->m->resy / 2;
+	d->rsp.height = (d->rsp.height < 1) ? 1 : d->rsp.height;
+	d->rsp.startspy = -d->rsp.height / 2 + (d->m->resy - 1) / 2;
 	d->rsp.startspy = (d->rsp.startspy < 0) ? 0 : d->rsp.startspy;
-	d->rsp.endspy = d->rsp.height / 2 + d->m->resy / 2;
+	d->rsp.endspy = d->rsp.height / 2 + (d->m->resy - 1) / 2;
 	d->rsp.endspy = (d->rsp.endspy > d->m->resy) ? d->m->resy : d->rsp.endspy;
 	d->rsp.width = (ratio >= 1) ? size : size * ratio;
+	d->rsp.width = (d->rsp.width < 1) ? 1 : d->rsp.width;
 	d->rsp.startspx = -d->rsp.width / 2 + d->rsp.spmidx;
 	d->rsp.startspx = (d->rsp.startspx < 0) ? 0 : d->rsp.startspx;
 	d->rsp.endspx = d->rsp.width / 2 + d->rsp.spmidx;
@@ -51,8 +53,10 @@ int		ft_overlaysprite(t_data *d)
 			y = d->rsp.startspy;
 			while (y < d->rsp.endspy)
 			{
-				d->rsp.ty = (256 * (y - d->m->resy / 2.0 + d->rsp.height / 2) \
-					* d->tex.sptex.height / d->rsp.height) / 256;
+				// printf("ty = %d\n", d->rsp.ty);
+				// printf("ty = ( [y] %d - [(int)((d->m->resy - 1) / 2)] %d + [d->rsp.height / 2] %f ) * [d->tex.sptex.height] %d / [d->rsp.height] %f\n", y, (int)((d->m->resy - 1) / 2), (d->rsp.height / 2), d->tex.sptex.height, d->rsp.height);
+				d->rsp.ty = (256 * (y - (int)((d->m->resy - 1) / 2) +\
+				(d->rsp.height + 1) / 2) * d->tex.sptex.height / d->rsp.height) / 256;
 				d->rsp.colour = ft_getspritetexel(d, d->rsp.tx, d->rsp.ty);
 				if (d->rsp.colour != 0x00000000)
 					ft_put_pixel_img(d->rsp.towrite, wixel, y, d->rsp.colour);
