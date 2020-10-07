@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/07 17:46:53 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/07 20:16:38 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,18 +164,17 @@ typedef	struct	s_rendsprite
 {
 	t_img	*towrite;
 	double	depth;
-	int 	spmidx;
+	int		spmidx;
 	double	height;
 	double	width;
 	int		startspy;
 	int		endspy;
 	int		startspx;
 	int		endspx;
-	int 	tx;
-	int 	ty;
-	int 	colour;
+	int		tx;
+	int		ty;
+	int		colour;
 }				t_rendsprite;
-
 
 typedef struct	s_data
 {
@@ -244,7 +243,7 @@ int				ft_orientsprite(t_data *d, int s);
 
 int				ft_getspritedims(t_data *d);
 int				ft_overlaysprite(t_data *d);
-int				ft_getspritetexel(t_data *d, int texX, int texY);
+int				ft_getspritetexel(t_data *d, int xtex, int ytex);
 
 int				ft_listen_for_event(t_data *data);
 int				ft_pressed(int key, t_data *d);

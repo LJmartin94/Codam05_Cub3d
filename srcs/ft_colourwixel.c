@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 14:39:38 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/07 18:56:16 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/07 21:19:45 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,18 @@ int		ft_gettexel(t_data *d, double y, int wstart, int wend)
 	char	*texel;
 	double	x;
 
-	if (d->r.pole == 1 && d->r.rydir < 0)
-		tex = d->tex.stex;
-	else if (d->r.pole == 1 && d->r.rydir >= 0)
-		tex = d->tex.ntex;
-	else if (d->r.pole == 0 && d->r.rxdir < 0)
-		tex = d->tex.etex;
-	else
-		tex = d->tex.wtex;
+	tex = d->tex.wtex;
+	tex = (d->r.pole == 1 && d->r.rydir < 0) ? d->tex.stex : tex;
+	tex = (d->r.pole == 1 && d->r.rydir >= 0) ? d->tex.ntex : tex;
+	tex = (d->r.pole == 0 && d->r.rxdir < 0) ? d->tex.etex : tex;
 	if (d->r.pole == 1)
 		x = (double)(d->r.pxpos + d->r.camraylen * d->r.rxdir);
 	else
 		x = (double)(d->r.pypos + d->r.camraylen * d->r.rydir);
 	x = (double)((x - floor(x)) * tex.width);
+	if ((d->r.pole == 0 && d->r.rxdir < 0) || \
+	(d->r.pole == 1 && d->r.rydir >= 0))
+		x = tex.width - x;
 	y = (((y - wstart) / (double)(wend - wstart)) * 2 - 1) \
 	* (tex.height / 2);
 	y = (d->r.camraylen <= 1) ? y * d->r.camraylen : y;

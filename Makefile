@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/06 17:58:25 by limartin      ########   odam.nl          #
+#    Updated: 2020/10/07 20:19:38 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,4 +106,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus linux clean fclean re
+linuxre: fclean linux
+
+.PHONY: all bonus linux linuxre clean fclean re
