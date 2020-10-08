@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 14:39:38 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/07 21:19:45 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/08 14:08:41 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int		ft_buildwall(t_data *d, int x, int wstart, int wend)
 
 	y = 0;
 	colour = (d->m->cb + d->m->cg * 256 + d->m->cr * 256 * 256);
-	while (y < wstart)
+	while (y < wstart && y < ((d->m->resy - 1) / 2))
 	{
 		ft_put_pixel_img(d->thisframe, x, y, colour);
 		y++;
 	}
-	while (y < wend)
+	while (y < wend && y < d->m->resy)
 	{
 		colour = ft_gettexel(d, y, wstart, wend);
 		ft_put_pixel_img(d->thisframe, x, y, colour);

@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/25 13:06:36 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/07 13:23:32 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/08 15:18:27 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,9 @@ void	ft_wasd(t_data *d)
 
 void	ft_checkcollision(t_data *d)
 {
-	double gridline;
-
-	gridline = fmod(d->md.newpy, 1.0);
-	if (gridline < 0.0000001)
-		d->md.newpy = (d->md.newpy - d->r.pypos) * 0.9999 + d->r.pypos;
-	gridline = fmod(d->md.newpx, 1.0);
-	if (gridline < 0.0000001)
-		d->md.newpx = (d->md.newpx - d->r.pxpos) * 0.9999 + d->r.pxpos;
-	if (d->m->map[(int)d->r.pypos][(int)d->md.newpx] == '0')
+	if (d->m->map[(int)d->r.pypos][(int)(2 * d->md.newpx - d->r.pxpos)] == '0')
 		d->r.pxpos = d->md.newpx;
-	if (d->m->map[(int)d->md.newpy][(int)d->r.pxpos] == '0')
+	if (d->m->map[(int)(2 * d->md.newpy - d->r.pypos)][(int)d->r.pxpos] == '0')
 		d->r.pypos = d->md.newpy;
 }
 
