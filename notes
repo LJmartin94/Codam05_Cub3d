@@ -1,15 +1,11 @@
 1) Still need to add --save flag as said in the subject, currently that will just return a 'too many arguments error'. Also dont resize resx and resy in this case?
+mlx cant handle >16384
 
 
-2) revisit the ft_overlaysprite function for simplifications.
+2) Check all the errors are still being flagged as errors.
 
-3) Quite slow on large resolutions, need to see if I can speed it up.
+3) Go through the subject pdf again when you think youre finished
 
+4) Check leaks
 
-4) Check all the errors are still being flagged as errors.
-
-5) Go through the subject pdf again when you think youre finished
-
-6) Check leaks
-
-7) Run Norme on everything
+5) Run Norme on everything

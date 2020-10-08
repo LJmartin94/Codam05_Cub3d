@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 14:39:09 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/08 16:26:35 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/08 19:19:49 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,12 @@ int			ft_initraydata(t_raydata *r, t_mapinfo *m)
 
 int			ft_getmovin(t_data *d)
 {
-	d->md.movspd = 0.05;
+	unsigned long	resprod;
+
+	resprod = d->m->resx * d->m->resy;
+	d->md.movspd = 0.05 * (resprod / (1280 * 720));
+	d->md.movspd = (d->md.movspd < 0.05) ? 0.05 : d->md.movspd;
+	d->md.movspd = (d->md.movspd > 0.2) ? 0.2 : d->md.movspd;
 	d->md.direct = d->md.movspd;
 	d->md.strafe = (sqrt(pow(d->md.movspd, 2) + pow(d->md.movspd, 2))) / 2;
 	d->md.rotspd = 0.05;

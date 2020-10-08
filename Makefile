@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/07 20:19:38 by limartin      ########   odam.nl          #
+#    Updated: 2020/10/08 19:06:55 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ INCL_PATH = ./srcs/
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g 
+CFLAGS = -Wall -Wextra -Werror -O3
+#-fsanitize=address -g 
 #-fno-omit-frame-pointer
 
 HEADER_FILES = $(INCL_PATH)ft_cub3d.h

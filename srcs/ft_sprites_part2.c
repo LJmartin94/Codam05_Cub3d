@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/28 16:49:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/07 19:44:04 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/08 18:44:08 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ int		ft_overlaysprite(t_data *d)
 			y = d->rsp.startspy;
 			while (y < d->rsp.endspy)
 			{
-				//looking at this again, it can probably be simplified by just using d->rsp.startspy
-				d->rsp.ty = (256 * (y - (int)((d->m->resy - 1) / 2) +\
-				(d->rsp.height + 1) / 2) * d->tex.sptex.height / d->rsp.height) / 256;
+				d->rsp.ty = (256 * (y - (int)(-d->rsp.height / 2 + (d->m->resy \
+				- 1) / 2)) * d->tex.sptex.height / d->rsp.height) / 256;
 				d->rsp.colour = ft_getspritetexel(d, d->rsp.tx, d->rsp.ty);
 				if (d->rsp.colour != 0x00000000)
 					ft_put_pixel_img(d->rsp.towrite, wixel, y, d->rsp.colour);
