@@ -8,4 +8,6 @@ mlx cant handle >16384
 
 4) Check leaks
 
-5) Run Norme on everything
+5) Clean up Makefile comments
+
+6) Run Norme on everything
