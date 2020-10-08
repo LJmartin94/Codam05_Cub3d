@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/22 16:50:46 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/05 13:01:09 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/08 17:00:27 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		ft_listen_for_event(t_data *data)
 {
 	mlx_hook(data->win, 2, 1L << 0, &ft_pressed, data);
 	mlx_hook(data->win, 3, 1L << 1, &ft_release, data);
+	mlx_hook(data->win, 17, 1L << 19, &ft_closeoff, data);
 	return (0);
 }
 
@@ -54,5 +55,11 @@ int		ft_release(int key, t_data *d)
 		d->md.rotating = 0;
 	else if (key == ESC)
 		xt_quit(0, d->m);
+	return (0);
+}
+
+int		ft_closeoff(t_data *d)
+{
+	xt_quit(0, d->m);
 	return (0);
 }

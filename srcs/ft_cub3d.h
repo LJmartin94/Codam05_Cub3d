@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/07 20:16:38 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/08 17:07:24 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,6 @@ typedef struct	s_data
 	long			frame;
 }				t_data;
 
-int				ft_printall(t_mapinfo *m); //DEBUG ONLY
-
 int				main(int argc, char **argv);
 
 t_mapinfo		ft_constructor(t_mapinfo *mapinfo);
@@ -248,6 +246,7 @@ int				ft_getspritetexel(t_data *d, int xtex, int ytex);
 int				ft_listen_for_event(t_data *data);
 int				ft_pressed(int key, t_data *d);
 int				ft_release(int key, t_data *d);
+int				ft_closeoff(t_data *d);
 
 void			ft_wasd(t_data *d);
 void			ft_checkcollision(t_data *d);

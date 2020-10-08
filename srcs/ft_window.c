@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/23 15:39:24 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/07 19:17:35 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/08 16:43:25 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_data	ft_window(t_mapinfo *m)
 	if (d.mlx == 0)
 		xt_mlxerror(m);
 	ft_resize(d.mlx, d.m);
-	d.win = mlx_new_window(d.mlx, d.m->resx, d.m->resy, "Test");
+	d.win = mlx_new_window(d.mlx, d.m->resx, d.m->resy, "💧🌱Cub3D🔥💨");
 	if (d.win == 0)
 		xt_mlxerror(m);
 	ft_createimgs(&(d.imga), &(d.imgb), d.mlx, d.m);
