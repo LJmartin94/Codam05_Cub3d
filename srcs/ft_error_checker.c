@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:48:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/08 16:01:35 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/09 12:24:28 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_prelimcheck(int argc, char *mapfile, t_mapinfo *m)
 		errno = 22;
 	if (argc < 2)
 		perror("Error\nNo map file provided");
-	else if (argc > 2)
+	else if (argc > 2 && !(m->snapshot))
 	{
 		errno = 7;
 		perror("Error\nToo many arguments provided");

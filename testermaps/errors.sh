@@ -82,6 +82,12 @@ printf "\n./cub3D ./cub3D ./valid/1.cub\n"
 printf "\n./cub3D ./cub3D --save\n"
 ../cub3D ../cub3D --save
 
+printf "\n./cub3D --saves\n"
+../cub3D --saves
+
+printf "\n./cub3D --save multipleArgs\n"
+../cub3D --save multipleArgs
+
 printf "\nnotafile\n"
 ../cub3D ./error/notafile
 

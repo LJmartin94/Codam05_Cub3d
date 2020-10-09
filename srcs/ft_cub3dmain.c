@@ -6,11 +6,13 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:42:12 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/08 17:08:01 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/09 12:43:45 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
+
+int	ft_checksave(char *arg, t_mapinfo *m);
 
 int		main(int argc, char **argv)
 {
@@ -19,6 +21,9 @@ int		main(int argc, char **argv)
 
 	mapinfo = ft_constructor(&mapinfo);
 	mapinfo.fd = open(argv[1], O_RDONLY);
+	mapinfo.snapshot = 0;
+	if (argc == 3)
+		ft_checksave(argv[2], &mapinfo);
 	ft_prelimcheck(argc, argv[1], &mapinfo);
 	ft_parser(&mapinfo);
 	ft_processmap(&mapinfo, argv[1]);
@@ -31,4 +36,13 @@ int		main(int argc, char **argv)
 	mlx_loop_hook(d.mlx, &ft_mlx_run, &d);
 	mlx_loop(d.mlx);
 	xt_quit(0, &mapinfo);
+}
+
+int	ft_checksave(char *arg, t_mapinfo *m)
+{
+	if ((arg == ft_strstr(arg, "--save")))
+		m->snapshot = 1;
+	if (m->snapshot)
+		m->snapshot = (arg[6] == '\0') ? m->snapshot : 0;
+	return (m->snapshot);
 }

@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/08 17:07:24 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/09 11:48:02 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef enum	e_mac_keys
 
 typedef	struct	s_mapinfo
 {
+	int					snapshot;
 	struct s_mapinfo	*copy;
 	int					noerror;
 	int					fd;
