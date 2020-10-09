@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/09 11:48:02 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/09 17:15:50 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,12 +187,16 @@ typedef struct	s_data
 	t_movementdata	md;
 	t_exture		tex;
 	t_rendsprite	rsp;
+	int				bmpfd;
 	void			*mlx;
 	void			*win;
 	long			frame;
 }				t_data;
 
 int				main(int argc, char **argv);
+
+int				ft_checksave(char *arg, t_mapinfo *m);
+int				ft_makebmp(t_data *d);
 
 t_mapinfo		ft_constructor(t_mapinfo *mapinfo);
 int				ft_initraydata(t_raydata *r, t_mapinfo *m);
@@ -258,6 +262,7 @@ int				ft_mlx_run(t_data *data);
 void			xt_quit(int ret, t_mapinfo *mapinfo);
 int				ft_clearcopy(int error, t_mapinfo *cpy, t_mapinfo *org);
 int				ft_freemap(t_mapinfo *m);
+int				xt_wrerror(t_mapinfo *m);
 
 int				get_next_line(t_mapinfo *m, char **line);
 int				ft_fill_remainder(char *remainder, int fd, int *nl);

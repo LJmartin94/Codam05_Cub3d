@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 14:39:09 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/08 19:19:49 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/09 16:39:13 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			ft_getmovin(t_data *d)
 	d->md.rotating = 0;
 	d->md.newpx = d->r.pxpos;
 	d->md.newpy = d->r.pypos;
+	d->bmpfd = -1;
 	return (0);
 }
 

@@ -82,14 +82,26 @@ printf "\n./cub3D ./cub3D ./valid/1.cub\n"
 printf "\n./cub3D ./cub3D --save\n"
 ./cub3D ./cub3D --save
 
-printf "\n./cub3D --saves\n"
-./cub3D --saves
+printf "\n./cub3D --save\n"
+./cub3D --save
 
-printf "\n./cub3D --save multipleArgs\n"
-./cub3D --save multipleArgs
+printf "\n./cub3D ./valid/1.cub --saves\n"
+./cub3D ./valid/1.cub --saves
+
+printf "\n./cub3D ./valid/1.cub --sav\n"
+./cub3D ./valid/1.cub --sav
+
+printf "\n./cub3D ./valid/1.cub ---save\n"
+./cub3D ./valid/1.cub ---save
+
+printf "\n./cub3D ./valid/1.cub --save ./valid/1.cub\n"
+./cub3D ./valid/1.cub --save ./valid/1.cub
+
+printf "\n./cub3D --save ./valid/1.cub\n"
+./cub3D --save ./valid/1.cub
 
 printf "\nnotafile\n"
-./cub3D ./error/notafile
+./cub3D ./error/notafile.cub
 
 printf "\nnoargs\n"
 ./cub3D

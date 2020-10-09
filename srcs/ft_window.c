@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/23 15:39:24 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/08 18:18:05 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/09 15:25:33 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ t_data	ft_window(t_mapinfo *m)
 	if (d.mlx == 0)
 		xt_mlxerror(m);
 	ft_resize(d.mlx, d.m);
-	d.win = mlx_new_window(d.mlx, d.m->resx, d.m->resy, "💧🌱Cub3D🔥💨");
-	if (d.win == 0)
-		xt_mlxerror(m);
+	if (!(m->snapshot))
+	{
+		d.win = mlx_new_window(d.mlx, d.m->resx, d.m->resy, "💧🌱Cub3D🔥💨");
+		if (d.win == 0)
+			xt_mlxerror(m);
+	}
 	ft_createimgs(&(d.imga), &(d.imgb), d.mlx, d.m);
 	d.frame = -1;
 	return (d);
@@ -36,11 +39,16 @@ void	ft_resize(void *mlx, t_mapinfo *m)
 
 	x = 0;
 	y = 0;
-	mlx_get_screen_size(mlx, &x, &y);
-	if (x < m->resx)
-		m->resx = x;
-	if (y < m->resy)
-		m->resy = y;
+	if (!(m->snapshot))
+	{
+		mlx_get_screen_size(mlx, &x, &y);
+		if (x < m->resx)
+			m->resx = x;
+		if (y < m->resy)
+			m->resy = y;
+	}
+	if (m->resx > 16384 || m->resy > 16384)
+		xt_mlxerror(m);
 }
 
 void	ft_createimgs(t_img *a, t_img *b, void *mlx, t_mapinfo *m)

@@ -6,13 +6,11 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:42:12 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/09 12:43:45 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/09 16:26:41 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
-
-int	ft_checksave(char *arg, t_mapinfo *m);
 
 int		main(int argc, char **argv)
 {
@@ -32,17 +30,13 @@ int		main(int argc, char **argv)
 	ft_scanforsprites(&d);
 	ft_getmovin(&d);
 	ft_getteximgs(&d);
-	ft_listen_for_event(&d);
-	mlx_loop_hook(d.mlx, &ft_mlx_run, &d);
-	mlx_loop(d.mlx);
+	if (mapinfo.snapshot == 0)
+	{
+		ft_listen_for_event(&d);
+		mlx_loop_hook(d.mlx, &ft_mlx_run, &d);
+		mlx_loop(d.mlx);
+	}
+	if (mapinfo.snapshot)
+		ft_makebmp(&d);
 	xt_quit(0, &mapinfo);
-}
-
-int	ft_checksave(char *arg, t_mapinfo *m)
-{
-	if ((arg == ft_strstr(arg, "--save")))
-		m->snapshot = 1;
-	if (m->snapshot)
-		m->snapshot = (arg[6] == '\0') ? m->snapshot : 0;
-	return (m->snapshot);
 }

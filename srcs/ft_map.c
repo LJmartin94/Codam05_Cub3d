@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/14 22:17:07 by limartin      #+#    #+#                 */
-/*   Updated: 2020/09/28 17:49:14 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/09 17:05:05 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int		ft_getmap(t_mapinfo *m, char *cub)
 	char	*line;
 	int		i;
 
-	close(m->fd);
+	i = close(m->fd);
 	m->fd = open(cub, O_RDONLY);
+	if (i == -1 || m->fd == -1)
+		xt_wrerror(m);
 	while (m->mapstart > 0)
 	{
 		get_next_line(m, &line);

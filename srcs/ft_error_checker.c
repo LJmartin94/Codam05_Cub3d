@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:48:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/09 12:24:28 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/09 17:07:49 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_prelimcheck(int argc, char *mapfile, t_mapinfo *m)
 		errno = 7;
 		perror("Error\nToo many arguments provided");
 	}
-	else if (read(m->fd, 0, 0) == -1)
+	else if (m->fd == -1 || read(m->fd, 0, 0) == -1)
 	{
 		errno = 9;
 		perror("Error\nCan't read file, check permissions & if it exists");
