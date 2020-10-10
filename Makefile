@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/09 19:53:48 by lindsay       ########   odam.nl          #
+#    Updated: 2020/10/10 18:58:43 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,6 +105,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f snapshot.bmp
 
 re: fclean all
 

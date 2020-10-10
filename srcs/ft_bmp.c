@@ -6,13 +6,16 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/09 16:23:31 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/09 19:43:21 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/10 18:57:01 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
+int	xt_bpp_error(t_mapinfo *m);
 int	ft_metadata(t_data *d);
+int ft_int_in_bytes(int sign, int num, unsigned char *dest);
+int	ft_img_to_bmp(t_data *d);
 
 int	ft_checksave(char *arg, t_mapinfo *m)
 {
@@ -25,17 +28,37 @@ int	ft_checksave(char *arg, t_mapinfo *m)
 
 int	ft_makebmp(t_data *d)
 {
-	d->bmpfd = open("snapshot.bmp", O_CREAT, O_WRONLY, O_TRUNC, 0644);
+	if (d->imga.bits_per_pixel <= 8)
+		xt_bpp_error(d->m);
+	d->bmpfd = open("snapshot.bmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (d->bmpfd == -1)
 		xt_wrerror(d->m);
 	ft_metadata(d);
+	ft_img_to_bmp(d); //incomplete
+	return (0);
 }
+
+int	xt_bpp_error(t_mapinfo *m)
+{
+	errno = 12;
+	perror("Error\nThe bits per pixel specified by your machine's \
+	architecture are too low, palletised BMP images are not handled.\n");
+	xt_quit(1, m);
+	return (1);
+}
+
+/*
+** For more information on what metadata is being stored
+** in the header of this file, visit
+** https://medium.com/sysf/
+** bits-to-bitmaps-a-simple-walkthrough-of-bmp-image-format-765dc6857393
+*/
 
 int	ft_metadata(t_data *d)
 {
-	int 			i;
+	int				i;
 	unsigned char	meta[54];
-	int 			size;
+	int				size;
 
 	i = 0;
 	while (i < 54)
@@ -45,15 +68,43 @@ int	ft_metadata(t_data *d)
 	}
 	meta[0] = (unsigned char)('B');
 	meta[1] = (unsigned char)('M');
-	size = 54 + d->imga.bits_per_pixel * d->m->resx * d->m->resy;
-	ft_int_in_bytes(size, &(meta[2]));
-	ft_int_in_bytes(54, &(meta[10]));
-	
-	// https://medium.com/sysf/bits-to-bitmaps-a-simple-walkthrough-of-bmp-image-format-765dc6857393
-	
+	size = 54 + (d->imga.bits_per_pixel / 8) * d->m->resx * d->m->resy;
+	ft_int_in_bytes(0, size, &(meta[2]));
+	ft_int_in_bytes(0, 54, &(meta[10]));
+	ft_int_in_bytes(0, 40, &(meta[14]));
+	ft_int_in_bytes(1, d->m->resx, &(meta[18]));
+	ft_int_in_bytes(1, d->m->resy, &(meta[22]));
+	ft_int_in_bytes(0, 1, &(meta[26]));
+	ft_int_in_bytes(0, d->imga.bits_per_pixel, &(meta[28]));
+	i = write(d->bmpfd, meta, 54);
+	if (i == -1)
+		xt_wrerror(d->m);
+	//need some sort of check here to debug and test whether the bmp meta data is correct.
+	return (0);
 }
 
-int ft_int_in_bytes(int num, unsigned char *dest)
+int	ft_int_in_bytes(int sign, int num, unsigned char *dest)
 {
+	if (sign == 0)
+	{
+		num = (unsigned int)num; //not right I don't think
+		dest[0] = (unsigned char)(num);
+		dest[1] = (unsigned char)(num >> 8);
+		dest[2] = (unsigned char)(num >> 16);
+		dest[3] = (unsigned char)(num >> 24);
+	}
+	else
+	{
+		dest[0] = (unsigned char)(num);
+		dest[1] = (unsigned char)(num >> 8);
+		dest[2] = (unsigned char)(num >> 16);
+		dest[3] = (unsigned char)(num >> 24);
+	}
+	return (0);
+}
 
+int	ft_img_to_bmp(t_data *d)
+{
+	d->m->x = 0;
+	return (0);
 }
