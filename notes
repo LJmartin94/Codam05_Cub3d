@@ -1,16 +1,24 @@
-check for printf statements
-check for leaks on Valgrind
+Done but I'll do it again:
+Check for printf statements
+Run Norme on everything
+Check all the errors are still being flagged as errors.
+
+
 check for leaks with leaks on iMac
 check to see if bmps are flipped on iMac
 check to see if bmps have the right meta-data on iMacs
+check to see if you can do anything crazy with the window management on iMacs
 
-
-2) Check all the errors are still being flagged as errors.
 
 3) Go through the subject pdf again when you think youre finished
+
+Except for the map, each type of information from an element can be separatedby one or more space(s).
+
 
 4) Check leaks
 
 5) Clean up Makefile comments
 
-6) Run Norme on everything
+6) Run Norme and Norminette Plus on everything (including Makefile)
+
+7) PUSH YOUR GIT REPO TO YOUR SCHOOL REPO (except testermaps folder)

@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/12 19:07:55 by lindsay       ########   odam.nl          #
+#    Updated: 2020/10/12 20:28:00 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,6 @@ CC = gcc
 
 CFLAGS = -fsanitize=address -g -Wall -Wextra -Werror
 #-Wall -Wextra -Werror -O3
-#-fsanitize=address -g -Wall -Wextra -Werror
-#-fno-omit-frame-pointer
 
 HEADER_FILES = $(INCL_PATH)ft_cub3d.h
 
@@ -44,16 +42,12 @@ SRC		= $(SRC_PATH)ft_cub3dmain.c \
 		$(SRC_PATH)get_next_line.c \
 		$(SRC_PATH)utils_part1.c
 
-SRC_B	= #BONUS .c FILES LISTED HERE
-
 #Object files
 OBJ := ${SRC:%.c=%.o}
 
-BOBJ := ${SRC_B:%.c=%.o}
-
 #Avoid relinking bonus
 ifdef WITH_BONUS
-COMPILE_OBJECTS = $(OBJ) $(BOBJ)
+COMPILE_OBJECTS = $(OBJ)
 else
 COMPILE_OBJECTS = $(OBJ)
 endif
@@ -65,7 +59,6 @@ MLX_LIB = libmlx.a
 INCLUDE_MLX_HEADERS = /usr/include
 LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz
 OS_FLAG = LINUX=1
-#LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz  -I./$(MLX_DIR) -lbsd
 endif
 
 ifndef FOR_LINUX
@@ -91,7 +84,7 @@ $(MLX_LIB):
 	@cp ./$(MLX_DIR)/$(MLX_LIB) $(MLX_LIB)
 
 bonus:
-	@ $(MAKE) WITH_BONUS=1 all
+	@ $(MAKE) WITH_BONUS=1
 
 linux:
 	@ $(MAKE) FOR_LINUX=1 all
@@ -100,7 +93,7 @@ clean:
 	@make clean -C ./mlx
 	@make clean -C ./mlx_linux
 	@rm -f ./mlx_linux/Makefile.gen
-	rm -f $(OBJ) $(BOBJ)
+	rm -f $(OBJ)
 	rm -f libmlx.dylib
 	rm -f libmlx.a
 

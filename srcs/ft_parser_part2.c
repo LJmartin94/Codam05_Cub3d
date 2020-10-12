@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 12:47:12 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/07/16 16:44:23 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/12 21:44:49 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int			ft_writevals(t_mapinfo *mapinfo, char tag, char *line, int *i)
 	while (line[*i] != ' ')
 		(*i)++;
 	(*i)++;
+	while (line[*i] == ' ' && (tag == 'r' || tag == 'f' || tag == 'c'))
+		(*i)++;
 	if (tag == 'N' || tag == 'S' || tag == 'W' || tag == 'E' || tag == 's')
 		ft_fetchpath(mapinfo, tag, line, i);
 	else if (tag == 'f' || tag == 'c')
@@ -96,14 +98,13 @@ int			ft_fetchclr(t_mapinfo *m, char tag, char *line, int *i)
 		m->fb = (tag == 'f' && m->fb == -1 && m->fg != -1) ? m->x : m->fb;
 		m->fg = (tag == 'f' && m->fg == -1 && m->fr != -1) ? m->x : m->fg;
 		m->fr = (tag == 'f' && m->fr == -1) ? m->x : m->fr;
-		if (tag == 'f' && m->fb != -1)
-			break ;
 		m->cb = (tag == 'c' && m->cb == -1 && m->cg != -1) ? m->x : m->cb;
 		m->cg = (tag == 'c' && m->cg == -1 && m->cr != -1) ? m->x : m->cg;
 		m->cr = (tag == 'c' && m->cr == -1) ? m->x : m->cr;
-		if (tag == 'c' && m->cb != -1)
+		if ((tag == 'c' && m->cb != -1) || (tag == 'f' && m->fb != -1))
 			break ;
-		if (line[*i] == ',' && line[*i - 1] >= '0' && line[*i - 1] <= '9')
+		while ((line[*i] == ',' && line[*i - 1] >= '0' && \
+		line[*i - 1] <= '9') || line[*i] == ' ')
 			(*i)++;
 	}
 	m->noerror = ((tag == 'f' && m->fb == -1) || \
@@ -120,7 +121,7 @@ int			ft_fetchres(t_mapinfo *mapinfo, char *line, int *i)
 		mapinfo->resx = (line[*i] - '0') + (mapinfo->resx * 10);
 		(*i)++;
 	}
-	if (line[*i] == ' ')
+	while (line[*i] == ' ')
 		(*i)++;
 	while ((line[*i] >= '0') && (line[*i] <= '9'))
 	{

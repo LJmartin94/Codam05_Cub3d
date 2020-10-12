@@ -118,4 +118,22 @@ printf "\nTurlough's colours\n"
 printf "\nisdir.cub\n"
 ../cub3D ./error/isdir.cub
 
+printf "\nspacecomma.cub\n"
+../cub3D ./error/spacecomma.cub
+
+printf "\nspacecomma2.cub\n"
+../cub3D ./error/spacecomma2.cub
+
+printf "\nspacecommaspace.cub\n"
+../cub3D ./error/spacecommaspace.cub
+
+printf "\nspacecommaspace2.cub\n"
+../cub3D ./error/spacecommaspace2.cub
+
+printf "\ntwocommas.cub\n"
+../cub3D ./error/twocommas.cub
+
+printf "\ntwocommas.cub\n"
+../cub3D ./error/twocommas.cub
+
 printf "\n"
