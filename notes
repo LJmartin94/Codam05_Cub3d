@@ -1,5 +1,8 @@
-1) Still need to add --save flag as said in the subject, currently that will just return a 'too many arguments error'. Also dont resize resx and resy in this case?
-mlx cant handle >16384
+check for printf statements
+check for leaks on Valgrind
+check for leaks with leaks on iMac
+check to see if bmps are flipped on iMac
+check to see if bmps have the right meta-data on iMacs
 
 
 2) Check all the errors are still being flagged as errors.

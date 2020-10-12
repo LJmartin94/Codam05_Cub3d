@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/08 13:38:48 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/09 17:14:39 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/12 20:01:16 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		ft_clearcopy(int error, t_mapinfo *c, t_mapinfo *org)
 	return (0);
 }
 
-int	xt_wrerror(t_mapinfo *m)
+int		xt_wrerror(t_mapinfo *m)
 {
 	errno = 9;
 	perror("Error\n A file could not be opened, closed or written to as \

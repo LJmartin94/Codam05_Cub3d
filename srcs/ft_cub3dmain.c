@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:42:12 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/12 19:47:06 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/12 20:01:50 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		main(int argc, char **argv)
 	xt_quit(0, &mapinfo);
 }
 
-int	ft_checksave(char *arg, t_mapinfo *m)
+int		ft_checksave(char *arg, t_mapinfo *m)
 {
 	if ((arg == ft_strstr(arg, "--save")))
 		m->snapshot = 1;
