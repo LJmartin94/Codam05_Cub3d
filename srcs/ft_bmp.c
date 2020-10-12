@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/09 16:23:31 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/10 18:57:01 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/12 15:44:32 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,15 @@ int	ft_int_in_bytes(int sign, int num, unsigned char *dest)
 
 int	ft_img_to_bmp(t_data *d)
 {
-	d->m->x = 0;
+	int size;
+	int w;
+
+	size = (d->imga.bits_per_pixel / 8) * d->m->resx * d->m->resy;
+	d->frame = 1;
+	ft_castray(d);
+	ft_handlesprites(d);
+	w = write(d->bmpfd, &(d->imga.addr[0]), size);
+	if (w == -1)
+		xt_wrerror(d->m);
 	return (0);
 }
