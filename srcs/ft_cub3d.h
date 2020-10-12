@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/09 17:15:50 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/12 19:48:58 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,9 +194,13 @@ typedef struct	s_data
 }				t_data;
 
 int				main(int argc, char **argv);
-
 int				ft_checksave(char *arg, t_mapinfo *m);
+
 int				ft_makebmp(t_data *d);
+int				xt_bpp_error(t_mapinfo *m);
+int				ft_metadata(t_data *d);
+int 			ft_int_in_bytes(int num, unsigned char *dest);
+int				ft_img_to_bmp(t_data *d);
 
 t_mapinfo		ft_constructor(t_mapinfo *mapinfo);
 int				ft_initraydata(t_raydata *r, t_mapinfo *m);
