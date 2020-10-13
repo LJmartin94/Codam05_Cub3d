@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/12 20:28:00 by lindsay       ########   odam.nl          #
+#    Updated: 2020/10/13 15:34:36 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ INCL_PATH = ./srcs/
 
 CC = gcc
 
-CFLAGS = -fsanitize=address -g -Wall -Wextra -Werror
-#-Wall -Wextra -Werror -O3
+CFLAGS = -Wall -Wextra -Werror -O3
 
 HEADER_FILES = $(INCL_PATH)ft_cub3d.h
 
@@ -64,7 +63,7 @@ endif
 ifndef FOR_LINUX
 MLX_DIR = mlx
 MLX_LIB = libmlx.dylib
-INCLUDE_MLX_HEADERS = . 
+INCLUDE_MLX_HEADERS = .
 LINK_LIBRARY = -framework OpenGL -framework AppKit
 OS_FLAG = MAC=1
 endif
@@ -94,12 +93,12 @@ clean:
 	@make clean -C ./mlx_linux
 	@rm -f ./mlx_linux/Makefile.gen
 	rm -f $(OBJ)
-	rm -f libmlx.dylib
 	rm -f libmlx.a
 
 fclean: clean
 	rm -f $(NAME)
 	rm -f snapshot.bmp
+	rm -f libmlx.dylib
 
 re: fclean all
 
