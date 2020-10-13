@@ -1,1 +1,6 @@
-7) PUSH YOUR GIT REPO TO YOUR SCHOOL REPO (except testermaps folder)
+rename errors 1.cub 2.cub etc
+
+make changes in cub3d.h / cub3dmain.c / map.c norm, remove print functions etc
+test every error map by hand, test every valid map by hand
+
+double check everything for norm and norm+ and for leaks and for printf statements and DONT FORGET TO PUSH THE RIGHT VERSION

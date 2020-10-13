@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/12 20:00:45 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/13 18:58:18 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ typedef struct	s_data
 	void			*win;
 	long			frame;
 }				t_data;
+
+int				ft_printall(t_mapinfo *m); //remove once done
 
 int				main(int argc, char **argv);
 int				ft_checksave(char *arg, t_mapinfo *m);

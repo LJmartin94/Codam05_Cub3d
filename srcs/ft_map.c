@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/14 22:17:07 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/09 17:05:05 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/13 20:18:17 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,24 +104,22 @@ void	ft_copymap(t_mapinfo *org, t_mapinfo *cpy)
 		cpy->map[cpy->ydim] = (char *)malloc(sizeof(char) * (cpy->x + 1));
 		if (cpy->map[cpy->ydim] == 0)
 			ft_clearcopy(1, cpy, org);
-		cpy->x = 0;
-		while (org->map[cpy->ydim][cpy->x] != '\0')
+		org->x = 0;
+		while (org->x <= cpy->x)
 		{
-			cpy->map[cpy->ydim][cpy->x] = org->map[cpy->ydim][cpy->x];
-			(cpy->x)++;
+			cpy->map[cpy->ydim][org->x] = org->map[cpy->ydim][org->x];
+			org->x++;
 		}
 		(cpy->ydim)++;
 	}
 }
 
+int		ft_checkflooderror(t_mapinfo *ffm, int x, int y);
+
 void	ft_floodfill(t_mapinfo *ffm, int x, int y)
 {
-	if (y == 0 || (y + 1) == ffm->ydim || x == 0 || ffm->map[y][x + 1] == '\0'\
-	|| ffm->noerror == 0 || ffm->map[y][x] == ' ' || ffm->map[y][x] == '\0')
-	{
-		ffm->noerror = 0;
+	if (ft_checkflooderror(ffm, x, y))
 		return ;
-	}
 	if (ffm->map[y][x] == '2')
 		(ffm->spriteno)++;
 	ffm->map[y][x] = 'x';
@@ -141,4 +139,25 @@ void	ft_floodfill(t_mapinfo *ffm, int x, int y)
 		ft_floodfill(ffm, x - 1, y);
 	if (ft_charinset(ffm->map[y - 1][x - 1], "02 "))
 		ft_floodfill(ffm, x - 1, y - 1);
+}
+
+int		ft_checkflooderror(t_mapinfo *ffm, int x, int y)
+{
+	int up;
+	int down;
+
+	if (y == 0 || (y + 1) == ffm->ydim || x == 0 || ffm->map[y][x + 1] == '\0'\
+	|| ffm->noerror == 0 || ffm->map[y][x] == ' ' || ffm->map[y][x] == '\0')
+	{
+		ffm->noerror = 0;
+		return (1);
+	}
+	up = ft_linelen(ffm->map[y - 1], '\0');
+	down = ft_linelen(ffm->map[y + 1], '\0');
+	if (x > up || x > down)
+	{
+		ffm->noerror = 0;
+		return (1);
+	}
+	return (0);
 }
