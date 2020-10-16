@@ -1,0 +1,35 @@
+printf "\n./cub3D ./cub3D\n"
+./cub3D ./cub3D
+
+printf "\n./cub3D ./cub3D ./valid/1.cub\n"
+./cub3D ./cub3D ./valid/1.cub
+
+printf "\n./cub3D ./cub3D --save\n"
+./cub3D ./cub3D --save
+
+printf "\n./cub3D --save\n"
+./cub3D --save
+
+printf "\n./cub3D ./valid/1.cub --saves\n"
+./cub3D ./valid/1.cub --saves
+
+printf "\n./cub3D ./valid/1.cub --sav\n"
+./cub3D ./valid/1.cub --sav
+
+printf "\n./cub3D ./valid/1.cub ---save\n"
+./cub3D ./valid/1.cub ---save
+
+printf "\n./cub3D ./valid/1.cub --save ./valid/1.cub\n"
+./cub3D ./valid/1.cub --save ./valid/1.cub
+
+printf "\n./cub3D --save ./valid/1.cub\n"
+./cub3D --save ./valid/1.cub
+
+printf "\nnotafile\n"
+./cub3D ./error/notafile.cub
+
+printf "\nnoargs\n"
+./cub3D
+
+printf "\nToo many args: ./cub3D ./valid/1.cub ./valid/2.cub\n"
+./cub3D ./valid/1.cub ./valid/2.cub
