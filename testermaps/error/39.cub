@@ -1,7 +1,7 @@
 R 2000 3000
-EA testermaps/textures/air.xpm
+WE testermaps/textures/air.xpm
 NO testermaps/textures/fire.xpm
-WE testermaps/textures/evil_sprite.xpm
+EA testermaps/textures/evil_sprite.xpm
 SO testermaps/textures/water.xpm
 S testermaps/textures/sprite 3.xpm
 F 184,113,39   
