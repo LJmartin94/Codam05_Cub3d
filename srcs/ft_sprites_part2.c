@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/28 16:49:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/10/08 18:44:08 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/16 10:41:25 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ int		ft_getspritetexel(t_data *d, int xtex, int ytex)
 	t_img	tex;
 	char	*texel;
 
+	xtex = (xtex >= d->tex.sptex.width) ? d->tex.sptex.width - 1 : xtex;
+	xtex = (xtex <= 0) ? 0 : xtex;
+	ytex = (ytex >= d->tex.sptex.height) ? d->tex.sptex.height - 1 : ytex;
+	ytex = (ytex <= 0) ? 0 : ytex;
 	tex = d->tex.sptex;
 	texel = tex.addr + (ytex * tex.line_bytes + \
 	xtex * (tex.bits_per_pixel / 8));
