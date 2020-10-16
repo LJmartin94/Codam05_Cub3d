@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 21:57:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/13 18:58:18 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/16 11:17:22 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,8 +193,6 @@ typedef struct	s_data
 	long			frame;
 }				t_data;
 
-int				ft_printall(t_mapinfo *m); //remove once done
-
 int				main(int argc, char **argv);
 int				ft_checksave(char *arg, t_mapinfo *m);
 
@@ -229,7 +227,9 @@ int				ft_processmap(t_mapinfo *m, char *cub);
 int				ft_getmap(t_mapinfo *m, char *cub);
 void			ft_scanmap(t_mapinfo *m);
 void			ft_copymap(t_mapinfo *original, t_mapinfo *copy);
+
 void			ft_floodfill(t_mapinfo *ffm, int x, int y);
+int				ft_checkflooderror(t_mapinfo *ffm, int x, int y);
 
 t_data			ft_window(t_mapinfo *m);
 void			ft_resize(void *mlx, t_mapinfo *m);
