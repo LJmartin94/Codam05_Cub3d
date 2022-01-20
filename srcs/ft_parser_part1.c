@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 18:41:20 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/12 21:42:23 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/19 13:36:44 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void		ft_parser(t_mapinfo *m)
 	while (get_next_line(m, &line) && m->noerror)
 	{
 		i = 0;
-		if (ft_elemxref(m, '0'))
-			m->mapstart++;
-		else
-			m->ydim++;
+		m->mapstart = (ft_elemxref(m, '0')) ? m->mapstart + 1 : m->mapstart;
+		m->ydim = (ft_elemxref(m, '0')) ? m->ydim : m->ydim + 1;
 		while (line[i] != '\0' && ft_elemxref(m, '0'))
 		{
 			ft_skipspace(line, &i);
@@ -33,6 +31,8 @@ void		ft_parser(t_mapinfo *m)
 			if (m->noerror == 0)
 				break ;
 			ft_skipspace(line, &i);
+			if (!(ft_elemxref(m, '0')))
+				m->noerror = (line[i] == '\0') ? m->noerror : 0;
 		}
 		free(line);
 	}

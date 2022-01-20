@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/16 11:18:12 by lindsay       ########   odam.nl          #
+#    Updated: 2020/10/19 13:46:57 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,10 +95,10 @@ clean:
 	@rm -f ./mlx_linux/Makefile.gen
 	rm -f $(OBJ)
 	rm -f libmlx.a
+	rm -f snapshot.bmp
 
 fclean: clean
 	rm -f $(NAME)
-	rm -f snapshot.bmp
 	rm -f libmlx.dylib
 
 re: fclean all
