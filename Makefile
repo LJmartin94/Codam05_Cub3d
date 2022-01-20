@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/21 21:07:36 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/19 13:46:57 by limartin      ########   odam.nl          #
+#    Updated: 2022/01/20 16:12:12 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,14 @@ COMPILE_OBJECTS = $(OBJ)
 endif
 
 #Specify OS for MLX (Mac default)
+ifndef FOR_LINUX
+MLX_DIR = mlx
+MLX_LIB = libmlx.dylib
+INCLUDE_MLX_HEADERS = .
+LINK_LIBRARY = -framework OpenGL -framework AppKit
+OS_FLAG = MAC=1
+endif
+
 ifdef FOR_LINUX
 MLX_DIR = mlx_linux
 MLX_LIB = libmlx.a
@@ -61,12 +69,13 @@ LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz
 OS_FLAG = LINUX=1
 endif
 
-ifndef FOR_LINUX
-MLX_DIR = mlx
-MLX_LIB = libmlx.dylib
-INCLUDE_MLX_HEADERS = .
-LINK_LIBRARY = -framework OpenGL -framework AppKit
-OS_FLAG = MAC=1
+ifdef FOR_LEON
+MLX_DIR = leon_mlx
+MLX_LIB = mlx42.a
+INCLUDE_MLX_HEADERS = /usr/include
+# LINK_LIBRARY = -L/usr/lib -lXext -lX11 -lm -lz
+LINK_LIBRARY = -ldl -lglfw -lGL -lX11 -lpthread -lXrandr -lXi
+OS_FLAG = LINUX=1
 endif
 
 all: $(NAME)
@@ -89,12 +98,18 @@ bonus:
 linux:
 	@ $(MAKE) FOR_LINUX=1 all
 
+leon:
+	@ $(MAKE) FOR_LEON=1 all
+
 clean:
 	@make clean -C ./mlx
 	@make clean -C ./mlx_linux
+	@make clean -C ./leon_mlx
 	@rm -f ./mlx_linux/Makefile.gen
 	rm -f $(OBJ)
 	rm -f libmlx.a
+	rm -f leon_mlx/mlx42.a
+	rm -f mlx42.a
 	rm -f snapshot.bmp
 
 fclean: clean
