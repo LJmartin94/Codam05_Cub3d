@@ -1,0 +1,14 @@
+R 1600 800
+EA testermaps/textures/air.xpm
+NO testermaps/textures/fire.xpm
+WE testermaps/textures/earth.xpm
+SO testermaps/textures/water.xpm
+S testermaps/textures/sprite 3.xpm
+F 184,113,39
+C 51,198,227 l
+
+1111111111111
+1020000000021
+100N000000001
+1000002000001
+1111111111111
